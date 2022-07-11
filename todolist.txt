@@ -1,0 +1,2 @@
+tabel ma_pengguna tambah user aduan dengan hak akses aduan "AD"
+tambahan table tb_kecamatan, tb_desakelurahan dan tb_aduan
