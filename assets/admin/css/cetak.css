@@ -1,0 +1,96 @@
+#kertasf4{
+   width: 21cm;
+   margin: 0 auto;
+   font-family: arial;
+}
+@page { size: auto;  margin: 10mm; }
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
+img.header{
+   width: 21cm;
+}
+
+.body-content{
+   padding-top: 30px;
+   margin-bottom: 20px;
+}
+.top-title{
+	text-transform: uppercase;
+}
+.body-content .top-title, .no-title1{
+   text-align: center;
+   font-weight: bold;
+}
+.no-title1{
+	margin-top: -10px !important;
+}
+.no-title2{
+	text-align: center;
+	font-style: italic;
+	font-size: 12px;
+}
+.top-title{
+   padding-bottom: 15px;
+}
+table { 
+	width: 100%; 
+	border-collapse: collapse; 
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+	background: #eee; 
+}
+
+th { 
+	background: #3498db; 
+	color: #000;
+	text-align: center !important;
+	font-weight: bold; 
+}
+
+td, th { 
+	padding: 5px; 
+	border: 1px solid #000; 
+	text-align: left; 
+	font-size: 12px;
+}
+
+
+
+.boxed{
+   margin: 10px;
+}
+p.small{
+   font-size: 14px;
+}
+hr{
+   border: 1px solid #000;
+}
+img.photo{
+   width: 100px;
+}
+.tombol-print{
+   margin: 10px;
+}
+.kiri{
+   position: relative;
+   min-height: 1px;
+   padding-right: 15px;
+   width: 60%;
+   float: left;
+   display: block;
+   flex-direction: column;
+}
+.kanan{
+   width: 36%;
+   float: left;
+   position: relative;
+   display: block;
+}
+.kanan img{
+   float: right;
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <title>Flowplayer · Live stream</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/skin.css">
+   <link rel="stylesheet" href="css/demo.css">
+   <link rel="stylesheet" href="css/pygments.css">
+   
+<style>
+.flowplayer {
+  background-color: #00abcd;
+}
+.flowplayer .fp-color-play {
+  fill: #eee;
+}
+</style>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/flowplayer.min.js"></script>
+	<script src="js/flowplayer.hlsjs.min.js"></script>
+</head>
+
+<body>
+   <div id="content">
+   <h1>Flowplayer · Live stream</h1>
+   <div data-live="true" data-ratio="0.5625" class="flowplayer">
+	   <video data-title="Live stream">
+			<source type="application/x-mpegurl" src="http://www.lalinsemarang.info:1935/live/terboyo.stream/playlist.m3u8">
+	   </video>
+	</div>
+</body>
+</html>
