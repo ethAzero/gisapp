@@ -44,10 +44,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
                      <tr>
-                        <th width="20">No</th>
-                        <th width="70">Kode</th>
-                        <th>Nama Kabupaten / Kota</th>
-                        <th>Wilayah</th>
+                        <th width="10%">No</th>
+                        <th width="50%">Aduan</th>
+                        <th width="20%">Nama Kabupaten / Kota</th>
+                        <th width="20%">Wilayah</th>
                         <th style="text-align:center">Aksi</th>
                      </tr>
                   </thead>
@@ -56,11 +56,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      foreach ($list as $list) { ?>
                         <tr class="odd gradeX">
                            <td align="center"><?php echo $i ?></td>
-                           <td align="center"><?php echo $list->kd_kabkota ?></td>
+                           <td><?php echo $list->aduan ?></td>
                            <td><?php echo $list->nm_kabkota ?></td>
                            <td><?php echo $list->nm_balai ?></td>
                            <td style="text-align:center;width:100px">
-                              <a href="<?php echo base_url('admin/kabkota/edit/' . $list->kd_kabkota) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
+                              <a href="<?php echo base_url('admin/kabkota/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
                               <?php include('delete.php'); ?>
                            </td>
                         </tr>

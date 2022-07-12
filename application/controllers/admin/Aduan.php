@@ -7,13 +7,13 @@ class Aduan extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('kabkota_model');
+		$this->load->model('aduan_model');
 		$this->load->model('balai_model');
 	}
 
 	public function index()
 	{
-		$list = $this->kabkota_model->listing();
+		$list = $this->aduan_model->listing();
 		$data = array(
 			'title' 	=> 'Aduan',
 			'list'	=> $list,
@@ -22,6 +22,11 @@ class Aduan extends CI_Controller
 		$this->load->view('admin/layout/wrapper', $data);
 	}
 
+	public function data_wilayah()
+	{
+		$wilayah = $this->aduan_model->getWilayah();
+		echo json_encode(array('status' => true, 'error' => null, 'wilayah' => $wilayah));
+	}
 	public function add()
 	{
 		$balai = $this->balai_model->listing();
@@ -46,9 +51,9 @@ class Aduan extends CI_Controller
 		);
 		if ($valid->run() == FALSE) {
 			$data = array(
-				'title' 		=> 'Add Kabupaten / Kota',
+				'title' 		=> 'Add Aduan',
 				'balai'		=> $balai,
-				'isi' 		=> 'admin/kabkota/add'
+				'isi' 		=> 'admin/aduan/add'
 			);
 			$this->load->view('admin/layout/wrapper', $data);
 		} else {
@@ -58,7 +63,7 @@ class Aduan extends CI_Controller
 				'kd_balai'		=> $i->post('kdbalai'),
 				'nm_kabkota'	=> $i->post('nmkabkota')
 			);
-			$this->kabkota_model->add($data);
+			$this->aduan_model->add($data);
 			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
 			redirect(base_url('admin/kabkota'));
 		}
@@ -66,7 +71,7 @@ class Aduan extends CI_Controller
 
 	public function edit($id)
 	{
-		$detail = $this->kabkota_model->detail($id);
+		$detail = $this->aduan_model->detail($id);
 		$balai = $this->balai_model->listing();
 		$valid = $this->form_validation;
 		$valid->set_rules(
@@ -96,7 +101,7 @@ class Aduan extends CI_Controller
 				'kd_balai'		=> $i->post('kdbalai'),
 				'nm_kabkota'	=> $i->post('nmkabkota')
 			);
-			$this->kabkota_model->edit($data);
+			$this->aduan_model->edit($data);
 			$this->session->set_flashdata('sukses', 'Berhasil diubah');
 			redirect(base_url('admin/kabkota'));
 		}
@@ -105,7 +110,7 @@ class Aduan extends CI_Controller
 	public function delete($id)
 	{
 		$data = array('kd_kabkota' => $id);
-		$this->kabkota_model->delete($data);
+		$this->aduan_model->delete($data);
 		$this->session->set_flashdata('sukses', 'Berhasil dihapus');
 		redirect(base_url('admin/kabkota'));
 	}
