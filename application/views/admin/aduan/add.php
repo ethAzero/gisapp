@@ -1,7 +1,29 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<link rel="stylesheet" href="<?= base_url() ?>assets/admin/css/jquery.typeahead.min.css">
+<style type="text/css">
+   .ui-autocomplete {
+      max-height: 200px;
+      max-width: 100%;
+      overflow-y: auto;
+      /* prevent horizontal scrollbar */
+      overflow-x: hidden;
+      /* add padding to account for vertical scrollbar */
+      padding-right: 20px;
+   }
+
+   .ui-autocomplete-row {
+      padding: 8px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ccc;
+   }
+
+   .ui-autocomplete-row:hover {
+      background-color: #ddd;
+   }
+</style>
+<!--<link rel="stylesheet" href="<?= base_url() ?>assets/admin/css/jquery.typeahead.min.css">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 <div class="content-wrapper">
    <section class="content-header">
       <h1>Aduan
@@ -32,19 +54,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="row">
                            <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Desa / Kelurahan</label>
-                              <div class="typeahead__container">
-                                 <div class="typeahead__field">
-                                    <div class="typeahead__query">
-                                       <input class="form-control js-typeahead" name="q" autocomplete="off">
-                                    </div>
-                                    <div class="typeahead__button">
-                                       <button type="submit" class="form-control">
-                                          <span class="fa fa-search"></span>
-                                       </button>
-                                    </div>
-                                 </div>
-                              </div>
-                              <input type="text" name="nm_desa" class="form-control" placeholder="Nama Desa / Kelurahan" required>
+                              <input type="text" name="nm_desa" id="nm_desa" autocomplete="off" class="form-control" placeholder="Nama Desa / Kelurahan">
+                              <input type="text" name="coba" id="coba" class="form-control" placeholder="coba" required>
                               <input type="hidden" name="id_desa" class="form-control" placeholder="nama Desa / Kelurahan" required>
                            </div>
                            <div class="form-group col-md-4">
@@ -81,108 +92,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </div>
    </section>
 </div>
-<script src="<?= base_url() ?>assets/admin/js/jquery.typeahead.min.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 <script>
-   $.typeahead({
-      input: '.js-typeahead',
-      minLength: 1,
-      order: "asc",
-      dynamic: true,
-      delay: 500,
-      backdrop: {
-         "background-color": "#fff"
-      },
-      template: function(query, item) {
-
-         var color = "#777";
-         if (item.status === "owner") {
-            color = "#ff1493";
-         }
-
-         return '<span class="row">' +
-            '<span class="avatar">' +
-            '<img src="{{avatar}}">' +
-            "</span>" +
-            '<span class="username">{{username}} <small style="color: ' + color + ';">({{status}})</small></span>' +
-            '<span class="id">({{id}})</span>' +
-            "</span>"
-      },
-      emptyTemplate: "no result for {{query}}",
-      source: {
-         user: {
-            display: "nama_kelurahan",
-            href: "https://www.github.com/{{username|slugify}}",
-            data: [{
-               "id": 415849,
-               "username": "an inserted user that is not inside the database",
-               "avatar": "https://avatars3.githubusercontent.com/u/415849",
-               "status": "contributor"
-            }],
-            ajax: function(query) {
-               return {
-                  type: "GET",
-                  url: "<?= base_url('/admin/aduan/data_wilayah') ?>",
-                  path: "data.wilayah",
-                  data: {
-                     q: "{{query}}"
-                  },
-                  callback: {
-                     done: function(data) {
-                        for (var i = 0; i < data.data.wilayah.length; i++) {
-                           if (data.data.wilayah[i].nama_kelurahan === 'running-coder') {
-                              data.data.wilayah[i].jenis = 'owner';
-                           } else {
-                              data.data.wilayah[i].id = 'contributor';
-                           }
-                        }
-                        return data;
-                     }
-                  }
-               }
-            }
-
+   $(document).ready(function() {
+      $('#nm_desa').autocomplete({
+         source: "<?= base_url('/admin/aduan/data_wilayah') ?>",
+         delay: 500,
+         minLength: 1,
+         select: function(event, ui) {
+            let x = ui.item.nama_kelurahan;
+            //$('[name="coba"]').val(x);
+            $('#coba').val(x);
+            console.log(ui.item.nama_kelurahan);
          },
-         project: {
-            display: "project",
-            href: function(item) {
-               return '/' + item.project.replace(/\s+/g, '').toLowerCase() + '/documentation/'
-            },
-            ajax: [{
-               type: "GET",
-               url: "<?= base_url('/admin/aduan/data_wilayah') ?>",
-               data: {
-                  q: "{{query}}"
-               }
-            }, "data.project"],
-            template: '<span>' +
-               '<span class="project-logo">' +
-               '<img src="{{image}}">' +
-               '</span>' +
-               '<span class="project-information">' +
-               '<span class="project">{{project}} <small>{{version}}</small></span>' +
-               '<ul>' +
-               '<li>{{demo}} Demos</li>' +
-               '<li>{{option}}+ Options</li>' +
-               '<li>{{callback}}+ Callbacks</li>' +
-               '</ul>' +
-               '</span>' +
-               '</span>'
-         }
-      },
-      callback: {
-         onClick: function(node, a, item, event) {
-
-            // You can do a simple window.location of the item.href
-            alert(JSON.stringify(item));
-
-         },
-         onSendRequest: function(node, query) {
-            console.log('request is sent')
-         },
-         onReceiveRequest: function(node, query) {
-            console.log('request is received')
-         }
-      },
-      debug: true
+      }).data('ui-autocomplete')._renderItem = function(ul, item) {
+         return $("<li class='ui-autocomplete-row'>")
+            //.attr("data-value", item.value)
+            //.data("item.autocomplete", item)
+            .append(item.jenis + " " + item.nama_kelurahan + " Kec. " + item.nama_kecamatan + " " + item.nm_kabkota)
+            .appendTo(ul);
+      };
    });
 </script>

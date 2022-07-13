@@ -24,8 +24,9 @@ class Aduan extends CI_Controller
 
 	public function data_wilayah()
 	{
-		$wilayah = $this->aduan_model->getWilayah();
-		echo json_encode(array('status' => true, 'error' => null, 'wilayah' => $wilayah));
+		$nama_kelurahan = $_GET['term'];
+		$wilayah = $this->aduan_model->getKelurahan($nama_kelurahan);
+		echo json_encode($wilayah);
 	}
 	public function add()
 	{
