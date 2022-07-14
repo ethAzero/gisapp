@@ -13,6 +13,11 @@ class Aduan_model extends CI_Model
 		$query = $this->db->get('v_aduan');
 		return $query->result();
 	}
+	public function chanel()
+	{
+		$query = $this->db->get('tb_chanel_aduan');
+		return $query->result();
+	}
 
 	public function getKelurahan($nama_kelurahan)
 	{

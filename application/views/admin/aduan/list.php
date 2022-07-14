@@ -44,10 +44,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                   <thead>
                      <tr>
-                        <th width="10%">No</th>
-                        <th width="50%">Aduan</th>
+                        <th width="3%">No</th>
+                        <th width="40%">Aduan</th>
                         <th width="20%">Lokasi</th>
-                        <th width="20%">Wilayah</th>
+                        <th width="20%">Wilayah Kerja</th>
+                        <th width="20%">Chanel Aduan</th>
                         <th style="text-align:center">Aksi</th>
                      </tr>
                   </thead>
@@ -63,6 +64,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               <?php echo $list->nm_kabkota ?>
                            </td>
                            <td><?php echo $list->nm_balai ?></td>
+                           <td><?= $list->chanel_aduan; ?></td>
                            <td style="text-align:center;width:100px">
                               <a href="<?php echo base_url('admin/aduan/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
                               <?php include('delete.php'); ?>

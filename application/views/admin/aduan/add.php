@@ -60,6 +60,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <div class="box-body">
                         <div class="row">
                            <div class="form-group col-md-12">
+                              <label for="exampleInputEmail1">Chanel Aduan</label>
+                              <select name="chanel" id="chanel" class="form-control select2" style="width: 100%;">
+                                 <option value="">Chanel Aduan</option>
+                                 <?php foreach ($chanel as $key => $chanel) : ?>
+                                    <option value="<?php echo $chanel->id ?>"><?php echo $chanel->chanel_aduan ?></option>
+                                 <?php endforeach ?>
+                              </select>
+                           </div>
+                           <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Desa / Kelurahan</label>
                               <input type="text" name="nm_desa" id="nm_desa" autocomplete="off" class="form-control" placeholder="Nama Desa / Kelurahan">
                               <input type="hidden" name="id_desa" class="form-control" placeholder="nama Desa / Kelurahan" required>

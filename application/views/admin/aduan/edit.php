@@ -59,6 +59,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <div class="box-body">
                         <div class="row">
                            <div class="form-group col-md-12">
+                              <label for="exampleInputEmail1">Chanel Aduan</label>
+                              <select name="chanel" id="chanel" class="form-control select2" style="width: 100%;">
+                                 <option value="">Chanel Aduan</option>
+                                 <option value="<?= $detail->id_chanel_aduan; ?>" selected><?= $detail->chanel_aduan; ?></option>
+                                 <?php foreach ($chanel as $key => $chanel) : ?>
+                                    <option value="<?php echo $chanel->id ?>"><?php echo $chanel->chanel_aduan ?></option>
+                                 <?php endforeach ?>
+                              </select>
+                           </div>
+                           <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Desa / Kelurahan</label>
                               <input type="text" name="nm_desa" id="nm_desa" autocomplete="off" class="form-control" placeholder="Nama Desa / Kelurahan" value="<?= $detail->nama_kelurahan; ?>">
                               <input type="hidden" name="id_desa" class="form-control" value="<?= $detail->id_kelurahan; ?> " required>
@@ -66,15 +76,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            </div>
                            <div class=" form-group col-md-4">
                               <label for="exampleInputEmail1">Kecamatan</label>
-                              <input type="text" name="nm_kec" class="form-control" placeholder="Nama Kecamatan" required disabled>
+                              <input type="text" name="nm_kec" class="form-control" placeholder="Nama Kecamatan" value="<?= $detail->nama_kecamatan; ?>" required disabled>
                            </div>
                            <div class="form-group col-md-4">
                               <label for="exampleInputEmail1">Nama Kota / Kabupaten</label>
-                              <input type="text" name="nm_kabkota" class="form-control" placeholder="Nama Kabupaten / Kota" required disabled>
+                              <input type="text" name="nm_kabkota" class="form-control" placeholder="Nama Kabupaten / Kota" value="<?= $detail->nm_kabkota; ?>" required disabled>
                            </div>
                            <div class="form-group col-md-4">
                               <label for="exampleInputEmail1">Wilayah Kerja</label>
-                              <input type="text" name="nm_balai" class="form-control" placeholder="Nama Balai" required disabled>
+                              <input type="text" name="nm_balai" class="form-control" placeholder="Nama Balai" value="<?= $detail->nm_balai; ?>" required disabled>
                            </div>
                            <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Aduan</label>

@@ -38,7 +38,14 @@ class Aduan extends CI_Controller
 	public function add()
 	{
 		$aduan = $this->aduan_model->listing();
+		$chanel = $this->aduan_model->chanel();
 		$valid = $this->form_validation;
+		$valid->set_rules(
+			'chanel',
+			'chanel',
+			'required',
+			array('required'	=> 'chanel aduan harus dipilih')
+		);
 		$valid->set_rules(
 			'nm_desa',
 			'nm_desa',
@@ -54,6 +61,7 @@ class Aduan extends CI_Controller
 		if ($valid->run() == FALSE) {
 			$data = array(
 				'title' 		=> 'Add Aduan',
+				'chanel'	=> $chanel,
 				'list'		=> $aduan,
 				'isi' 		=> 'admin/aduan/add'
 			);
@@ -61,6 +69,7 @@ class Aduan extends CI_Controller
 		} else {
 			$i = $this->input;
 			$data = array(
+				'id_chanel_aduan' => $i->post('chanel'),
 				'aduan'		=> $i->post('aduan'),
 				'id_kelurahan'		=> $i->post('id_desa'),
 				'stat_read'	=> 0
@@ -74,8 +83,15 @@ class Aduan extends CI_Controller
 	public function edit($id)
 	{
 		$detail = $this->aduan_model->detail($id);
+		$chanel = $this->aduan_model->chanel();
 		$aduan = $this->aduan_model->listing();
 		$valid = $this->form_validation;
+		$valid->set_rules(
+			'chanel',
+			'chanel',
+			'required',
+			array('required'	=> 'chanel aduan harus dipilih')
+		);
 		$valid->set_rules(
 			'nm_desa',
 			'nm_desa',
@@ -91,6 +107,7 @@ class Aduan extends CI_Controller
 		if ($valid->run() == FALSE) {
 			$data = array(
 				'title'  => 'Edit Aduan',
+				'chanel'	=> $chanel,
 				'detail' => $detail,
 				'aduan' 	=> $aduan,
 				'isi'    => 'admin/aduan/edit'
@@ -100,6 +117,7 @@ class Aduan extends CI_Controller
 			$i = $this->input;
 			$data = array(
 				'id_aduan' => $i->post('id_aduan'),
+				'id_chanel_aduan' => $i->post('chanel'),
 				'aduan'		=> $i->post('aduan'),
 				'id_kelurahan'		=> $i->post('id_desa'),
 				'stat_read'	=> 0

@@ -1,3 +1,5 @@
-tabel ma_pengguna tambah user aduan dengan hak akses aduan "AD"
-tambahan table tb_kecamatan, tb_desakelurahan dan tb_aduan
-tambahan view v_aduan
+tabel ma_pengguna tambah user aduan dengan hak akses aduan "AD" done
+tambahan table tb_kecamatan, tb_desakelurahan, tb_aduan dan tb_chanel_aduan done
+tambahan view v_aduan done
+
+file layout head ditambahkan notifikasi aduan
