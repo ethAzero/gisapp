@@ -1,10 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 <style type="text/css">
+   @media (max-width: 768px) {
+      .ui-autocomplete {
+         width: auto;
+         max-width: calc(92% - 22px);
+         margin-left: 10px;
+      }
+   }
+
    .ui-autocomplete {
       max-height: 200px;
-      max-width: 100%;
       overflow-y: auto;
       /* prevent horizontal scrollbar */
       overflow-x: hidden;
@@ -22,8 +30,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       background-color: #ddd;
    }
 </style>
-<!--<link rel="stylesheet" href="<?= base_url() ?>assets/admin/css/jquery.typeahead.min.css">-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+
 <div class="content-wrapper">
    <section class="content-header">
       <h1>Aduan
@@ -45,7 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                echo $error;
                echo '</div>';
             }
-            echo form_open(base_url('admin/kabkota/add'));
+            echo form_open(base_url('admin/aduan/add'));
             ?>
             <div class="row">
                <div class="col-md-9">
@@ -55,7 +62,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Desa / Kelurahan</label>
                               <input type="text" name="nm_desa" id="nm_desa" autocomplete="off" class="form-control" placeholder="Nama Desa / Kelurahan">
-                              <input type="text" name="coba" id="coba" class="form-control" placeholder="coba" required>
                               <input type="hidden" name="id_desa" class="form-control" placeholder="nama Desa / Kelurahan" required>
                            </div>
                            <div class="form-group col-md-4">
@@ -81,7 +87,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                <div class="col-md-3">
                   <div class="box box-primary">
                      <div class="modal-footer">
-                        <a href="<?php echo base_url('admin/kabkota') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
+                        <a href="<?php echo base_url('admin/aduan') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
                         <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Simpan</button>
                      </div>
                   </div>
@@ -101,15 +107,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
          delay: 500,
          minLength: 1,
          select: function(event, ui) {
-            let x = ui.item.nama_kelurahan;
-            //$('[name="coba"]').val(x);
-            $('#coba').val(x);
+            $('[name="id_desa"]').val(ui.item.id);
+            $('[name="nm_kec"]').val(ui.item.nama_kecamatan);
+            $('[name="nm_kabkota"]').val(ui.item.nm_kabkota);
+            $('[name="nm_balai"]').val(ui.item.nm_balai);
+            // $('#coba').val(x);
             console.log(ui.item.nama_kelurahan);
          },
       }).data('ui-autocomplete')._renderItem = function(ul, item) {
          return $("<li class='ui-autocomplete-row'>")
-            //.attr("data-value", item.value)
-            //.data("item.autocomplete", item)
+            .data("item.autocomplete", item)
             .append(item.jenis + " " + item.nama_kelurahan + " Kec. " + item.nama_kecamatan + " " + item.nm_kabkota)
             .appendTo(ul);
       };

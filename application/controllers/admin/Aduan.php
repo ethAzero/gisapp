@@ -22,89 +22,91 @@ class Aduan extends CI_Controller
 		$this->load->view('admin/layout/wrapper', $data);
 	}
 
+	public function listing()
+	{
+		$wilayah = $this->aduan_model->listing("mangun");
+		echo json_encode($wilayah);
+	}
+
 	public function data_wilayah()
 	{
 		$nama_kelurahan = $_GET['term'];
 		$wilayah = $this->aduan_model->getKelurahan($nama_kelurahan);
 		echo json_encode($wilayah);
 	}
+
 	public function add()
 	{
-		$balai = $this->balai_model->listing();
+		$aduan = $this->aduan_model->listing();
 		$valid = $this->form_validation;
 		$valid->set_rules(
-			'kode',
-			'kode',
+			'nm_desa',
+			'nm_desa',
 			'required',
-			array('required'	=> 'Kode Kabupaten / Kota harus diisi')
+			array('required'	=> 'nama kelurahan harus diisi')
 		);
 		$valid->set_rules(
-			'kdbalai',
-			'kdbalai',
+			'aduan',
+			'aduan',
 			'required',
-			array('required'	=> 'Balai harus diisi')
-		);
-		$valid->set_rules(
-			'nmkabkota',
-			'nmkabkota',
-			'required',
-			array('required'	=> 'Nama Kabupaten / Kota harus diisi')
+			array('required'	=> 'silahkan untuk  mengisi aduan / laporan')
 		);
 		if ($valid->run() == FALSE) {
 			$data = array(
 				'title' 		=> 'Add Aduan',
-				'balai'		=> $balai,
+				'list'		=> $aduan,
 				'isi' 		=> 'admin/aduan/add'
 			);
 			$this->load->view('admin/layout/wrapper', $data);
 		} else {
 			$i = $this->input;
 			$data = array(
-				'kd_kabkota'		=> $i->post('kode'),
-				'kd_balai'		=> $i->post('kdbalai'),
-				'nm_kabkota'	=> $i->post('nmkabkota')
+				'aduan'		=> $i->post('aduan'),
+				'id_kelurahan'		=> $i->post('id_desa'),
+				'stat_read'	=> 0
 			);
 			$this->aduan_model->add($data);
 			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
-			redirect(base_url('admin/kabkota'));
+			redirect(base_url('admin/aduan'));
 		}
 	}
 
 	public function edit($id)
 	{
 		$detail = $this->aduan_model->detail($id);
-		$balai = $this->balai_model->listing();
+		$aduan = $this->aduan_model->listing();
 		$valid = $this->form_validation;
 		$valid->set_rules(
-			'kdbalai',
-			'kdbalai',
+			'nm_desa',
+			'nm_desa',
 			'required',
-			array('required'	=> 'Balai harus diisi')
+			array('required'	=> 'nama kelurahan harus diisi')
 		);
 		$valid->set_rules(
-			'nmkabkota',
-			'nmkabkota',
+			'aduan',
+			'aduan',
 			'required',
-			array('required'	=> 'Nama Kabupaten / Kota harus diisi')
+			array('required'	=> 'silahkan untuk  mengisi aduan / laporan')
 		);
 		if ($valid->run() == FALSE) {
 			$data = array(
-				'title'  => 'Edit Kabupaten / Kota',
+				'title'  => 'Edit Aduan',
 				'detail' => $detail,
-				'balai' 	=> $balai,
-				'isi'    => 'admin/kabkota/edit'
+				'aduan' 	=> $aduan,
+				'isi'    => 'admin/aduan/edit'
 			);
 			$this->load->view('admin/layout/wrapper', $data);
 		} else {
 			$i = $this->input;
 			$data = array(
-				'kd_kabkota'		=> $id,
-				'kd_balai'		=> $i->post('kdbalai'),
-				'nm_kabkota'	=> $i->post('nmkabkota')
+				'id_aduan' => $i->post('id_aduan'),
+				'aduan'		=> $i->post('aduan'),
+				'id_kelurahan'		=> $i->post('id_desa'),
+				'stat_read'	=> 0
 			);
 			$this->aduan_model->edit($data);
 			$this->session->set_flashdata('sukses', 'Berhasil diubah');
-			redirect(base_url('admin/kabkota'));
+			redirect(base_url('admin/aduan'));
 		}
 	}
 

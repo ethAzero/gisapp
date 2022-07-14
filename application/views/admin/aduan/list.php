@@ -46,7 +46,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <tr>
                         <th width="10%">No</th>
                         <th width="50%">Aduan</th>
-                        <th width="20%">Nama Kabupaten / Kota</th>
+                        <th width="20%">Lokasi</th>
                         <th width="20%">Wilayah</th>
                         <th style="text-align:center">Aksi</th>
                      </tr>
@@ -57,10 +57,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <tr class="odd gradeX">
                            <td align="center"><?php echo $i ?></td>
                            <td><?php echo $list->aduan ?></td>
-                           <td><?php echo $list->nm_kabkota ?></td>
+                           <td>
+                              <?php echo $list->jenis . ' : ' . $list->nama_kelurahan ?><br>
+                              <?php echo 'Kecamatan : ' . $list->nama_kecamatan ?><br>
+                              <?php echo $list->nm_kabkota ?>
+                           </td>
                            <td><?php echo $list->nm_balai ?></td>
                            <td style="text-align:center;width:100px">
-                              <a href="<?php echo base_url('admin/kabkota/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
+                              <a href="<?php echo base_url('admin/aduan/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
                               <?php include('delete.php'); ?>
                            </td>
                         </tr>
