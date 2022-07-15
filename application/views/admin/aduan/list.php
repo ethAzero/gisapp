@@ -47,8 +47,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <th width="3%">No</th>
                         <th width="40%">Aduan</th>
                         <th width="20%">Lokasi</th>
-                        <th width="20%">Wilayah Kerja</th>
                         <th width="20%">Chanel Aduan</th>
+                        <th width="20%">Status</th>
                         <th style="text-align:center">Aksi</th>
                      </tr>
                   </thead>
@@ -62,9 +62,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               <?php echo $list->jenis . ' : ' . $list->nama_kelurahan ?><br>
                               <?php echo 'Kecamatan : ' . $list->nama_kecamatan ?><br>
                               <?php echo $list->nm_kabkota ?>
+                              <?php echo 'WilKer : ' . $list->nm_balai ?><br>
                            </td>
-                           <td><?php echo $list->nm_balai ?></td>
                            <td><?= $list->chanel_aduan; ?></td>
+                           <td>
+                              <?php if ($list->stat_read == 0) {
+                                 echo "Dibaca : <i class=\"fa fa-times text-red\"></i><br>";
+                              } else {
+                                 echo "Dibaca : <i class=\"fa fa-check text-green\"></i><br>";
+                              } ?>
+                              <?php if ($list->stat_tanggap == 0) {
+                                 echo "Ditanggapi : <i class=\"fa fa-times text-red\" aria-hidden=\"true\"></i>";
+                              } else {
+                                 echo "Ditanggapi : <i class=\"fa fa-check text-green\"></i>";
+                              } ?>
+                           </td>
                            <td style="text-align:center;width:100px">
                               <a href="<?php echo base_url('admin/aduan/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
                               <?php include('delete.php'); ?>

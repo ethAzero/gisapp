@@ -315,12 +315,22 @@ class Dashboard_model extends CI_Model
 		return $query->result();
 	}
 
-	public function get_jml_aduan_unread()
+	public function get_aduanUnread($id)
 	{
-		$this->db->where('kd_balai', 01);
+		$this->db->where('kd_balai', $id);
 		$this->db->where('stat_read', 0);
-		$query = $this->db->get('v_aduan')->num_rows();
+		$this->db->from('v_aduan');
+		//$query = $this->db->get('v_aduan')->count_all_results();
 		//$row = $query->getNumRows();;
-		return $query;
+		return $this->db->count_all_results();
+	}
+
+	public function get_aduanByBalai($id)
+	{
+		$this->db->where('kd_balai', $id);
+		$this->db->order_by('id_aduan', 'DESC');
+		$this->db->limit(5);
+		$query = $this->db->get('v_aduan');
+		return $query->result();
 	}
 }

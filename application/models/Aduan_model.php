@@ -10,6 +10,10 @@ class Aduan_model extends CI_Model
 	}
 	public function listing()
 	{
+		$hakakses = $this->session->userdata('hakakses');
+		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
+			$this->db->where('kd_balai', $hakakses);
+		}
 		$query = $this->db->get('v_aduan');
 		return $query->result();
 	}

@@ -72,7 +72,8 @@ class Aduan extends CI_Controller
 				'id_chanel_aduan' => $i->post('chanel'),
 				'aduan'		=> $i->post('aduan'),
 				'id_kelurahan'		=> $i->post('id_desa'),
-				'stat_read'	=> 0
+				'stat_read'	=> 0,
+				'stat_tanggap'	=> 0
 			);
 			$this->aduan_model->add($data);
 			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
