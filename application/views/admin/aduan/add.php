@@ -107,7 +107,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </div>
    </section>
 </div>
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 <script>
    $(document).ready(function() {

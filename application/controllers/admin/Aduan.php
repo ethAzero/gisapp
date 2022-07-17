@@ -22,6 +22,17 @@ class Aduan extends CI_Controller
 		$this->load->view('admin/layout/wrapper', $data);
 	}
 
+	public function detail($id)
+	{
+		$detail = $this->aduan_model->detail($id);
+		$data = array(
+			'title' 	=> 'Aduan Detail',
+			'detail' => $detail,
+			'isi'		=> 'admin/aduan/detail'
+		);
+		$this->load->view('admin/layout/wrapper', $data);
+	}
+
 	public function listing()
 	{
 		$wilayah = $this->aduan_model->listing("mangun");

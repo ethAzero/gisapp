@@ -3,7 +3,14 @@
       <ul class="sidebar-menu">
          <li class="<?= ($this->uri->segment(2) == 'dashboard') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/dashboard') ?>"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
          <?php if ($this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
-            <li class="<?= ($this->uri->segment(2) == 'aduan') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/aduan') ?>"><i class="fa fa-bullhorn"></i><span>Aduan</span></a></li>
+            <li class="<?= ($this->uri->segment(2) == 'aduan') ? 'active' : '' ?>">
+               <a href="<?php echo base_url('admin/aduan') ?>">
+                  <i class="fa fa-bullhorn"></i> <span>Aduan</span>
+                  <span class="pull-right-container">
+                     <small id="num_warning3" class="label pull-right bg-red"></small>
+                  </span>
+               </a>
+            </li>
          <?php } ?>
 
          <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') == 'JT') | ($this->session->userdata('hakakses') == 'PE') | ($this->session->userdata('hakakses') == 'LL')) { ?>

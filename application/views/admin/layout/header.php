@@ -17,11 +17,11 @@
                   <span id="num_warning1" class="label label-warning"></span>
                </a>
                <ul class="dropdown-menu">
-                  <li class="header">Terdapat <span id="num_warning2"></span> belum dibaca</li>
+                  <li class="header">Terdapat <span id="num_warning2"></span> Aduan belum dibaca</li>
                   <li>
                      <ul class="menu" id="notif_unread"></ul>
                   </li>
-                  <li class="footer"><a href="#">View all</a></li>
+                  <li class="footer"><a href="<?= base_url('admin/aduan'); ?>">View all</a></li>
                </ul>
             </li>
             <li class="dropdown user user-menu">

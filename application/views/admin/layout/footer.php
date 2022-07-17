@@ -49,9 +49,16 @@
                dataType: 'json',
                success: function(data) {
                   let ulnotif = $('#notif_unread');
-                  $('#num_warning1').text(data.unread);
-                  $('#num_warning2').text(data.unread);
-                  $('#num_warning1').toggle("highlight");
+                  if (data.unread == 0) {
+                     $('#num_warning1').remove();
+                     $('#num_warning3').remove();
+                  } else {
+                     $('#num_warning1').text(data.unread);
+                     $('#num_warning2').text(data.unread);
+                     $('#num_warning3').text(data.unread);
+                     $('#num_warning1').toggle("highlight");
+                     $('#num_warning3').toggle("highlight");
+                  }
 
                   ulnotif.html('');
                   for (let i = 0; i <= data.notif.length; ++i) {
@@ -70,7 +77,7 @@
                         fa = "fa-twitter";
                         fatext = "text-blue";
                      };
-                     ulnotif.append('<li><a href=\'#\'><i class=\'fa fa-brand ' + fa + ' ' + fatext + '\'></i><label>' + data.notif[i].chanel_aduan + '</label> <br>' + data.notif[i].aduan + '</a></li>')
+                     ulnotif.append('<li><a href=\'<?php echo base_url('admin/aduan/detail') ?>/' + data.notif[i].id_aduan + '\'><i class=\'fa fa-brand ' + fa + ' ' + fatext + '\'></i><label>' + data.notif[i].chanel_aduan + '</label> <br>' + data.notif[i].aduan + '</a></li>')
                   }
                }
             });
