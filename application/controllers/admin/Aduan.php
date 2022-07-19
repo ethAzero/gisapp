@@ -33,9 +33,102 @@ class Aduan extends CI_Controller
 		$this->load->view('admin/layout/wrapper', $data);
 	}
 
+	public function addtanggap()
+	{
+		$aduan = $this->aduan_model->listing();
+		$chanel = $this->aduan_model->chanel();
+		$valid = $this->form_validation;
+		$valid->set_rules(
+			'chanel',
+			'chanel',
+			'required',
+			array('required'	=> 'chanel aduan harus dipilih')
+		);
+		$valid->set_rules(
+			'nm_desa',
+			'nm_desa',
+			'required',
+			array('required'	=> 'nama kelurahan harus diisi')
+		);
+		$valid->set_rules(
+			'aduan',
+			'aduan',
+			'required',
+			array('required'	=> 'silahkan untuk  mengisi aduan / laporan')
+		);
+		if ($valid->run() == FALSE) {
+			$data = array(
+				'title' 		=> 'Add Tanggapans',
+				'chanel'	=> $chanel,
+				'list'		=> $aduan,
+				'isi' 		=> 'admin/aduan/addtanggap'
+			);
+			$this->load->view('admin/layout/wrapper', $data);
+		} else {
+			$i = $this->input;
+			$data = array(
+				'id_chanel_aduan' => $i->post('chanel'),
+				'aduan'		=> $i->post('aduan'),
+				'id_kelurahan'		=> $i->post('id_desa'),
+				'stat_read'	=> 0,
+				'stat_tanggap'	=> 0
+			);
+			$this->aduan_model->add($data);
+			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
+			redirect(base_url('admin/aduan'));
+		}
+	}
+
+	public function tanggapadd()
+	{
+		$aduan = $this->aduan_model->listing();
+		$chanel = $this->aduan_model->chanel();
+		$valid = $this->form_validation;
+		$valid->set_rules(
+			'kewenangan',
+			'kewenangan',
+			'required',
+			array('required'	=> 'kewenangan harus dipilih')
+		);
+		$valid->set_rules(
+			'ruas',
+			'ruas',
+			'required',
+			array('required'	=> 'Ruas Jalan harus diisi')
+		);
+		$valid->set_rules(
+			'tanggapan',
+			'tanggapan',
+			'required',
+			array('required'	=> 'Tanggapan harus diisi')
+		);
+
+		if ($valid->run() == FALSE) {
+			$data = array(
+				'title' 		=> 'Add Aduan',
+				'chanel'	=> $chanel,
+				'list'		=> $aduan,
+				'isi' 		=> 'admin/aduan/addtanggap'
+			);
+			$this->load->view('admin/layout/wrapper', $data);
+		} else {
+			$i = $this->input;
+			$data = array(
+				'id_chanel_aduan' => $i->post('chanel'),
+				'aduan'		=> $i->post('aduan'),
+				'id_kelurahan'		=> $i->post('id_desa'),
+				'stat_read'	=> 0,
+				'stat_tanggap'	=> 0
+			);
+			$this->aduan_model->add($data);
+			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
+			redirect(base_url('admin/aduan'));
+		}
+	}
+
 	public function listing()
 	{
-		$wilayah = $this->aduan_model->listing("mangun");
+		$wilayah = $this->aduan_model->listing();
 		echo json_encode($wilayah);
 	}
 
@@ -156,5 +249,16 @@ class Aduan extends CI_Controller
 			'balai' 	=> $balai
 		);
 		$this->load->view('admin/kabkota/excel', $data);
+	}
+
+	public function jalankml()
+	{
+		$kd_balai = "01";
+		$jalan = $this->aduan_model->koordinatjalan($kd_balai);
+		$data = array(
+			'title' 		=> 'Jalan Provinsi',
+			'jalan'		=> $jalan
+		);
+		$this->load->view('front/jalankml', $data);
 	}
 }

@@ -50,4 +50,19 @@ class Aduan_model extends CI_Model
 		$this->db->where('id_aduan', $data['id_aduan']);
 		$this->db->update('tb_aduan', $data);
 	}
+
+	public function koordinatjalan($id)
+	{
+
+		$this->db->select('lintasan,nm_ruas');
+
+		$this->db->from('jalan');
+
+		$this->db->where('lintasan !=', '');
+		$this->db->where('kd_balai', $id);
+
+		$query = $this->db->get();
+
+		return $query->result();
+	}
 }

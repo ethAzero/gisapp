@@ -78,8 +78,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               } ?>
                            </td>
                            <td style="text-align:center;width:100px">
-                              <a href="<?php echo base_url('admin/aduan/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
-                              <?php include('delete.php'); ?>
+                              <?php
+                              if ($this->session->userdata('hakakses') != 'AD' and $this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
+                                 <a href="<?php echo base_url('admin/aduan/detail/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-maroon" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fa fa-list-alt"></i></button></a>
+                                 <?php
+                                 if ($list->stat_tanggap != 1) { ?>
+                                    <a href="<?php echo base_url('admin/aduan/addtanggap/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-purple" data-toggle="tooltip" data-placement="top" title="Tanggapi"><i class="fa fa-reply"></i></button></a>
+                                 <?php } ?>
+                              <?php } else { ?>
+                                 <a href="<?php echo base_url('admin/aduan/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
+                                 <a href="<?php echo base_url('admin/aduan/detail/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-maroon" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fa fa-list-alt"></i></button></a>
+                                 <?php include('delete.php'); ?>
+                              <?php } ?>
                            </td>
                         </tr>
                      <?php $i++;

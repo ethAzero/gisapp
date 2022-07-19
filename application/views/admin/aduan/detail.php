@@ -67,11 +67,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <h3 class="widget-user-username"><i class="fa fa-brand <?= $fa . ' ' . $fatext ?>" style="padding-right: 10px;"></i><label>Chanel <?= $detail->chanel_aduan; ?></label></h3>
                      </div>
                      <div class="col-md-2 align-self-center">
-                        <?php if ($detail->stat_tanggap != 1) {
-                           echo "<h4><a href=\"" . base_url('admin/aduan/addtanggap' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit\">Tanggapi</button></a></h4>";
-                        } else {
-                           echo "<h4><a href=\"" . base_url('admin/aduan/edittanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit\">Edit Tanggapan</button></a></h4>";
-                        } ?>
+                        <?php
+                        if ($this->session->userdata('hakakses') != 'AD' and $this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
+                           <?php if ($detail->stat_tanggap != 1) {
+                              echo "<h4><a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Tanggapi\">Tanggapi</button></a></h4>";
+                           } else {
+                              echo "<h4><a href=\"" . base_url('admin/aduan/edittanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit Tanggapan\">Edit Tanggapan</button></a></h4>";
+                           } ?>
+                        <?php } ?>
                      </div>
                      <table class="table table-condensed">
                         <tr class="">

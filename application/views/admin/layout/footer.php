@@ -8,12 +8,6 @@
       </body>
 
       </html>
-
-      <script src="<?php echo base_url() ?>assets/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-      <script src="<?php echo base_url() ?>assets/admin/js/app.min.js" type="text/javascript"></script>
-      <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/jquery.dataTables.js"></script>
-      <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/dataTables.bootstrap.js"></script>
-      <script src="<?php echo base_url() ?>assets/admin/js/filestyle.js"></script>
       <script type="text/javascript">
          $(document).ready(function() {
             $(".gallery").latae({
@@ -83,3 +77,10 @@
             });
          }
       </script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc&callback=myMap"></script>
+      <script src="<?php echo base_url() ?>assets/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+      <script src="<?php echo base_url() ?>assets/admin/js/app.min.js" type="text/javascript"></script>
+      <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/jquery.dataTables.js"></script>
+      <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/dataTables.bootstrap.js"></script>
+      <script src="<?php echo base_url() ?>assets/admin/js/filestyle.js"></script>
+      <script type="text/javascript" src="<?php echo base_url() ?>assets/theme/js/apps.js"></script>
