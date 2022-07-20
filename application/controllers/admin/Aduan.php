@@ -24,19 +24,21 @@ class Aduan extends CI_Controller
 
 	public function detail($id)
 	{
-		$chek = $this->aduan_model->detail($id);
-		if ($chek->stat_read != 1) {
-			date_default_timezone_set("Asia/Bangkok");
-			$date = new DateTime();
-			$a = $date->getTimestamp();
-			$b = date('Y-m-d H:i:s', $a);
-			$data = array(
-				'id_aduan' => $id,
-				'stat_read'	=> 1,
-				'read_at' => $b
-			);
-			$this->aduan_model->edit($data);
-		};
+		if ($this->session->userdata('hakakses') != 'AD') {
+			$chek = $this->aduan_model->detail($id);
+			if ($chek->stat_read != 1) {
+				date_default_timezone_set("Asia/Bangkok");
+				$date = new DateTime();
+				$a = $date->getTimestamp();
+				$b = date('Y-m-d H:i:s', $a);
+				$data = array(
+					'id_aduan' => $id,
+					'stat_read'	=> 1,
+					'read_at' => $b
+				);
+				$this->aduan_model->edit($data);
+			};
+		}
 		$detail = $this->aduan_model->detail($id);
 		$data = array(
 			'title' 	=> 'Aduan Detail',
@@ -46,25 +48,25 @@ class Aduan extends CI_Controller
 		$this->load->view('admin/layout/wrapper', $data);
 	}
 
-	public function checkread()
-	{
-		$id = $_GET['id'];
-		$detail = $this->aduan_model->detail($id);
-		echo json_encode(array('status' => $detail->stat_read));
-		//echo $detail->stat_tanggap;
-	}
+	// public function checkread()
+	// {
+	// 	$id = $_GET['id'];
+	// 	$detail = $this->aduan_model->detail($id);
+	// 	echo json_encode(array('status' => $detail->stat_read));
+	// 	//echo $detail->stat_tanggap;
+	// }
 
-	public function updateread()
-	{
-		$id = $_GET['id'];
-		$data = array(
-			'id_aduan' => $id,
-			'stat_read'	=> 1,
-		);
-		$this->aduan_model->edit($data);
-		//echo json_encode(array('status' => $detail->stat_read));
-		//echo $detail->stat_tanggap;
-	}
+	// public function updateread()
+	// {
+	// 	$id = $_GET['id'];
+	// 	$data = array(
+	// 		'id_aduan' => $id,
+	// 		'stat_read'	=> 1,
+	// 	);
+	// 	$this->aduan_model->edit($data);
+	// 	//echo json_encode(array('status' => $detail->stat_read));
+	// 	//echo $detail->stat_tanggap;
+	// }
 
 	public function addtanggap($id)
 	{

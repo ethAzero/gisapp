@@ -43,6 +43,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
    </section>
 
    <section class="content">
+      <a href="<?php echo base_url('admin/aduan/') ?>"><button class="btn btn-primary btn-flat"><i class="fa fa-reply"></i> Kembali</button></a>
+      <br></br>
       <div class="row">
          <div class="col-md-12">
             <?php
