@@ -2,7 +2,8 @@
          <div class="pull-right hidden-xs">
             <b>Version</b> 2.5.0
          </div>
-         <strong>Copyright &copy; 2017 <a href="http://perhubungan.jatengprov.go.id/" data-toggle="tooltip" data-placement="top" title="Dinas Perhubungan Provinsi Jawa Tengah" target="_blank">Dinas Perhubungan Jateng</a></strong> All rights reserved.
+         <strong>Copyright &copy; <?php date_default_timezone_set("Asia/Bangkok");
+                                    echo date('Y'); ?> <a href="http://perhubungan.jatengprov.go.id/" data-toggle="tooltip" data-placement="top" title="Dinas Perhubungan Provinsi Jawa Tengah" target="_blank">Dinas Perhubungan Jateng</a></strong> All rights reserved.
       </footer>
       </div>
       </body>
