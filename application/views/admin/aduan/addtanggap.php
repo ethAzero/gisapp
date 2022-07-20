@@ -33,7 +33,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                echo $error;
                echo '</div>';
             }
-            echo form_open(base_url('admin/aduan/tanggapadd'));
+            echo form_open(base_url('admin/aduan/addtanggap/' . $list->id_aduan));
             ?>
             <div class="row">
                <div class="col-md-9">
@@ -41,8 +41,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <div class="box-body">
                         <div class="row">
                            <div class="form-group col-md-12">
+                              <label for="exampleInputEmail1">Aduan</label>
+                              <textarea class="form-control" name="aduan" rows="3" placeholder="Aduan..." disabled><?= $list->aduan; ?></textarea>
+                           </div>
+                           <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Kewenangan</label>
-                              <select name="kewenangan" id="chanel" class="form-control select2" style="width: 100%;">
+                              <select name="kewenangan" class="form-control select2" style="width: 100%;">
                                  <option value="">--Pilih Kewenangan--</option>
                                  <option value="1">Kewenangan</option>
                                  <option value="2">Bukan Kewenangan</option>
@@ -57,7 +61,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               </div>
                               <div class="form-group col-md-12">
                                  <label for="exampleInputEmail1">Nama Ruas Jalan</label>
-                                 <input type="text" name="ruas" class="form-control" placeholder="Nama Ruas Jalan">
+                                 <input type="text" name="ruas" class="form-control" placeholder="Nama Ruas Jalan" disabled>
+                                 <input type="hidden" name="id_ruas" class="form-control" placeholder="id ruas">
                               </div>
                            </div>
                            <div class="form-group col-md-12">
@@ -112,18 +117,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
    let ruasVal = () => $('[name="ruas"]').val();
    let peta = $('#peta');
    $(document).ready(function() {
-      $('[name="ruas"]').val('0');
+      $('[name="id_ruas"]').val('0');
       peta.hide();
    })
 
    $('[name="kewenangan"]').change(function() {
 
       if (kewenanganVal() == 1) {
-         $('[name="ruas"]').val('');
+         $('[name="id_ruas"]').val('');
          peta.show();
          myMap();
       } else {
-         $('[name="ruas"]').val('0');
+         $('[name="id_ruas"]').val('0');
          peta.hide();
       }
       console.log(kewenanganVal());
@@ -146,11 +151,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
       ctaLayer.addListener('click', function(kmlEvent) {
          let text = kmlEvent.featureData.name;
-         let textid = kmlEvent.featureData.name;
+         let textid = text.substring(0, 7);;
          //$('[name="ruas_jalan"]').val('');
-         $('[name="ruas"]').val(textid);
-         alert(textid);
-         console.log(text);
+
+         $('[name="ruas"]').val(text);
+         $('[name="id_ruas"]').val(textid);
+         console.log(textid + text);
       });
 
    };

@@ -90,7 +90,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               if ($detail->stat_read == 0) {
                                  echo "<i class=\"fa fa-times text-red\"></i>";
                               } else {
-                                 echo "<i class=\"fa fa-check text-green\"></i>";
+                                 echo $detail->read_at . " <i class=\"fa fa-check text-green\"></i>";
                               }
                               ?>
                            </td>
@@ -103,7 +103,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               if ($detail->stat_tanggap == 0) {
                                  echo "<i class=\"fa fa-times text-red\"></i>";
                               } else {
-                                 echo "<i class=\"fa fa-check text-green\"></i>";
+                                 echo $detail->tanggap_at . " <i class=\"fa fa-check text-green\"></i>";
                               }
                               ?>
                            </td>
@@ -131,7 +131,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      if ($detail->stat_tanggap == 0) {
                         echo "<span>Belum Ditanggapi </span><i class=\"fa fa-times text-red\"></i>";
                      } else {
-                        echo $detail->aduan; //ganti isi tanggapan
+                        echo $detail->tanggapan; //ganti isi tanggapan
                      }
                      ?>
                </div>

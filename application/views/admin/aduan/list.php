@@ -35,7 +35,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
          <div class="box-body">
             <div class="table-toolbar">
                <div class="btn-group">
-                  <a href="<?php echo base_url('admin/aduan/add') ?>"><button class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add</button></a>
+                  <?php if ($this->session->userdata('hakakses') == 'AD') { ?>
+                     <a href="<?php echo base_url('admin/aduan/add') ?>"><button class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add</button></a>
+                  <?php } ?>
                   <a href="<?php echo base_url('admin/kabkota/exportexcel') ?>" target="_blank"><button class="btn btn-primary btn-flat"><i class="fa fa-file-excel-o"></i> Export Excel</button></a>
                </div>
             </div>

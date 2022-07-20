@@ -14,9 +14,11 @@ class Aduan_model extends CI_Model
 		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
 			$this->db->where('kd_balai', $hakakses);
 		}
+		$this->db->order_by('created_at', 'DESC');
 		$query = $this->db->get('v_aduan');
 		return $query->result();
 	}
+
 	public function chanel()
 	{
 		$query = $this->db->get('tb_chanel_aduan');
@@ -46,6 +48,12 @@ class Aduan_model extends CI_Model
 	}
 
 	public function edit($data)
+	{
+		$this->db->where('id_aduan', $data['id_aduan']);
+		$this->db->update('tb_aduan', $data);
+	}
+
+	public function addtanggap($data)
 	{
 		$this->db->where('id_aduan', $data['id_aduan']);
 		$this->db->update('tb_aduan', $data);
