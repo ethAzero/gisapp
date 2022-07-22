@@ -13,7 +13,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 Apakah Anda ingin menghapus data ini?
             </div>
             <div class="modal-footer">
-                <a href="<?php echo base_url('admin/kabkota/delete/' . $list->id_aduan) ?>" class="btn btn-info btn-flat" id="hapus-true">Ya</a>
+                <a href="<?php echo base_url('admin/aduan/delete/' . $list->id_aduan) ?>" class="btn btn-info btn-flat" id="hapus-true">Ya</a>
                 <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Tidak</button>
             </div>
         </div>

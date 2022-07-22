@@ -47,9 +47,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Kewenangan</label>
                               <select name="kewenangan" class="form-control select2" style="width: 100%;">
-                                 <option value="">--Pilih Kewenangan--</option>
-                                 <option value="1">Kewenangan</option>
-                                 <option value="2">Bukan Kewenangan</option>
+                                 <?php if ($list->kewenangan == 1) {
+                                    $listext = "Kewenangan"; ?>
+                                    <option value="<?= $list->kewenangan; ?>" selected><?= $listext ?></option>
+                                    <option value="2">Bukan Kewenangan</option>
+                                 <?php } elseif ($list->kewenangan == 2) {
+                                    $listext = "Bukan Kewenangan"; ?>
+                                    <option value="1">Kewenangan</option>
+                                    <option value="<?= $list->kewenangan; ?>" selected><?= $listext ?></option>
+                                 <?php } else { ?>
+                                    <option value="">--Pilih Kewenangan--</option>
+                                    <option value="1">Kewenangan</option>
+                                    <option value="2">Bukan Kewenangan</option>
+                                 <?php } ?>
                               </select>
                            </div>
                            <div id="peta">
@@ -61,13 +71,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               </div>
                               <div class="form-group col-md-12">
                                  <label for="exampleInputEmail1">Nama Ruas Jalan</label>
-                                 <input type="text" name="ruas" class="form-control" placeholder="Nama Ruas Jalan" disabled>
-                                 <input type="hidden" name="id_ruas" class="form-control" placeholder="id ruas">
+                                 <input type="text" name="ruas" class="form-control" placeholder="Nama Ruas Jalan" value="<?= $list->kd_jalan ?>" disabled>
+                                 <input type="hidden" name="id_ruas" class="form-control" placeholder="id ruas" value="<?= $list->kd_jalan ?>">
                               </div>
                            </div>
                            <div class="form-group col-md-12">
                               <label for="exampleInputEmail1">Tanggapan</label>
-                              <textarea class="form-control" name="tanggapan" rows="3" placeholder="Tanggapan ..."></textarea>
+                              <textarea class="form-control" name="tanggapan" rows="3" placeholder="Tanggapan ..."><?= $list->tanggapan; ?></textarea>
                            </div>
                         </div>
                      </div>
@@ -84,12 +94,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
             <?php echo form_close(); ?>
          </div>
-      </div>
-
-
-      <div class="box box-primary">
-
-
       </div>
 </div>
 
@@ -115,15 +119,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script>
    let kewenanganVal = () => $('[name="kewenangan"]').val();
    let ruasVal = () => $('[name="ruas"]').val();
+   let stat_tanggap = "<?= $list->stat_tanggap; ?>";
+   let kd_jalan = "<?= $list->kd_jalan; ?>";
    let peta = $('#peta');
    $(document).ready(function() {
-      $('[name="id_ruas"]').val('0');
-      peta.hide();
+      if (stat_tanggap != 0) {
+         $('[name="id_ruas"]').val(kd_jalan);
+         if (kewenanganVal() == 1) {
+            peta.show();
+            myMap();
+         } else {
+            $('[name="id_ruas"]').val('0');
+            peta.hide();
+         }
+      } else {
+         $('[name="id_ruas"]').val('0');
+         peta.hide();
+      }
    })
 
    $('[name="kewenangan"]').change(function() {
 
       if (kewenanganVal() == 1) {
+         $('[name="ruas"]').val('');
          $('[name="id_ruas"]').val('');
          peta.show();
          myMap();

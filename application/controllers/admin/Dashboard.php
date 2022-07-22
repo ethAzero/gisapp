@@ -33,4 +33,14 @@ class Dashboard extends CI_Controller
 		);
 		echo json_encode($aduan);
 	}
+	public function get_aduanTanggap()
+	{
+		$jumlah_tanggap_unread = $this->dashboard_model->get_sumtanggapinfo();
+		$listtanggap = $this->dashboard_model->get_tanggapunread();
+		$aduan = array(
+			'unread' => $jumlah_tanggap_unread,
+			'notif' => $listtanggap
+		);
+		echo json_encode($aduan);
+	}
 }

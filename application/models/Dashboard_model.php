@@ -315,22 +315,160 @@ class Dashboard_model extends CI_Model
 		return $query->result();
 	}
 
+	//mengambil data notifikasi aduan
+
 	public function get_aduanUnread($id)
 	{
-		$this->db->where('kd_balai', $id);
-		$this->db->where('stat_read', 0);
-		$this->db->from('v_aduan');
-		//$query = $this->db->get('v_aduan')->count_all_results();
-		//$row = $query->getNumRows();;
+		$this->db->select('
+		tb_aduan.id_aduan AS id_aduan,
+		tb_aduan.aduan,
+		tb_aduan.id_kelurahan,
+		tb_aduan.created_at,
+		tb_aduan.updated_at,
+		tb_aduan.read_at,
+		tb_aduan.tanggap_at,
+		tb_aduan.kewenangan,
+		tb_aduan.tanggapan,
+		tb_aduan.kd_jalan,
+		tb_aduan.stat_read,
+		tb_aduan.stat_readtanggap,
+		tb_aduan.stat_tanggap,
+		tb_kelurahan.id_kecamatan,
+		tb_kelurahan.nama AS nama_kelurahan,
+		tb_kelurahan.jenis,
+		tb_kecamatan.id_kota_kabupaten,
+		tb_kecamatan.nama AS nama_kecamatan,
+		kabkota.kd_balai,
+		kabkota.nm_kabkota,
+		balai.nm_balai,
+		tb_aduan.id_chanel_aduan,
+		tb_chanel_aduan.chanel_aduan
+		');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		$this->db->where('kabkota.kd_balai', $id);
+		$this->db->where('tb_aduan.stat_read', 0);
 		return $this->db->count_all_results();
 	}
 
 	public function get_aduanByBalai($id)
 	{
-		$this->db->where('kd_balai', $id);
+		$this->db->select('
+		tb_aduan.id_aduan AS id_aduan,
+		tb_aduan.aduan,
+		tb_aduan.id_kelurahan,
+		tb_aduan.created_at,
+		tb_aduan.updated_at,
+		tb_aduan.read_at,
+		tb_aduan.tanggap_at,
+		tb_aduan.kewenangan,
+		tb_aduan.tanggapan,
+		tb_aduan.kd_jalan,
+		tb_aduan.stat_read,
+		tb_aduan.stat_readtanggap,
+		tb_aduan.stat_tanggap,
+		tb_kelurahan.id_kecamatan,
+		tb_kelurahan.nama AS nama_kelurahan,
+		tb_kelurahan.jenis,
+		tb_kecamatan.id_kota_kabupaten,
+		tb_kecamatan.nama AS nama_kecamatan,
+		kabkota.kd_balai,
+		kabkota.nm_kabkota,
+		balai.nm_balai,
+		tb_aduan.id_chanel_aduan,
+		tb_chanel_aduan.chanel_aduan
+		');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		$this->db->where('kabkota.kd_balai', $id);
+		$this->db->where('tb_aduan.stat_read', 0);
 		$this->db->order_by('id_aduan', 'DESC');
 		$this->db->limit(5);
-		$query = $this->db->get('v_aduan');
-		return $query->result();
+		return $this->db->get()->result();
+	}
+	public function get_sumtanggapinfo()
+	{
+		$this->db->select('
+		tb_aduan.id_aduan AS id_aduan,
+		tb_aduan.aduan,
+		tb_aduan.id_kelurahan,
+		tb_aduan.created_at,
+		tb_aduan.updated_at,
+		tb_aduan.read_at,
+		tb_aduan.tanggap_at,
+		tb_aduan.kewenangan,
+		tb_aduan.tanggapan,
+		tb_aduan.kd_jalan,
+		tb_aduan.stat_read,
+		tb_aduan.stat_readtanggap,
+		tb_aduan.stat_tanggap,
+		tb_kelurahan.id_kecamatan,
+		tb_kelurahan.nama AS nama_kelurahan,
+		tb_kelurahan.jenis,
+		tb_kecamatan.id_kota_kabupaten,
+		tb_kecamatan.nama AS nama_kecamatan,
+		kabkota.kd_balai,
+		kabkota.nm_kabkota,
+		balai.nm_balai,
+		tb_aduan.id_chanel_aduan,
+		tb_chanel_aduan.chanel_aduan
+		');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		$this->db->where('stat_readtanggap', 0);
+		$this->db->where('stat_tanggap', 1);
+		return $this->db->count_all_results();
+	}
+
+	public function get_tanggapunread()
+	{
+		$this->db->select('
+		tb_aduan.id_aduan AS id_aduan,
+		tb_aduan.aduan,
+		tb_aduan.id_kelurahan,
+		tb_aduan.created_at,
+		tb_aduan.updated_at,
+		tb_aduan.read_at,
+		tb_aduan.tanggap_at,
+		tb_aduan.kewenangan,
+		tb_aduan.tanggapan,
+		tb_aduan.kd_jalan,
+		tb_aduan.stat_read,
+		tb_aduan.stat_readtanggap,
+		tb_aduan.stat_tanggap,
+		tb_kelurahan.id_kecamatan,
+		tb_kelurahan.nama AS nama_kelurahan,
+		tb_kelurahan.jenis,
+		tb_kecamatan.id_kota_kabupaten,
+		tb_kecamatan.nama AS nama_kecamatan,
+		kabkota.kd_balai,
+		kabkota.nm_kabkota,
+		balai.nm_balai,
+		tb_aduan.id_chanel_aduan,
+		tb_chanel_aduan.chanel_aduan
+		');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		$this->db->where('stat_readtanggap', 0);
+		$this->db->where('stat_tanggap', 1);
+		$this->db->order_by('id_aduan', 'DESC');
+		$this->db->limit(5);
+		return $this->db->get()->result();
 	}
 }

@@ -17,7 +17,7 @@
                   <span id="num_warning1" class="label label-warning"></span>
                </a>
                <ul class="dropdown-menu">
-                  <li class="header">Terdapat <span id="num_warning2"></span> Aduan belum dibaca</li>
+                  <li class="header"><span id="num_warning2"></span></li>
                   <li>
                      <ul class="menu" id="notif_unread"></ul>
                   </li>

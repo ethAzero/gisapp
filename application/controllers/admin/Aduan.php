@@ -38,6 +38,15 @@ class Aduan extends CI_Controller
 				);
 				$this->aduan_model->edit($data);
 			};
+		} else if ($this->session->userdata('hakakses') == 'AD') {
+			$chek = $this->aduan_model->detail($id);
+			if ($chek->stat_readtanggap != 1) {
+				$data = array(
+					'id_aduan' => $id,
+					'stat_readtanggap'	=> 1
+				);
+				$this->aduan_model->edit($data);
+			};
 		}
 		$detail = $this->aduan_model->detail($id);
 		$data = array(
@@ -46,6 +55,7 @@ class Aduan extends CI_Controller
 			'isi'		=> 'admin/aduan/detail'
 		);
 		$this->load->view('admin/layout/wrapper', $data);
+		// echo json_encode($detail->kewenangan);
 	}
 
 	// public function checkread()
@@ -182,7 +192,8 @@ class Aduan extends CI_Controller
 				'aduan'		=> $i->post('aduan'),
 				'id_kelurahan'		=> $i->post('id_desa'),
 				'stat_read'	=> 0,
-				'stat_tanggap'	=> 0
+				'stat_tanggap'	=> 0,
+				'stat_readtanggap'	=> 0
 			);
 			$this->aduan_model->add($data);
 			$this->session->set_flashdata('sukses', 'Berhasil ditambah');

@@ -1,6 +1,8 @@
 tabel ma_pengguna tambah user aduan dengan hak akses aduan "AD" done
 tambahan table tb_kecamatan, tb_desakelurahan, tb_aduan dan tb_chanel_aduan done
 tambahan view v_aduan done
+view aduan harus diquery kan untuk meminimalisir pemakaian kapasitas penyimpanan di server done
 
-
-file layout head ditambahkan notifikasi aduan
+file view layout head ditambahkan notifikasi aduan done
+file view layout footer, nav ada perubahan done
+tambah data user dengan pilihan sebagai admin aduan done

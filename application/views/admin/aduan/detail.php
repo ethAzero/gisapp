@@ -74,7 +74,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            <?php if ($detail->stat_tanggap != 1) {
                               echo "<h4><a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Tanggapi\">Tanggapi</button></a></h4>";
                            } else {
-                              echo "<h4><a href=\"" . base_url('admin/aduan/edittanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit Tanggapan\">Edit Tanggapan</button></a></h4>";
+                              echo "<h4><a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit Tanggapan\">Edit Tanggapan</button></a></h4>";
                            } ?>
                         <?php } ?>
                      </div>
