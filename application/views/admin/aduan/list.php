@@ -68,7 +68,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            </td>
                            <td><?= $list->chanel_aduan; ?></td>
                            <td>
-                              <?php if ($list->stat_read == 0) {
+                              <?php if ($list->stat_read1 == 0) {
                                  echo "Dibaca : <i class=\"fa fa-times text-red\"></i><br>";
                               } else {
                                  echo "Dibaca : <i class=\"fa fa-check text-green\"></i><br>";
@@ -81,16 +81,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            </td>
                            <td style="text-align:center;width:100px">
                               <?php
-                              if ($this->session->userdata('hakakses') != 'AD' and $this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
+                              if ($this->session->userdata('hakakses') == '01' || $this->session->userdata('hakakses') == '02' || $this->session->userdata('hakakses') == '03' || $this->session->userdata('hakakses') == '04' || $this->session->userdata('hakakses') == '05' || $this->session->userdata('hakakses') == '06') { ?>
                                  <a href="<?php echo base_url('admin/aduan/detail/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-maroon" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fa fa-list-alt"></i></button></a>
                                  <?php
                                  if ($list->stat_tanggap != 1) { ?>
                                     <a href="<?php echo base_url('admin/aduan/addtanggap/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-purple" data-toggle="tooltip" data-placement="top" title="Tanggapi"><i class="fa fa-reply"></i></button></a>
                                  <?php } ?>
-                              <?php } else { ?>
+                              <?php } else if ($this->session->userdata('hakakses') == 'AD') { ?>
                                  <a href="<?php echo base_url('admin/aduan/edit/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
                                  <a href="<?php echo base_url('admin/aduan/detail/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-maroon" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fa fa-list-alt"></i></button></a>
                                  <?php include('delete.php'); ?>
+                              <?php } else if ($this->session->userdata('hakakses') == 'S' || $this->session->userdata('hakakses') == 'A') { ?>
+                                 <a href="<?php echo base_url('admin/aduan/detail/' . $list->id_aduan) ?>"><button class="btn btn-xs btn-flat btn-maroon" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fa fa-list-alt"></i></button></a>
                               <?php } ?>
                            </td>
                         </tr>

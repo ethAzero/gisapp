@@ -1,8 +1,9 @@
-tabel ma_pengguna tambah user aduan dengan hak akses aduan "AD" done
-tambahan table tb_kecamatan, tb_desakelurahan, tb_aduan dan tb_chanel_aduan done
-tambahan view v_aduan done
-view aduan harus diquery kan untuk meminimalisir pemakaian kapasitas penyimpanan di server done
+1. tabel ma_pengguna tambah user aduan dengan hak akses aduan "AD" done
+2. tambahan table tb_kecamatan, tb_desakelurahan, tb_aduan dan tb_chanel_aduan done
+3. tambahan view v_aduan done
+4. view aduan harus diquery kan untuk meminimalisir pemakaian kapasitas penyimpanan di server done
 
-file view layout head ditambahkan notifikasi aduan done
-file view layout footer, nav ada perubahan done
-tambah data user dengan pilihan sebagai admin aduan done
+5. file view layout head ditambahkan notifikasi aduan bagi balai dan tanggapan bagi admin aduan done
+6. file view layout footer, nav ada perubahan done
+7. tambah data user dengan pilihan sebagai admin aduan done
+8. tampilan dashboar dilengkapi dengan statistik chart 

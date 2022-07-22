@@ -70,7 +70,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      </div>
                      <div class="col-md-2 align-self-center">
                         <?php
-                        if ($this->session->userdata('hakakses') != 'AD' and $this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
+                        if ($this->session->userdata('hakakses') == '01' || $this->session->userdata('hakakses') == '02' || $this->session->userdata('hakakses') == '03' || $this->session->userdata('hakakses') == '04' || $this->session->userdata('hakakses') == '05' || $this->session->userdata('hakakses') == '06') { ?>
                            <?php if ($detail->stat_tanggap != 1) {
                               echo "<h4><a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Tanggapi\">Tanggapi</button></a></h4>";
                            } else {
@@ -89,7 +89,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            <td width="2%">:</td>
                            <td widt="78%">
                               <?php
-                              if ($detail->stat_read == 0) {
+                              if ($detail->stat_read1 == 0) {
                                  echo "<i class=\"fa fa-times text-red\"></i>";
                               } else {
                                  echo $detail->read_at . " <i class=\"fa fa-check text-green\"></i>";

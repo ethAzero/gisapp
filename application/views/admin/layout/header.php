@@ -24,6 +24,7 @@
                   <li class="footer"><a href="<?= base_url('admin/aduan'); ?>">View all</a></li>
                </ul>
             </li>
+            <!-- akhir notifikasi aduan -->
             <li class="dropdown user user-menu">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="<?php echo base_url() ?>assets/admin/img/photo.png" class="user-image" alt="User Image" />

@@ -317,8 +317,9 @@ class Dashboard_model extends CI_Model
 
 	//mengambil data notifikasi aduan
 
-	public function get_aduanUnread($id)
+	public function get_aduanUnread()
 	{
+		$hakakses = $this->session->userdata('hakakses');
 		$this->db->select('
 		tb_aduan.id_aduan AS id_aduan,
 		tb_aduan.aduan,
@@ -330,7 +331,8 @@ class Dashboard_model extends CI_Model
 		tb_aduan.kewenangan,
 		tb_aduan.tanggapan,
 		tb_aduan.kd_jalan,
-		tb_aduan.stat_read,
+		tb_aduan.stat_read1,
+		tb_aduan.stat_read2,
 		tb_aduan.stat_readtanggap,
 		tb_aduan.stat_tanggap,
 		tb_kelurahan.id_kecamatan,
@@ -350,13 +352,20 @@ class Dashboard_model extends CI_Model
 		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
 		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
 		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
-		$this->db->where('kabkota.kd_balai', $id);
-		$this->db->where('tb_aduan.stat_read', 0);
+		if ($hakakses == '01' || $hakakses == '02' || $hakakses == '03' || $hakakses == '04' || $hakakses == '05' || $hakakses == '06') {
+			$this->db->where('kabkota.kd_balai', $hakakses);
+			$this->db->where('tb_aduan.stat_read1', 0);
+		}
+		if ($hakakses == 'S' || $hakakses == 'A') {
+			$this->db->where('tb_aduan.stat_read2', 0);
+		}
+
 		return $this->db->count_all_results();
 	}
 
-	public function get_aduanByBalai($id)
+	public function get_aduanByBalai()
 	{
+		$hakakses = $this->session->userdata('hakakses');
 		$this->db->select('
 		tb_aduan.id_aduan AS id_aduan,
 		tb_aduan.aduan,
@@ -368,7 +377,8 @@ class Dashboard_model extends CI_Model
 		tb_aduan.kewenangan,
 		tb_aduan.tanggapan,
 		tb_aduan.kd_jalan,
-		tb_aduan.stat_read,
+		tb_aduan.stat_read1,
+		tb_aduan.stat_read2,
 		tb_aduan.stat_readtanggap,
 		tb_aduan.stat_tanggap,
 		tb_kelurahan.id_kecamatan,
@@ -388,8 +398,13 @@ class Dashboard_model extends CI_Model
 		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
 		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
 		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
-		$this->db->where('kabkota.kd_balai', $id);
-		$this->db->where('tb_aduan.stat_read', 0);
+		if ($hakakses == '01' || $hakakses == '02' || $hakakses == '03' || $hakakses == '04' || $hakakses == '05' || $hakakses == '06') {
+			$this->db->where('kabkota.kd_balai', $hakakses);
+			$this->db->where('tb_aduan.stat_read1', 0);
+		}
+		if ($hakakses == 'S' || $hakakses == 'A') {
+			$this->db->where('tb_aduan.stat_read2', 0);
+		}
 		$this->db->order_by('id_aduan', 'DESC');
 		$this->db->limit(5);
 		return $this->db->get()->result();
@@ -407,7 +422,8 @@ class Dashboard_model extends CI_Model
 		tb_aduan.kewenangan,
 		tb_aduan.tanggapan,
 		tb_aduan.kd_jalan,
-		tb_aduan.stat_read,
+		tb_aduan.stat_read1,
+		tb_aduan.stat_read2,
 		tb_aduan.stat_readtanggap,
 		tb_aduan.stat_tanggap,
 		tb_kelurahan.id_kecamatan,
@@ -445,7 +461,8 @@ class Dashboard_model extends CI_Model
 		tb_aduan.kewenangan,
 		tb_aduan.tanggapan,
 		tb_aduan.kd_jalan,
-		tb_aduan.stat_read,
+		tb_aduan.stat_read1,
+		tb_aduan.stat_read2,
 		tb_aduan.stat_readtanggap,
 		tb_aduan.stat_tanggap,
 		tb_kelurahan.id_kecamatan,
@@ -469,6 +486,29 @@ class Dashboard_model extends CI_Model
 		$this->db->where('stat_tanggap', 1);
 		$this->db->order_by('id_aduan', 'DESC');
 		$this->db->limit(5);
+		return $this->db->get()->result();
+	}
+
+	public function jmlAduanByChannel()
+	{
+		$hakakses = $this->session->userdata('hakakses');
+		$this->db->select('
+		tb_aduan.id_chanel_aduan,
+		tb_chanel_aduan.chanel_aduan,
+		COUNT( tb_aduan.id_chanel_aduan ) AS jml_aduan,
+		kabkota.kd_balai
+		');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		// jika hak akses sebagai balai maka data yang ditampilkan aduan per balai
+		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
+			$this->db->where('kabkota.kd_balai', $hakakses);
+		}
+		$this->db->group_by('id_chanel_aduan');
 		return $this->db->get()->result();
 	}
 }

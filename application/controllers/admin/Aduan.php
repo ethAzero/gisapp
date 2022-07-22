@@ -24,16 +24,17 @@ class Aduan extends CI_Controller
 
 	public function detail($id)
 	{
-		if ($this->session->userdata('hakakses') != 'AD') {
+		$hakakses = $this->session->userdata('hakakses');
+		if ($hakakses == '01' || $hakakses == '02' || $hakakses == '03' || $hakakses == '04' || $hakakses == '05' || $hakakses == '06') {
 			$chek = $this->aduan_model->detail($id);
-			if ($chek->stat_read != 1) {
+			if ($chek->stat_read1 != 1) {
 				date_default_timezone_set("Asia/Bangkok");
 				$date = new DateTime();
 				$a = $date->getTimestamp();
 				$b = date('Y-m-d H:i:s', $a);
 				$data = array(
 					'id_aduan' => $id,
-					'stat_read'	=> 1,
+					'stat_read1'	=> 1,
 					'read_at' => $b
 				);
 				$this->aduan_model->edit($data);
@@ -44,6 +45,16 @@ class Aduan extends CI_Controller
 				$data = array(
 					'id_aduan' => $id,
 					'stat_readtanggap'	=> 1
+				);
+				$this->aduan_model->edit($data);
+			};
+		} else if ($hakakses == 'S' || $hakakses == 'A') {
+			$chek = $this->aduan_model->detail($id);
+			if ($chek->stat_read2 != 1) {
+				date_default_timezone_set("Asia/Bangkok");
+				$data = array(
+					'id_aduan' => $id,
+					'stat_read2'	=> 1,
 				);
 				$this->aduan_model->edit($data);
 			};
@@ -81,14 +92,14 @@ class Aduan extends CI_Controller
 	public function addtanggap($id)
 	{
 		$chek = $this->aduan_model->detail($id);
-		if ($chek->stat_read != 1) {
+		if ($chek->stat_read1 != 1) {
 			date_default_timezone_set("Asia/Bangkok");
 			$date = new DateTime();
 			$a = $date->getTimestamp();
 			$b = date('Y-m-d H:i:s', $a);
 			$data = array(
 				'id_aduan' => $id,
-				'stat_read'	=> 1,
+				'stat_read1'	=> 1,
 				'read_at' => $b
 			);
 			$this->aduan_model->edit($data);
@@ -191,7 +202,8 @@ class Aduan extends CI_Controller
 				'id_chanel_aduan' => $i->post('chanel'),
 				'aduan'		=> $i->post('aduan'),
 				'id_kelurahan'		=> $i->post('id_desa'),
-				'stat_read'	=> 0,
+				'stat_read1'	=> 0, // status baca oleh balai
+				'stat_read2'	=> 0, // status baca oleh admin dan superadmin 
 				'stat_tanggap'	=> 0,
 				'stat_readtanggap'	=> 0
 			);

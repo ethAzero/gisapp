@@ -41,7 +41,7 @@
             hakakses = "<?= $this->session->userdata('hakakses'); ?>";
             if (hakakses == 'AD') {
                url = "<?= base_url('/admin/dashboard/get_aduanTanggap') ?>";
-            } else if (hakakses == '01' || hakakses == '02' || hakakses == '03' || hakakses == '04' || hakakses == '04' || hakakses == '06') {
+            } else if (hakakses == '01' || hakakses == '02' || hakakses == '03' || hakakses == '04' || hakakses == '04' || hakakses == '06' || hakakses == 'S' || hakakses == 'A') {
                url = "<?= base_url('/admin/dashboard/get_aduanUnread') ?>";
             };
 
@@ -55,7 +55,7 @@
                      $('#num_warning1').hide();
                      if (hakakses == 'AD') {
                         $('#num_warning2').text("Belum Ada Tanggapan Baru");
-                     } else if (hakakses == '01' || hakakses == '02' || hakakses == '03' || hakakses == '04' || hakakses == '04' || hakakses == '06') {
+                     } else if (hakakses == '01' || hakakses == '02' || hakakses == '03' || hakakses == '04' || hakakses == '04' || hakakses == '06' || hakakses == 'S' || hakakses == 'A') {
                         $('#num_warning2').text("Belum Ada Aduan Baru");
                      };
                      $('#num_warning3').hide();
@@ -63,8 +63,8 @@
                      $('#num_warning1').text(data.unread);
                      if (hakakses == 'AD') {
                         $('#num_warning2').text("Terdapat " + data.unread + " Tanggapan Belum Dibaca");
-                     } else if (hakakses == '01' || hakakses == '02' || hakakses == '03' || hakakses == '04' || hakakses == '04' || hakakses == '06') {
-                        $('#num_warning2').text("Terdapat " + data.unread + " Aduan Belum Dibaca");
+                     } else if (hakakses == '01' || hakakses == '02' || hakakses == '03' || hakakses == '04' || hakakses == '04' || hakakses == '06' || hakakses == 'S' || hakakses == 'A') {
+                        $('#num_warning2').text("Terdapat " + data.unread + " Aduan Baru");
                      };
 
                      $('#num_warning3').text(data.unread);
