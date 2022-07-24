@@ -10,10 +10,10 @@
 	</section>
 
 	<section class="content">
-		<div class="row">
-			<?php
-			$hakakses = $this->session->userdata('hakakses');
-			if ($hakakses != 'AJ' and $hakakses != 'JT' and $hakakses != 'LL' and $hakakses != 'PE' and $hakakses != '07') { ?>
+		<?php
+		$hakakses = $this->session->userdata('hakakses');
+		if ($hakakses != 'AJ' and $hakakses != 'JT' and $hakakses != 'LL' and $hakakses != 'PE' and $hakakses != '07') { ?>
+			<div class="row">
 				<?php foreach ($jmlAduanByChannel as $key => $jmlAduanByChannel) : ?>
 					<?php
 					if ($jmlAduanByChannel->id_chanel_aduan == 1) {
@@ -40,8 +40,31 @@
 						</div>
 					</div>
 				<?php endforeach ?>
-			<?php } ?>
-		</div>
+			</div>
+			<div class="row">
+				<section class="col-lg-8 connectedSortable">
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs pull-right">
+							<li class="pull-left header"><i class="fa fa-inbox"></i> Rekapan Aduan Bulanan Pada Tahun <?= date('Y'); ?></li>
+						</ul>
+						<div class="tab-content">
+							<canvas id="chartMonthly" height="300px"></canvas>
+
+						</div>
+					</div>
+				</section>
+				<section class="col-lg-4 connectedSortable">
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs pull-right">
+							<li class="pull-left header"><i class="fa fa-inbox"></i> Rekapan Aduan Tahunan</li>
+						</ul>
+						<div class="tab-content">
+							<canvas id="chartPie" height="300px"></canvas>
+						</div>
+					</div>
+				</section>
+			</div>
+		<?php } ?>
 		<div class="row">
 			<?php if (($this->session->userdata('hakakses') == 'S') or ($this->session->userdata('hakakses') == 'A') or ($this->session->userdata('hakakses') == 'LL')) { ?>
 				<div class="col-md-12">
@@ -49,19 +72,6 @@
 						<div class="box-header with-border">
 							<h3 class="box-title">Ruas Jalan Provinsi se Jawa Tengah</h3>
 							<div class="box-tools pull-right">
-								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-								</button>
-								<div class="btn-group">
-									<button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-wrench"></i></button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-									</ul>
-								</div>
 								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 							</div>
 							<br></br>

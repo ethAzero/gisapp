@@ -10,20 +10,24 @@
 
       <div class="navbar-custom-menu">
          <ul class="nav navbar-nav">
-            <!-- tambah notifikasi untuk aduan-->
-            <li class="dropdown notifications-menu">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-bell-o"></i>
-                  <span id="num_warning1" class="label label-warning"></span>
-               </a>
-               <ul class="dropdown-menu">
-                  <li class="header"><span id="num_warning2"></span></li>
-                  <li>
-                     <ul class="menu" id="notif_unread"></ul>
-                  </li>
-                  <li class="footer"><a href="<?= base_url('admin/aduan'); ?>">View all</a></li>
-               </ul>
-            </li>
+            <?php
+            $hakakses = $this->session->userdata('hakakses');
+            if ($hakakses != 'AJ' and $hakakses != 'JT' and $hakakses != 'LL' and $hakakses != 'PE' and $hakakses != '07') { ?>
+               <!-- tambah notifikasi untuk aduan-->
+               <li class="dropdown notifications-menu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     <i class="fa fa-bell-o"></i>
+                     <span id="num_warning1" class="label label-warning"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li class="header"><span id="num_warning2"></span></li>
+                     <li>
+                        <ul class="menu" id="notif_unread"></ul>
+                     </li>
+                     <li class="footer"><a href="<?= base_url('admin/aduan'); ?>">View all</a></li>
+                  </ul>
+               </li>
+            <?php } ?>
             <!-- akhir notifikasi aduan -->
             <li class="dropdown user user-menu">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown">

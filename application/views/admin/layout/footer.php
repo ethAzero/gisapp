@@ -34,7 +34,9 @@
             $(".select2").select2();
 
             jml_notif_unread();
-            setInterval(jml_notif_unread, 1000)
+            setInterval(jml_notif_unread, 1000);
+            chartbulan();
+            charttahun();
          });
 
          function jml_notif_unread() {
@@ -94,11 +96,62 @@
                }
             });
          }
+         // function ChartAduanBulanan() 
+         let chartbulan = () => $.ajax({
+            url: "<?= base_url('/admin/dashboard/get_MonthlyChart') ?>",
+            type: 'GET',
+            dataType: 'json',
+            success: function(DataChart) {
+               const ChartAduanBulanan = new Chart(
+                  document.getElementById('chartMonthly'),
+                  config = {
+                     type: 'line',
+                     data: DataChart,
+                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        aspectRatio: 4,
+                        plugins: {
+                           legend: {
+                              position: 'bottom',
+                           }
+                        }
+                     }
+                  },
+               );
+            },
+         });
+         // function ChartAduanTahunan() 
+         let charttahun = () => $.ajax({
+            url: "<?= base_url('/admin/dashboard/get_YearlyChart') ?>",
+            type: 'GET',
+            dataType: 'json',
+            success: function(DataChart) {
+               const ChartAduanTahunan = new Chart(
+                  document.getElementById('chartPie'),
+                  config = {
+                     type: 'bar',
+                     data: DataChart,
+                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        aspectRatio: 2,
+                        plugins: {
+                           legend: {
+                              position: 'bottom',
+                           }
+                        }
+                     }
+                  },
+               );
+            },
+         });
       </script>
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc&callback=myMap"></script>
       <script src="<?php echo base_url() ?>assets/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url() ?>assets/admin/js/app.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/jquery.dataTables.js"></script>
+      <script src="<?php echo base_url() ?>assets/admin/plugins/chartjs/chart.js"></script>
       <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/dataTables.bootstrap.js"></script>
       <script src="<?php echo base_url() ?>assets/admin/js/filestyle.js"></script>
       <script type="text/javascript" src="<?php echo base_url() ?>assets/theme/js/apps.js"></script>

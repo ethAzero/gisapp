@@ -26,6 +26,7 @@ class Dashboard extends CI_Controller
 	}
 
 	// bagian aduan
+	// notifikasi aduan baru yang belum dibaca oleh balai
 	public function get_aduanUnread()
 	{
 		// $id_balai = $this->session->userdata('hakakses');
@@ -37,6 +38,8 @@ class Dashboard extends CI_Controller
 		);
 		echo json_encode($aduan);
 	}
+
+	// notifikasi tanggapan aduan baru belum dibaca oleh superadmin, admin dan admin aduan
 	public function get_aduanTanggap()
 	{
 		$jumlah_tanggap_unread = $this->dashboard_model->get_sumtanggapinfo();
@@ -46,5 +49,64 @@ class Dashboard extends CI_Controller
 			'notif' => $listtanggap
 		);
 		echo json_encode($aduan);
+	}
+
+	//mengambil data aduan perbulan untuk ditampilkan pada chart
+	public function get_MonthlyChart()
+	{
+		$aduanbulanan = $this->dashboard_model->get_aduanBulanan();
+		foreach ($aduanbulanan as $row) {
+			$bulan[] = $row->Bulan;
+			$jml_aduan[] = $row->jml_aduan;
+			$jml_ditanggapi[] = $row->jml_ditanggapi;
+		};
+
+		$data = [
+			'labels' => $bulan,
+			'datasets' => [
+				[
+					'label' => 'Jumlah Aduan ',
+					'backgroundColor' => 'red',
+					'borderColor' => 'red',
+					'data' => $jml_aduan
+				],
+				[
+					'label' => 'Jumlah Ditanggapi ',
+					'backgroundColor' => 'green',
+					'borderColor' => 'green',
+					'data' => $jml_ditanggapi
+				]
+			]
+		];
+		echo json_encode($data);
+	}
+
+	public function get_YearlyChart()
+	{
+		$aduantahunan = $this->dashboard_model->get_aduanTahunan();
+		foreach ($aduantahunan as $row) {
+			$tahun[] = $row->Tahun;
+			$jml_aduan[] = $row->jml_aduan;
+			$jml_ditanggapi[] = $row->jml_ditanggapi;
+		};
+
+		$data = [
+			'labels' => $tahun,
+			'datasets' => [
+				[
+					'label' => 'Jumlah Aduan ',
+					'backgroundColor' => 'red',
+					'borderColor' => 'red',
+					'data' => $jml_aduan
+				],
+				[
+					'label' => 'Jumlah Ditanggapi ',
+					'backgroundColor' => 'green',
+					'borderColor' => 'green',
+					'data' => $jml_ditanggapi
+				]
+			]
+		];
+		echo json_encode($data);
 	}
 }
