@@ -25,6 +25,7 @@ class Aduan extends CI_Controller
 	public function detail($id)
 	{
 		$hakakses = $this->session->userdata('hakakses');
+		// jika hak akses sebagai balai
 		if ($hakakses == '01' || $hakakses == '02' || $hakakses == '03' || $hakakses == '04' || $hakakses == '05' || $hakakses == '06') {
 			$chek = $this->aduan_model->detail($id);
 			if ($chek->stat_read1 != 1) {
@@ -39,7 +40,7 @@ class Aduan extends CI_Controller
 				);
 				$this->aduan_model->edit($data);
 			};
-		} else if ($this->session->userdata('hakakses') == 'AD') {
+		} else if ($this->session->userdata('hakakses') == 'AD') { // jika hak akses sebagai admin aduan
 			$chek = $this->aduan_model->detail($id);
 			if ($chek->stat_readtanggap != 1) {
 				$data = array(
@@ -48,7 +49,7 @@ class Aduan extends CI_Controller
 				);
 				$this->aduan_model->edit($data);
 			};
-		} else if ($hakakses == 'S' || $hakakses == 'A') {
+		} else if ($hakakses == 'S' || $hakakses == 'A') { // jika hak akses sebagai admin dan superadmin
 			$chek = $this->aduan_model->detail($id);
 			if ($chek->stat_read2 != 1) {
 				date_default_timezone_set("Asia/Bangkok");
@@ -69,26 +70,126 @@ class Aduan extends CI_Controller
 		// echo json_encode($detail->kewenangan);
 	}
 
-	// public function checkread()
+	public function listing()
+	{
+		$wilayah = $this->aduan_model->listing();
+		echo json_encode($wilayah);
+	}
+
+	public function data_wilayah()
+	{
+		$nama_kelurahan = $_GET['term'];
+		$wilayah = $this->aduan_model->getKelurahan($nama_kelurahan);
+		echo json_encode($wilayah);
+	}
+
+	public function add()
+	{
+		$aduan = $this->aduan_model->listing();
+		$chanel = $this->aduan_model->chanel();
+		$valid = $this->form_validation;
+		$valid->set_rules(
+			'chanel',
+			'chanel',
+			'required',
+			array('required'	=> 'chanel aduan harus dipilih')
+		);
+		$valid->set_rules(
+			'nm_desa',
+			'nm_desa',
+			'required',
+			array('required'	=> 'nama kelurahan harus diisi')
+		);
+		$valid->set_rules(
+			'aduan',
+			'aduan',
+			'required',
+			array('required'	=> 'silahkan untuk  mengisi aduan / laporan')
+		);
+		if ($valid->run() == FALSE) {
+			$data = array(
+				'title' 		=> 'Add Aduan',
+				'chanel'	=> $chanel,
+				'list'		=> $aduan,
+				'isi' 		=> 'admin/aduan/add'
+			);
+			$this->load->view('admin/layout/wrapper', $data);
+		} else {
+			$i = $this->input;
+			$data = array(
+				'id_chanel_aduan' => $i->post('chanel'),
+				'aduan'		=> $i->post('aduan'),
+				'id_kelurahan'	=> $i->post('id_desa'),
+				'stat_read1'	=> 0, // status baca oleh balai
+				'stat_read2'	=> 0, // status baca oleh admin dan superadmin 
+				'stat_tanggap'	=> 0,
+				'stat_readtanggap'	=> 0,
+				'stat_tangani'	=> 0,
+				'kewenangan'	=> 0,
+			);
+			$this->aduan_model->add($data);
+			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
+			redirect(base_url('admin/aduan'));
+		}
+	}
+
+	public function edit($id)
+	{
+		$detail = $this->aduan_model->detail($id);
+		$chanel = $this->aduan_model->chanel();
+		$aduan = $this->aduan_model->listing();
+		$valid = $this->form_validation;
+		$valid->set_rules(
+			'chanel',
+			'chanel',
+			'required',
+			array('required'	=> 'chanel aduan harus dipilih')
+		);
+		$valid->set_rules(
+			'nm_desa',
+			'nm_desa',
+			'required',
+			array('required'	=> 'nama kelurahan harus diisi')
+		);
+		$valid->set_rules(
+			'aduan',
+			'aduan',
+			'required',
+			array('required'	=> 'silahkan untuk  mengisi aduan / laporan')
+		);
+		if ($valid->run() == FALSE) {
+			$data = array(
+				'title'  => 'Edit Aduan',
+				'chanel'	=> $chanel,
+				'detail' => $detail,
+				'aduan' 	=> $aduan,
+				'isi'    => 'admin/aduan/edit'
+			);
+			$this->load->view('admin/layout/wrapper', $data);
+		} else {
+			$i = $this->input;
+			$data = array(
+				'id_aduan' => $i->post('id_aduan'),
+				'id_chanel_aduan' => $i->post('chanel'),
+				'aduan'		=> $i->post('aduan'),
+				'id_kelurahan'		=> $i->post('id_desa'),
+				'stat_read'	=> 0
+			);
+			$this->aduan_model->edit($data);
+			$this->session->set_flashdata('sukses', 'Berhasil diubah');
+			redirect(base_url('admin/aduan'));
+		}
+	}
+
+	// public function delete($id)
 	// {
-	// 	$id = $_GET['id'];
-	// 	$detail = $this->aduan_model->detail($id);
-	// 	echo json_encode(array('status' => $detail->stat_read));
-	// 	//echo $detail->stat_tanggap;
+	// 	$data = array('kd_kabkota' => $id);
+	// 	$this->aduan_model->delete($data);
+	// 	$this->session->set_flashdata('sukses', 'Berhasil dihapus');
+	// 	redirect(base_url('admin/kabkota'));
 	// }
 
-	// public function updateread()
-	// {
-	// 	$id = $_GET['id'];
-	// 	$data = array(
-	// 		'id_aduan' => $id,
-	// 		'stat_read'	=> 1,
-	// 	);
-	// 	$this->aduan_model->edit($data);
-	// 	//echo json_encode(array('status' => $detail->stat_read));
-	// 	//echo $detail->stat_tanggap;
-	// }
-
+	// untuk event tanggap
 	public function addtanggap($id)
 	{
 		$chek = $this->aduan_model->detail($id);
@@ -151,123 +252,6 @@ class Aduan extends CI_Controller
 		}
 	}
 
-
-	public function listing()
-	{
-		$wilayah = $this->aduan_model->listing();
-		echo json_encode($wilayah);
-	}
-
-	public function data_wilayah()
-	{
-		$nama_kelurahan = $_GET['term'];
-		$wilayah = $this->aduan_model->getKelurahan($nama_kelurahan);
-		echo json_encode($wilayah);
-	}
-
-	public function add()
-	{
-		$aduan = $this->aduan_model->listing();
-		$chanel = $this->aduan_model->chanel();
-		$valid = $this->form_validation;
-		$valid->set_rules(
-			'chanel',
-			'chanel',
-			'required',
-			array('required'	=> 'chanel aduan harus dipilih')
-		);
-		$valid->set_rules(
-			'nm_desa',
-			'nm_desa',
-			'required',
-			array('required'	=> 'nama kelurahan harus diisi')
-		);
-		$valid->set_rules(
-			'aduan',
-			'aduan',
-			'required',
-			array('required'	=> 'silahkan untuk  mengisi aduan / laporan')
-		);
-		if ($valid->run() == FALSE) {
-			$data = array(
-				'title' 		=> 'Add Aduan',
-				'chanel'	=> $chanel,
-				'list'		=> $aduan,
-				'isi' 		=> 'admin/aduan/add'
-			);
-			$this->load->view('admin/layout/wrapper', $data);
-		} else {
-			$i = $this->input;
-			$data = array(
-				'id_chanel_aduan' => $i->post('chanel'),
-				'aduan'		=> $i->post('aduan'),
-				'id_kelurahan'		=> $i->post('id_desa'),
-				'stat_read1'	=> 0, // status baca oleh balai
-				'stat_read2'	=> 0, // status baca oleh admin dan superadmin 
-				'stat_tanggap'	=> 0,
-				'stat_readtanggap'	=> 0
-			);
-			$this->aduan_model->add($data);
-			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
-			redirect(base_url('admin/aduan'));
-		}
-	}
-
-	public function edit($id)
-	{
-		$detail = $this->aduan_model->detail($id);
-		$chanel = $this->aduan_model->chanel();
-		$aduan = $this->aduan_model->listing();
-		$valid = $this->form_validation;
-		$valid->set_rules(
-			'chanel',
-			'chanel',
-			'required',
-			array('required'	=> 'chanel aduan harus dipilih')
-		);
-		$valid->set_rules(
-			'nm_desa',
-			'nm_desa',
-			'required',
-			array('required'	=> 'nama kelurahan harus diisi')
-		);
-		$valid->set_rules(
-			'aduan',
-			'aduan',
-			'required',
-			array('required'	=> 'silahkan untuk  mengisi aduan / laporan')
-		);
-		if ($valid->run() == FALSE) {
-			$data = array(
-				'title'  => 'Edit Aduan',
-				'chanel'	=> $chanel,
-				'detail' => $detail,
-				'aduan' 	=> $aduan,
-				'isi'    => 'admin/aduan/edit'
-			);
-			$this->load->view('admin/layout/wrapper', $data);
-		} else {
-			$i = $this->input;
-			$data = array(
-				'id_aduan' => $i->post('id_aduan'),
-				'id_chanel_aduan' => $i->post('chanel'),
-				'aduan'		=> $i->post('aduan'),
-				'id_kelurahan'		=> $i->post('id_desa'),
-				'stat_read'	=> 0
-			);
-			$this->aduan_model->edit($data);
-			$this->session->set_flashdata('sukses', 'Berhasil diubah');
-			redirect(base_url('admin/aduan'));
-		}
-	}
-
-	public function delete($id)
-	{
-		$data = array('kd_kabkota' => $id);
-		$this->aduan_model->delete($data);
-		$this->session->set_flashdata('sukses', 'Berhasil dihapus');
-		redirect(base_url('admin/kabkota'));
-	}
 
 	public function exportexcel()
 	{

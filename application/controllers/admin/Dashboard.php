@@ -59,6 +59,7 @@ class Dashboard extends CI_Controller
 			$bulan[] = $row->Bulan;
 			$jml_aduan[] = $row->jml_aduan;
 			$jml_ditanggapi[] = $row->jml_ditanggapi;
+			$jml_ditangani[] = $row->jml_ditangani;
 		};
 
 		$data = [
@@ -68,13 +69,22 @@ class Dashboard extends CI_Controller
 					'label' => 'Jumlah Aduan ',
 					'backgroundColor' => 'red',
 					'borderColor' => 'red',
-					'data' => $jml_aduan
+					'data' => $jml_aduan,
+					'tension' => 0.4
 				],
 				[
 					'label' => 'Jumlah Ditanggapi ',
+					'backgroundColor' => 'yellow',
+					'borderColor' => 'yellow',
+					'data' => $jml_ditanggapi,
+					'tension' => 0.4
+				],
+				[
+					'label' => 'Jumlah Ditangani ',
 					'backgroundColor' => 'green',
 					'borderColor' => 'green',
-					'data' => $jml_ditanggapi
+					'data' => $jml_ditangani,
+					'tension' => 0.4
 				]
 			]
 		];
@@ -88,6 +98,7 @@ class Dashboard extends CI_Controller
 			$tahun[] = $row->Tahun;
 			$jml_aduan[] = $row->jml_aduan;
 			$jml_ditanggapi[] = $row->jml_ditanggapi;
+			$jml_ditangani[] = $row->jml_ditangani;
 		};
 
 		$data = [
@@ -101,9 +112,15 @@ class Dashboard extends CI_Controller
 				],
 				[
 					'label' => 'Jumlah Ditanggapi ',
+					'backgroundColor' => 'yellow',
+					'borderColor' => 'yellow',
+					'data' => $jml_ditanggapi
+				],
+				[
+					'label' => 'Jumlah Ditangani ',
 					'backgroundColor' => 'green',
 					'borderColor' => 'green',
-					'data' => $jml_ditanggapi
+					'data' => $jml_ditangani
 				]
 			]
 		];

@@ -528,6 +528,12 @@ class Dashboard_model extends CI_Model
 			ELSE
 			sum( tb_aduan.stat_tanggap)
 		END AS jml_ditanggapi,
+		CASE tb_aduan.stat_tangani
+			WHEN 1 THEN
+				sum( tb_aduan.stat_tangani)
+			ELSE
+			sum( tb_aduan.stat_tangani)
+		END AS jml_ditangani,
 		kabkota.kd_balai
 		');
 		$this->db->from('tb_aduan');
@@ -558,6 +564,12 @@ class Dashboard_model extends CI_Model
 			ELSE
 				sum( tb_aduan.stat_tanggap)
 		END AS jml_ditanggapi,
+		CASE tb_aduan.stat_tangani
+			WHEN 1 THEN
+				sum( tb_aduan.stat_tangani)
+			ELSE
+				sum( tb_aduan.stat_tangani)
+		END AS jml_ditangani,
 		kabkota.kd_balai
 		');
 		$this->db->from('tb_aduan');
