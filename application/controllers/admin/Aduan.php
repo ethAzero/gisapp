@@ -238,14 +238,27 @@ class Aduan extends CI_Controller
 			$date = new DateTime();
 			$a = $date->getTimestamp();
 			$b = date('Y-m-d H:i:s', $a);
-			$data = array(
-				'id_aduan' => $id,
-				'kewenangan'	=> $i->post('kewenangan'),
-				'tanggapan'		=> $i->post('tanggapan'),
-				'stat_tanggap'	=> 1,
-				'tanggap_at' 	=> $b,
-				'kd_jalan'	=> $i->post('id_ruas'),
-			);
+			if ($i->post('kewenangan') == 1) {
+				$data = array(
+					'id_aduan' => $id,
+					'kewenangan'	=> $i->post('kewenangan'),
+					'tanggapan'		=> $i->post('tanggapan'),
+					'stat_tanggap'	=> 1,
+					'tanggap_at' 	=> $b,
+					'kd_jalan'	=> $i->post('id_ruas'),
+				);
+			} else if ($i->post('kewenangan') == 2) {
+				$data = array(
+					'id_aduan' => $id,
+					'kewenangan'	=> $i->post('kewenangan'),
+					'tanggapan'		=> $i->post('tanggapan'),
+					'stat_tanggap'	=> 1,
+					'stat_tangani'	=> 1,
+					'tanggap_at' 	=> $b,
+					'tangani_at' 	=> $b,
+					'kd_jalan'	=> $i->post('id_ruas'),
+				);
+			}
 			$this->aduan_model->addtanggap($data);
 			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
 			redirect(base_url('admin/aduan'));

@@ -14,10 +14,12 @@ class Dashboard extends CI_Controller
 	{
 		$list = $this->dashboard_model->listbalai();
 		$jmlAduanByChannel = $this->dashboard_model->jmlAduanByChannel();
+		$listbidangbalai = $this->dashboard_model->listbidangbalai();
 		// print_r($list);exit();
 		$data = array(
 			'title' 		=> 'Dashboard',
 			'list'		=> $list,
+			'listbidangbalai'		=> $listbidangbalai,
 			'jmlAduanByChannel' => $jmlAduanByChannel,
 			'isi' 		=> 'admin/dashboard/list'
 		);

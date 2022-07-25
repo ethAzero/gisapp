@@ -10,6 +10,31 @@
 	</section>
 
 	<section class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<div class="col-md-6">
+							<label>Filter By : Bidang / Balai </label>
+							<select name="bidangbalai" id="chanel" class="form-control select2" style="width: 100%;">
+								<option value="ALL">Dinas Perhubungan</option>
+								<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
+									<option value="<?php echo $bidangbalai->kd_balai ?>"><?php echo $bidangbalai->nm_balai ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<label>Filter By : Tahun </label>
+							<select name="bidangbalai" id="chanel" class="form-control select2" style="width: 100%;">
+								<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
+									<option value="<?php echo $bidangbalai->kd_balai ?>"><?php echo $bidangbalai->nm_balai ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<?php
 		$hakakses = $this->session->userdata('hakakses');
 		if ($hakakses != 'AJ' and $hakakses != 'JT' and $hakakses != 'LL' and $hakakses != 'PE' and $hakakses != '07') { ?>

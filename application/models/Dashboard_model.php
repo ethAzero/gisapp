@@ -585,4 +585,18 @@ class Dashboard_model extends CI_Model
 		$this->db->group_by('YEAR(created_at)');
 		return $this->db->get()->result();
 	}
+
+	public function listbidangbalai()
+	{
+		$this->db->where('kd_balai !=', '07');
+		$this->db->where('kd_balai !=', 'AJ');
+		$this->db->where('kd_balai !=', 'JT');
+		$this->db->where('kd_balai !=', 'LL');
+		$this->db->where('kd_balai !=', 'PE');
+		$this->db->where('kd_balai !=', 'AD');
+		$this->db->where('kd_balai !=', 'S');
+		$this->db->where('kd_balai !=', 'A');
+		$query = $this->db->get('balai');
+		return $query->result();
+	}
 }
