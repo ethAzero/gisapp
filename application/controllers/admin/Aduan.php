@@ -244,7 +244,9 @@ class Aduan extends CI_Controller
 					'kewenangan'	=> $i->post('kewenangan'),
 					'tanggapan'		=> $i->post('tanggapan'),
 					'stat_tanggap'	=> 1,
+					'stat_tangani'	=> 0,
 					'tanggap_at' 	=> $b,
+					'tangani_at' 	=> null,
 					'kd_jalan'	=> $i->post('id_ruas'),
 				);
 			} else if ($i->post('kewenangan') == 2) {

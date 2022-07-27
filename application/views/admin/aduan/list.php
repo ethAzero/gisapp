@@ -74,10 +74,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                  echo "Dibaca : <i class=\"fa fa-check text-green\"></i><br>";
                               } ?>
                               <?php if ($list->stat_tanggap == 0) {
-                                 echo "Ditanggapi : <i class=\"fa fa-times text-red\" aria-hidden=\"true\"></i>";
+                                 echo "Ditanggapi : <i class=\"fa fa-times text-red\" aria-hidden=\"true\"></i><br>";
                               } else {
-                                 echo "Ditanggapi : <i class=\"fa fa-check text-green\"></i>";
+                                 echo "Ditanggapi : <i class=\"fa fa-check text-green\"></i><br>";
                               } ?>
+                              <?php
+                              if ($list->stat_tangani == 0) {
+                                 echo "Ditangani : <i class=\"fa fa-times text-red\"></i>";
+                              } else if ($list->stat_tangani == 1) {
+                                 echo "Ditangani : <i class=\"fa fa-check text-green\"></i>";
+                              }
+                              ?>
                            </td>
                            <td style="text-align:center;width:100px">
                               <?php

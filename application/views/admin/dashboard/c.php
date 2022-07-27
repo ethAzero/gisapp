@@ -4,21 +4,19 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>AdminLTE 2 | Timeline</title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
 
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-
-    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
 
 
     <!--[if lt IE 9]>
@@ -27,7 +25,9 @@
   <![endif]-->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <script nonce="f619cc22-d402-4049-a63b-3d5ebaab9a95">
+    <script type="text/javascript" src="/86AAF7CD-A199-463A-BEEF-AEE7400B3F0D/main.js?attr=NZihIbq6OCeZZRbxSnFMFmsnqdtmgAuqLwNmB6JFBkr0nbaYHwx-gt3X_gPGUlFMkf7acCBsGBiQRTyp931Y0qCdMUMsaVqI6ClBxazHc6Q" charset="UTF-8"></script>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=RbHxHrKhr2o4vCC_7DZL30Li7ydfA36AhGguUQJQtxNRHM6fM5DVP42mKfg4-cfQscCOs5FGWA5ttfyWQIljbqKAj5lXodXgctBauVmnqyo" charset="UTF-8"></script>
+    <script nonce="d90253ff-6f2b-4147-849e-164976cba029">
         (function(w, d) {
             ! function(a, e, t, r) {
                 a.zarazData = a.zarazData || {};
@@ -88,7 +88,7 @@
     <div class="wrapper">
         <header class="main-header">
 
-            <a href="index2.html" class="logo">
+            <a href="../../index2.html" class="logo">
 
                 <span class="logo-mini"><b>A</b>LT</span>
 
@@ -99,8 +99,10 @@
 
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </a>
-
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
 
@@ -117,7 +119,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                    <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -130,7 +132,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                                    <img src="../../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
                                                     AdminLTE Design Team
@@ -142,7 +144,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                                                    <img src="../../dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
                                                     Developers
@@ -154,7 +156,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                                    <img src="../../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
                                                     Sales Department
@@ -166,7 +168,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                                                    <img src="../../dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
                                                 </div>
                                                 <h4>
                                                     Reviewers
@@ -299,13 +301,13 @@
 
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 <span class="hidden-xs">Alexander Pierce</span>
                             </a>
                             <ul class="dropdown-menu">
 
                                 <li class="user-header">
-                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                                     <p>
                                         Alexander Pierce - Web Developer
                                         <small>Member since Nov. 2012</small>
@@ -352,7 +354,7 @@
 
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p>Alexander Pierce</p>
@@ -364,8 +366,7 @@
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                                <i class="fa fa-search"></i>
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                             </button>
                         </span>
                     </div>
@@ -374,7 +375,7 @@
 
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active treeview menu-open">
+                    <li class="treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             <span class="pull-right-container">
@@ -382,8 +383,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                            <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                            <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -395,14 +396,14 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                            <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+                            <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+                            <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+                            <li><a href="../layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
+                        <a href="../widgets.html">
                             <i class="fa fa-th"></i> <span>Widgets</span>
                             <span class="pull-right-container">
                                 <small class="label pull-right bg-green">new</small>
@@ -418,13 +419,13 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                            <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+                            <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
+                            <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
+                            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    <li class="treeview active">
                         <a href="#">
                             <i class="fa fa-laptop"></i>
                             <span>UI Elements</span>
@@ -433,12 +434,12 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                            <li><a href="general.html"><i class="fa fa-circle-o"></i> General</a></li>
+                            <li><a href="icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+                            <li><a href="buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+                            <li><a href="sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+                            <li class="active"><a href="timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
+                            <li><a href="modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -449,9 +450,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                            <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
+                            <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
+                            <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -462,12 +463,12 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+                            <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+                            <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="pages/calendar.html">
+                        <a href="../calendar.html">
                             <i class="fa fa-calendar"></i> <span>Calendar</span>
                             <span class="pull-right-container">
                                 <small class="label pull-right bg-red">3</small>
@@ -476,7 +477,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="pages/mailbox/mailbox.html">
+                        <a href="../mailbox/mailbox.html">
                             <i class="fa fa-envelope"></i> <span>Mailbox</span>
                             <span class="pull-right-container">
                                 <small class="label pull-right bg-yellow">12</small>
@@ -493,15 +494,15 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                            <li><a href="../examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                            <li><a href="../examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+                            <li><a href="../examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+                            <li><a href="../examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+                            <li><a href="../examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+                            <li><a href="../examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                            <li><a href="../examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+                            <li><a href="../examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                            <li><a href="../examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -551,686 +552,163 @@
 
             <section class="content-header">
                 <h1>
-                    Dashboard
-                    <small>Version 2.0</small>
+                    Timeline
+                    <small>example</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Dashboard</li>
+                    <li><a href="#">UI</a></li>
+                    <li class="active">Timeline</li>
                 </ol>
             </section>
 
             <section class="content">
 
                 <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">CPU Traffic</span>
-                                <span class="info-box-number">90<small>%</small></span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Likes</span>
-                                <span class="info-box-number">41,410</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="clearfix visible-sm-block"></div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Sales</span>
-                                <span class="info-box-number">760</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">New Members</span>
-                                <span class="info-box-number">2,000</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="row">
                     <div class="col-md-12">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Monthly Recap Report</h3>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                    </button>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-wrench"></i></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Action</a></li>
-                                            <li><a href="#">Another action</a></li>
-                                            <li><a href="#">Something else here</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">Separated link</a></li>
-                                        </ul>
+
+                        <ul class="timeline">
+
+                            <li class="time-label">
+                                <span class="bg-red">
+                                    10 Feb. 2014
+                                </span>
+                            </li>
+
+
+                            <li>
+                                <i class="fa fa-envelope bg-blue"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                                    <div class="timeline-body">
+                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                        quora plaxo ideeli hulu weebly balihoo...
                                     </div>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                    <div class="timeline-footer">
+                                        <a class="btn btn-primary btn-xs">Read more</a>
+                                        <a class="btn btn-danger btn-xs">Delete</a>
+                                    </div>
                                 </div>
-                            </div>
+                            </li>
 
 
+                            <li>
+                                <i class="fa fa-user bg-aqua"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                                    <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                                </div>
+                            </li>
 
-                        </div>
 
+                            <li>
+                                <i class="fa fa-comments bg-yellow"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                                    <div class="timeline-body">
+                                        Take me to your leader!
+                                        Switzerland is small and neutral!
+                                        We are more like Germany, ambitious and misunderstood!
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                            <li class="time-label">
+                                <span class="bg-green">
+                                    3 Jan. 2014
+                                </span>
+                            </li>
+
+
+                            <li>
+                                <i class="fa fa-camera bg-purple"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                                    <div class="timeline-body">
+                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                    </div>
+                                </div>
+                            </li>
+
+
+                            <li>
+                                <i class="fa fa-video-camera bg-maroon"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 5 days ago</span>
+                                    <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+                                    <div class="timeline-body">
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" frameborder="0" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <a href="#" class="btn btn-xs bg-maroon">See comments</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <i class="fa fa-clock-o bg-gray"></i>
+                            </li>
+                        </ul>
                     </div>
 
                 </div>
 
-
-                <div class="row">
-
-                    <div class="col-md-8">
-
-                        <div class="box box-success">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Visitors Report</h3>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                </div>
-                            </div>
-
-                            <div class="box-body no-padding">
-                                <div class="row">
-                                    <div class="col-md-9 col-sm-8">
-                                        <div class="pad">
-
-                                            <div id="world-map-markers" style="height: 325px;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 col-sm-4">
-                                        <div class="pad box-pane-right bg-green" style="min-height: 280px">
-                                            <div class="description-block margin-bottom">
-                                                <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
-                                                <h5 class="description-header">8390</h5>
-                                                <span class="description-text">Visits</span>
-                                            </div>
-
-                                            <div class="description-block margin-bottom">
-                                                <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                                                <h5 class="description-header">30%</h5>
-                                                <span class="description-text">Referrals</span>
-                                            </div>
-
-                                            <div class="description-block">
-                                                <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                                                <h5 class="description-header">70%</h5>
-                                                <span class="description-text">Organic</span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-
-                                <div class="box box-warning direct-chat direct-chat-warning">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Direct Chat</h3>
-                                        <div class="box-tools pull-right">
-                                            <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
-                                                <i class="fa fa-comments"></i></button>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="box-body">
-
-                                        <div class="direct-chat-messages">
-
-                                            <div class="direct-chat-msg">
-                                                <div class="direct-chat-info clearfix">
-                                                    <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                                                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                                                </div>
-
-                                                <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
-
-                                                <div class="direct-chat-text">
-                                                    Is this template really for free? That's unbelievable!
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="direct-chat-msg right">
-                                                <div class="direct-chat-info clearfix">
-                                                    <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                                                    <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                                                </div>
-
-                                                <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
-
-                                                <div class="direct-chat-text">
-                                                    You better believe it!
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="direct-chat-msg">
-                                                <div class="direct-chat-info clearfix">
-                                                    <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                                                    <span class="direct-chat-timestamp pull-right">23 Jan 5:37 pm</span>
-                                                </div>
-
-                                                <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
-
-                                                <div class="direct-chat-text">
-                                                    Working with AdminLTE on a great new app! Wanna join?
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="direct-chat-msg right">
-                                                <div class="direct-chat-info clearfix">
-                                                    <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                                                    <span class="direct-chat-timestamp pull-left">23 Jan 6:10 pm</span>
-                                                </div>
-
-                                                <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
-
-                                                <div class="direct-chat-text">
-                                                    I would love to.
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="direct-chat-contacts">
-                                            <ul class="contacts-list">
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Image">
-                                                        <div class="contacts-list-info">
-                                                            <span class="contacts-list-name">
-                                                                Count Dracula
-                                                                <small class="contacts-list-date pull-right">2/28/2015</small>
-                                                            </span>
-                                                            <span class="contacts-list-msg">How have you been? I was...</span>
-                                                        </div>
-
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Image">
-                                                        <div class="contacts-list-info">
-                                                            <span class="contacts-list-name">
-                                                                Sarah Doe
-                                                                <small class="contacts-list-date pull-right">2/23/2015</small>
-                                                            </span>
-                                                            <span class="contacts-list-msg">I will be waiting for...</span>
-                                                        </div>
-
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Image">
-                                                        <div class="contacts-list-info">
-                                                            <span class="contacts-list-name">
-                                                                Nadia Jolie
-                                                                <small class="contacts-list-date pull-right">2/20/2015</small>
-                                                            </span>
-                                                            <span class="contacts-list-msg">I'll call you back at...</span>
-                                                        </div>
-
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Image">
-                                                        <div class="contacts-list-info">
-                                                            <span class="contacts-list-name">
-                                                                Nora S. Vans
-                                                                <small class="contacts-list-date pull-right">2/10/2015</small>
-                                                            </span>
-                                                            <span class="contacts-list-msg">Where is your new...</span>
-                                                        </div>
-
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Image">
-                                                        <div class="contacts-list-info">
-                                                            <span class="contacts-list-name">
-                                                                John K.
-                                                                <small class="contacts-list-date pull-right">1/27/2015</small>
-                                                            </span>
-                                                            <span class="contacts-list-msg">Can I take a look at...</span>
-                                                        </div>
-
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Image">
-                                                        <div class="contacts-list-info">
-                                                            <span class="contacts-list-name">
-                                                                Kenneth M.
-                                                                <small class="contacts-list-date pull-right">1/4/2015</small>
-                                                            </span>
-                                                            <span class="contacts-list-msg">Never mind I found...</span>
-                                                        </div>
-
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="box-footer">
-                                        <form action="#" method="post">
-                                            <div class="input-group">
-                                                <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-warning btn-flat">Send</button>
-                                                </span>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="box box-danger">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Latest Members</h3>
-                                        <div class="box-tools pull-right">
-                                            <span class="label label-danger">8 New Members</span>
-                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="box-body no-padding">
-                                        <ul class="users-list clearfix">
-                                            <li>
-                                                <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">Alexander Pierce</a>
-                                                <span class="users-list-date">Today</span>
-                                            </li>
-                                            <li>
-                                                <img src="dist/img/user8-128x128.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">Norman</a>
-                                                <span class="users-list-date">Yesterday</span>
-                                            </li>
-                                            <li>
-                                                <img src="dist/img/user7-128x128.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">Jane</a>
-                                                <span class="users-list-date">12 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="dist/img/user6-128x128.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">John</a>
-                                                <span class="users-list-date">12 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="dist/img/user2-160x160.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">Alexander</a>
-                                                <span class="users-list-date">13 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="dist/img/user5-128x128.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">Sarah</a>
-                                                <span class="users-list-date">14 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="dist/img/user4-128x128.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">Nora</a>
-                                                <span class="users-list-date">15 Jan</span>
-                                            </li>
-                                            <li>
-                                                <img src="dist/img/user3-128x128.jpg" alt="User Image">
-                                                <a class="users-list-name" href="#">Nadia</a>
-                                                <span class="users-list-date">15 Jan</span>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-
-                                    <div class="box-footer text-center">
-                                        <a href="javascript:void(0)" class="uppercase">View All Users</a>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="box box-info">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Latest Orders</h3>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                </div>
-                            </div>
-
-                            <div class="box-body">
-                                <div class="table-responsive">
-                                    <table class="table no-margin">
-                                        <thead>
-                                            <tr>
-                                                <th>Order ID</th>
-                                                <th>Item</th>
-                                                <th>Status</th>
-                                                <th>Popularity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                                <td>Call of Duty IV</td>
-                                                <td><span class="label label-success">Shipped</span></td>
-                                                <td>
-                                                    <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                                <td>Samsung Smart TV</td>
-                                                <td><span class="label label-warning">Pending</span></td>
-                                                <td>
-                                                    <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                                <td>iPhone 6 Plus</td>
-                                                <td><span class="label label-danger">Delivered</span></td>
-                                                <td>
-                                                    <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                                <td>Samsung Smart TV</td>
-                                                <td><span class="label label-info">Processing</span></td>
-                                                <td>
-                                                    <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                                <td>Samsung Smart TV</td>
-                                                <td><span class="label label-warning">Pending</span></td>
-                                                <td>
-                                                    <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                                <td>iPhone 6 Plus</td>
-                                                <td><span class="label label-danger">Delivered</span></td>
-                                                <td>
-                                                    <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                                <td>Call of Duty IV</td>
-                                                <td><span class="label label-success">Shipped</span></td>
-                                                <td>
-                                                    <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                            <div class="box-footer clearfix">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="info-box bg-yellow">
-                            <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Inventory</span>
-                                <span class="info-box-number">5,200</span>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: 50%"></div>
-                                </div>
-                                <span class="progress-description">
-                                    50% Increase in 30 Days
-                                </span>
-                            </div>
-
-                        </div>
-
-                        <div class="info-box bg-green">
-                            <span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Mentions</span>
-                                <span class="info-box-number">92,050</span>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: 20%"></div>
-                                </div>
-                                <span class="progress-description">
-                                    20% Increase in 30 Days
-                                </span>
-                            </div>
-
-                        </div>
-
-                        <div class="info-box bg-red">
-                            <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Downloads</span>
-                                <span class="info-box-number">114,381</span>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: 70%"></div>
-                                </div>
-                                <span class="progress-description">
-                                    70% Increase in 30 Days
-                                </span>
-                            </div>
-
-                        </div>
-
-                        <div class="info-box bg-aqua">
-                            <span class="info-box-icon"><i class="ion-ios-chatbubble-outline"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Direct Messages</span>
-                                <span class="info-box-number">163,921</span>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: 40%"></div>
-                                </div>
-                                <span class="progress-description">
-                                    40% Increase in 30 Days
-                                </span>
-                            </div>
-
-                        </div>
-
-                        <div class="box box-default">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Browser Usage</h3>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                </div>
-                            </div>
-
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="chart-responsive">
-                                            <canvas id="pieChart" height="150"></canvas>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <ul class="chart-legend clearfix">
-                                            <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
-                                            <li><i class="fa fa-circle-o text-green"></i> IE</li>
-                                            <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
-                                            <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
-                                            <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
-                                            <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li><a href="#">United States of America
-                                            <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
-                                    <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 4%</span></a>
-                                    </li>
-                                    <li><a href="#">China
-                                            <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-
-
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-12">
                         <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Recently Added Products</h3>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                </div>
+                            <div class="box-header">
+                                <h3 class="box-title"><i class="fa fa-code"></i> Timeline Markup</h3>
                             </div>
-
                             <div class="box-body">
-                                <ul class="products-list product-list-in-box">
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">Samsung TV
-                                                <span class="label label-warning pull-right">$1800</span></a>
-                                            <span class="product-description">
-                                                Samsung 32" 1080p 60Hz LED Smart HDTV.
-                                            </span>
-                                        </div>
-                                    </li>
+                                <pre style="font-weight: 600;">&lt;ul class="timeline">
 
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">Bicycle
-                                                <span class="label label-info pull-right">$700</span></a>
-                                            <span class="product-description">
-                                                26" Mongoose Dolomite Men's 7-speed, Navy Blue.
-                                            </span>
-                                        </div>
-                                    </li>
+    &lt;!-- timeline time label -->
+    &lt;li class="time-label">
+        &lt;span class="bg-red">
+            10 Feb. 2014
+        &lt;/span>
+    &lt;/li>
+    &lt;!-- /.timeline-label -->
 
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
-                                            <span class="product-description">
-                                                Xbox One Console Bundle with Halo Master Chief Collection.
-                                            </span>
-                                        </div>
-                                    </li>
+    &lt;!-- timeline item -->
+    &lt;li>
+        &lt;!-- timeline icon -->
+        &lt;i class="fa fa-envelope bg-blue">&lt;/i>
+        &lt;div class="timeline-item">
+            &lt;span class="time">&lt;i class="fa fa-clock-o">&lt;/i> 12:05&lt;/span>
 
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">PlayStation 4
-                                                <span class="label label-success pull-right">$399</span></a>
-                                            <span class="product-description">
-                                                PlayStation 4 500GB Console (PS4)
-                                            </span>
-                                        </div>
-                                    </li>
+            &lt;h3 class="timeline-header">&lt;a href="#">Support Team&lt;/a> ...&lt;/h3>
 
-                                </ul>
-                            </div>
+            &lt;div class="timeline-body">
+                ...
+                Content goes here
+            &lt;/div>
 
-                            <div class="box-footer text-center">
-                                <a href="javascript:void(0)" class="uppercase">View All Products</a>
+            &lt;div class="timeline-footer">
+                &lt;a class="btn btn-primary btn-xs">...&lt;/a>
+            &lt;/div>
+        &lt;/div>
+    &lt;/li>
+    &lt;!-- END timeline item -->
+
+    ...
+
+&lt;/ul>
+                  </pre>
                             </div>
 
                         </div>
@@ -1286,7 +764,7 @@
                                 <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
                                 <div class="menu-info">
                                     <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-                                    <p><span class="__cf_email__" data-cfemail="543a3b263514312c35392438317a373b39">[email&#160;protected]</span></p>
+                                    <p><span class="__cf_email__" data-cfemail="4927263b28092c31282439252c672a2624">[email&#160;protected]</span></p>
                                 </div>
                             </a>
                         </li>
@@ -1350,6 +828,9 @@
                     </ul>
 
                 </div>
+
+
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
 
 
                 <div class="tab-pane" id="control-sidebar-settings-tab">
@@ -1419,26 +900,15 @@
 
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script src="bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="../../bower_components/fastclick/lib/fastclick.js"></script>
 
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="../../dist/js/adminlte.min.js"></script>
 
-    <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-
-    <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-
-    <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-
-    <script src="bower_components/chart.js/Chart.js"></script>
-
-    <script src="dist/js/pages/dashboard2.js"></script>
-
-    <script src="dist/js/demo.js"></script>
+    <script src="../../dist/js/demo.js"></script>
 </body>
 
 </html>

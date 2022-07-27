@@ -12,13 +12,14 @@ class Aduan_model extends CI_Model
 	{
 		$hakakses = $this->session->userdata('hakakses');
 		$this->db->select('
-		tb_aduan.id_aduan,
+		tb_aduan.id_aduan AS id_aduan,
 		tb_aduan.aduan,
 		tb_aduan.id_kelurahan,
-		tb_aduan.created_at AS created_at,
+		tb_aduan.created_at,
 		tb_aduan.updated_at,
 		tb_aduan.read_at,
 		tb_aduan.tanggap_at,
+		tb_aduan.tangani_at,
 		tb_aduan.kewenangan,
 		tb_aduan.tanggapan,
 		tb_aduan.kd_jalan,
@@ -26,6 +27,8 @@ class Aduan_model extends CI_Model
 		tb_aduan.stat_read2,
 		tb_aduan.stat_readtanggap,
 		tb_aduan.stat_tanggap,
+		tb_aduan.stat_tangani,
+		tb_aduan.kd_jalan,
 		tb_kelurahan.id_kecamatan,
 		tb_kelurahan.nama AS nama_kelurahan,
 		tb_kelurahan.jenis,
@@ -35,7 +38,7 @@ class Aduan_model extends CI_Model
 		kabkota.nm_kabkota,
 		balai.nm_balai,
 		tb_aduan.id_chanel_aduan,
-		tb_chanel_aduan.chanel_aduan
+		tb_chanel_aduan.chanel_aduan,
 		');
 		$this->db->from('tb_aduan');
 		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
@@ -83,6 +86,7 @@ class Aduan_model extends CI_Model
 		tb_aduan.updated_at,
 		tb_aduan.read_at,
 		tb_aduan.tanggap_at,
+		tb_aduan.tangani_at,
 		tb_aduan.kewenangan,
 		tb_aduan.tanggapan,
 		tb_aduan.kd_jalan,
@@ -90,6 +94,7 @@ class Aduan_model extends CI_Model
 		tb_aduan.stat_read2,
 		tb_aduan.stat_readtanggap,
 		tb_aduan.stat_tanggap,
+		tb_aduan.stat_tangani,
 		tb_aduan.kd_jalan,
 		tb_kelurahan.id_kecamatan,
 		tb_kelurahan.nama AS nama_kelurahan,
