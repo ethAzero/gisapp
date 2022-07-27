@@ -61,13 +61,17 @@ class Aduan extends CI_Controller
 			};
 		}
 		$detail = $this->aduan_model->detail($id);
+		if ($detail->kd_jalan == 0) {
+		}
+		$jalan = $this->aduan_model->namaruas($detail->kd_jalan);
 		$data = array(
 			'title' 	=> 'Aduan Detail',
 			'detail' => $detail,
+			'jalan' => $jalan,
 			'isi'		=> 'admin/aduan/detail'
 		);
 		$this->load->view('admin/layout/wrapper', $data);
-		// echo json_encode($detail->kewenangan);
+		// echo json_encode($data);
 	}
 
 	public function listing()
@@ -173,7 +177,7 @@ class Aduan extends CI_Controller
 				'id_chanel_aduan' => $i->post('chanel'),
 				'aduan'		=> $i->post('aduan'),
 				'id_kelurahan'		=> $i->post('id_desa'),
-				'stat_read'	=> 0
+				'stat_read1'	=> 0
 			);
 			$this->aduan_model->edit($data);
 			$this->session->set_flashdata('sukses', 'Berhasil diubah');

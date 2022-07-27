@@ -47,143 +47,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <br></br>
       <div class="row">
          <div class="col-md-12">
-            <div class="box box-widget widget-user-2">
-               <div class="box-header with-border">
-                  <div class="widget-user-header">
-                     <div class="col-md-10">
-                        <?php
-                        if ($detail->id_chanel_aduan == 1) {
-                           $fa = "fa-warning";
-                           $fatext = "text-yellow";
-                        } else if ($detail->id_chanel_aduan == 2) {
-                           $fa = "fa-instagram";
-                           $fatext = "text-red";
-                        } else if ($detail->id_chanel_aduan == 3) {
-                           $fa = "fa-whatsapp";
-                           $fatext = "text-green";
-                        } else {
-                           $fa = "fa-twitter";
-                           $fatext = "text-blue";
-                        };
-                        ?>
-                        <h3 class="widget-user-username"><i class="fa fa-brand <?= $fa . ' ' . $fatext ?>" style="padding-right: 10px;"></i><label>Chanel <?= $detail->chanel_aduan; ?></label></h3>
-                     </div>
-                     <div class="col-md-2 align-self-center">
-                        <?php
-                        if ($this->session->userdata('hakakses') == '01' || $this->session->userdata('hakakses') == '02' || $this->session->userdata('hakakses') == '03' || $this->session->userdata('hakakses') == '04' || $this->session->userdata('hakakses') == '05' || $this->session->userdata('hakakses') == '06') { ?>
-                           <?php if ($detail->stat_tanggap != 1) {
-                              echo "<a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-warning\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Tanggapi\">Tanggapi</button></a> ";
-                           } else {
-                              echo "<a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-warning\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit Tanggapan\">Edit Tanggapan</button></a> ";
-                           }
-                           if ($detail->kewenangan == 1) {
-                              if ($detail->stat_tangani != 1) {
-                                 echo "<a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Tanggapi\">Tangani</button></a>";
-                              } else {
-                                 echo "<a href=\"" . base_url('admin/aduan/addtanggap/' . $detail->id_aduan) . "\"><button class=\"btn btn-xs btn-flat btn-success\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Edit Tanggapan\">Edit Penanganan</button></a>";
-                              }
-                           }
-                           ?>
-                        <?php } ?>
-                     </div>
-                     <table class="table table-condensed">
-                        <tr class="">
-                           <td width="20%">Tanggal Laporan</td>
-                           <td width="2%">:</td>
-                           <td widt="78%"><?= $detail->created_at; ?></td>
-                        </tr>
-                        <tr class="">
-                           <td width="20%">Dibaca</td>
-                           <td width="2%">:</td>
-                           <td widt="78%">
-                              <?php
-                              if ($detail->stat_read1 == 0) {
-                                 echo "<i class=\"fa fa-times text-red\"></i>";
-                              } else {
-                                 echo $detail->read_at . " <i class=\"fa fa-check text-green\"></i>";
-                              }
-                              ?>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Ditanggapi</td>
-                           <td>:</td>
-                           <td>
-                              <?php
-                              if ($detail->stat_tanggap == 0) {
-                                 echo "<i class=\"fa fa-times text-red\"></i>";
-                              } else {
-                                 echo $detail->tanggap_at . " <i class=\"fa fa-check text-green\"></i>";
-                              }
-                              ?>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Status Kewenangan</td>
-                           <td>:</td>
-                           <td>
-                              <?php
-                              if ($detail->kewenangan == 0) {
-                                 echo "<i class=\"fa fa-times text-red\"></i>";
-                              } else if ($detail->kewenangan == 1) {
-                                 echo "Kewenangan <i class=\"fa fa-check text-green\"></i>";
-                              } else {
-                                 echo "Bukan Kewenangan <i class=\"fa fa-times text-red\"></i>";
-                              }
-                              ?>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Ditangani</td>
-                           <td>:</td>
-                           <td>
-                              <?php
-                              if ($detail->stat_tangani == 0) {
-                                 echo "<i class=\"fa fa-times text-red\"></i>";
-                              } else {
-                                 echo $detail->tangani_at . " <i class=\"fa fa-check text-green\"></i>";
-                              }
-                              ?>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>Lokasi</td>
-                           <td>:</td>
-                           <td><?= $detail->jenis . ' ' . $detail->nama_kelurahan . ' Kec. ' . $detail->nama_kecamatan . ' Kab. ' . $detail->nm_kabkota; ?></td>
-                        </tr>
-                        <tr>
-                           <td>Wilayah Kerja</td>
-                           <td>:</td>
-                           <td><?= $detail->nm_balai; ?></td>
-                        </tr>
-                     </table>
-                  </div>
-               </div>
-               <div class="box-footer">
-                  <h4><label> Isi Aduan</label></h3>
-                     <?= $detail->aduan; ?>
-               </div>
-               <div class="box-footer">
-                  <h4><label>Tanggapan </label></h3>
-                     <?php
-                     if ($detail->stat_tanggap == 0) {
-                        echo "<span>Belum Ditanggapi </span><i class=\"fa fa-times text-red\"></i>";
-                     } else {
-                        echo $detail->tanggapan; //ganti isi tanggapan
-                     }
-                     ?>
-               </div>
-               <div class="box-footer">
-                  <h4><label>Penanganan </label></h3>
-                     <?php
-                     if ($detail->stat_tanggap == 0) {
-                        echo "<span>Belum Penanganan </span><i class=\"fa fa-times text-red\"></i>";
-                     } else {
-                        echo $detail->tanggapan; //ganti isi tanggapan
-                     }
-                     ?>
-               </div>
-            </div>
+
             <div class="row">
                <div class="col-md-12">
                   <ul class="timeline">
@@ -249,37 +113,192 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <?php
                      if ($detail->stat_tanggap == 0) { ?>
                         <li class="time-label">
-                           <span class="bg-orange">
+                           <span class="bg-red">
                               Aduan Belum Divalidasi
                            </span>
                         </li>
+                        <?php if (
+                           $this->session->userdata('hakakses') == '01' ||
+                           $this->session->userdata('hakakses') == '02' ||
+                           $this->session->userdata('hakakses') == '03' ||
+                           $this->session->userdata('hakakses') == '04' ||
+                           $this->session->userdata('hakakses') == '05' ||
+                           $this->session->userdata('hakakses') == '06'
+                        ) { ?>
+                           <li>
+                              <i class="fa fa-plus bg-aqua"></i>
+                              <div class="timeline-item">
+                                 <span class="time"><i class="fa fa-exclamation-circle"></i> klik text disamping</span>
+                                 <h3 class="timeline-header"><a href="<?= base_url('admin/aduan/addtanggap/' . $detail->id_aduan) ?>">Validasi Sekarang!</a></h3>
+                              </div>
+                           </li>
+                        <?php } ?>
                      <?php } else if ($detail->stat_tanggap == 1) { ?>
                         <li class="time-label">
                            <span class="bg-orange">
                               Divalidasi <?= date('d F Y', strtotime($detail->tanggap_at)); ?>
                            </span>
                         </li>
-                     <?php } ?>
-                     <li>
-                        <i class="fa fa-camera bg-purple"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-                           <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                           <div class="timeline-body">
-
+                        <!-- Tanggapan -->
+                        <li>
+                           <i class="fa fa-reply bg-purple"></i>
+                           <div class="timeline-item">
+                              <span class="time"><i class="fa fa-clock-o"></i> <?= date('H:i:s', strtotime($detail->tanggap_at)); ?></span>
+                              <h3 class="timeline-header"><a href="#">Tanggapan</a></h3>
+                              <div class="timeline-body">
+                                 <?= $detail->tanggapan; ?>
+                              </div>
                            </div>
-                        </div>
-                     </li>
-                     <li>
-                        <i class="fa fa-clock-o bg-gray"></i>
-                     </li>
+                        </li>
+                        <!-- Kewenangan -->
+                        <li>
+                           <?php if ($detail->kewenangan == 1) { ?>
+                              <i class="fa fa-check bg-green"></i>
+                              <div class="timeline-item">
+                                 <h3 class="timeline-header"><a href="#">Kewenangan</a></h3>
+                              </div>
+                           <?php } else if ($detail->kewenangan == 2) { ?>
+                              <i class="fa fa-times bg-red"></i>
+                              <div class="timeline-item">
+                                 <h3 class="timeline-header"><a href="#">Bukan Kewenangan</a></h3>
+                              </div>
+                           <?php } ?>
+                        </li>
+                        <!-- lokasi -->
+                        <li>
+                           <i class="fa fa-map-marker bg-red"></i>
+                           <div class="timeline-item">
+                              <h3 class="timeline-header"><a href="#">Lokasi Aduan</a></h3>
+                              <div class="timeline-body">
+                                 <?php if ($detail->kewenangan == 1) { ?>
+                                    Kode Ruas Jalan : <?= $jalan->kd_jalan; ?> <br>
+                                    Ruas Jalan Provinsi : <?= $jalan->nm_ruas; ?> <br>
+                                 <?php } ?>
+
+                                 <?= $detail->jenis . ' ' . $detail->nama_kelurahan . ' Kec. ' . $detail->nama_kecamatan . ' Kab. ' . $detail->nm_kabkota; ?>
+                              </div>
+                           </div>
+                        </li>
+                        <li>
+                           <i class="fa fa-home bg-maroon"></i>
+                           <div class="timeline-item">
+                              <h3 class="timeline-header"><a href="#">Wilayah Kerja</a></h3>
+                              <div class="timeline-body">
+                                 <?= $detail->nm_balai; ?>
+                              </div>
+                           </div>
+                        </li>
+                        <?php if (
+                           $this->session->userdata('hakakses') == '01' ||
+                           $this->session->userdata('hakakses') == '02' ||
+                           $this->session->userdata('hakakses') == '03' ||
+                           $this->session->userdata('hakakses') == '04' ||
+                           $this->session->userdata('hakakses') == '05' ||
+                           $this->session->userdata('hakakses') == '06'
+                        ) { ?>
+                           <li>
+                              <i class="fa fa-pencil bg-aqua"></i>
+                              <div class="timeline-item">
+                                 <span class="time"><i class="fa fa-exclamation-circle"></i> klik text disamping</span>
+                                 <h3 class="timeline-header"><a href="<?= base_url('admin/aduan/addtanggap/' . $detail->id_aduan) ?>">Edit Validasi</a></h3>
+                              </div>
+                           </li>
+                        <?php } ?>
+                        <!-- awal aduan Ditangani -->
+                        <?php
+                        if ($detail->stat_tangani == 0) { ?>
+                           <li class="time-label">
+                              <span class="bg-red">
+                                 Aduan Belum Ditangani
+                              </span>
+                           </li>
+                           <?php if (
+                              $this->session->userdata('hakakses') == '01' ||
+                              $this->session->userdata('hakakses') == '02' ||
+                              $this->session->userdata('hakakses') == '03' ||
+                              $this->session->userdata('hakakses') == '04' ||
+                              $this->session->userdata('hakakses') == '05' ||
+                              $this->session->userdata('hakakses') == '06'
+                           ) { ?>
+                              <li>
+                                 <i class="fa fa-pencil bg-aqua"></i>
+                                 <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-exclamation-circle"></i> klik text disamping</span>
+                                    <h3 class="timeline-header"><a href="<?= base_url('admin/aduan/addtangani/' . $detail->id_aduan) ?>">Tangani Sekarang!</a></h3>
+                                 </div>
+                              </li>
+                           <?php } ?>
+                        <?php } else if ($detail->stat_tangani == 1) { ?>
+                           <li class="time-label">
+                              <span class="bg-green">
+                                 Ditangani <?= date('d F Y', strtotime($detail->tangani_at)); ?>
+                              </span>
+                           </li>
+                           <?php if ($detail->kewenangan == 1) { ?>
+                              <!-- Tanggapan -->
+                              <li>
+                                 <i class="fa fa-reply bg-purple"></i>
+                                 <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> <?= date('H:i:s', strtotime($detail->tangani_at)); ?></span>
+                                    <h3 class="timeline-header"><a href="#">Penanganan</a></h3>
+                                    <div class="timeline-body">
+                                       <?= $detail->tanggapan; ?>
+                                    </div>
+                                 </div>
+                              </li>
+                              <!-- Detail Penanganan-->
+                              <li>
+                                 <i class="fa fa-camera bg-purple"></i>
+                                 <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                                    <h3 class="timeline-header"><a href="#">Detail Penanganan</a></h3>
+                                    <div class="timeline-body">
+                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                    </div>
+                                 </div>
+                              </li>
+                              <li>
+                                 <i class="fa fa-check bg-green"></i>
+                                 <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> <?= date('H:i:s', strtotime($detail->tangani_at)); ?></span>
+                                    <h3 class="timeline-header"><a href="#">Sudah Ditangani</a></h3>
+                                 </div>
+                              </li>
+                              <?php if (
+                                 $this->session->userdata('hakakses') == '01' ||
+                                 $this->session->userdata('hakakses') == '02' ||
+                                 $this->session->userdata('hakakses') == '03' ||
+                                 $this->session->userdata('hakakses') == '04' ||
+                                 $this->session->userdata('hakakses') == '05' ||
+                                 $this->session->userdata('hakakses') == '06'
+                              ) { ?>
+                                 <li>
+                                    <i class="fa fa-pencil bg-aqua"></i>
+                                    <div class="timeline-item">
+                                       <span class="time"><i class="fa fa-exclamation-circle"></i> klik text disamping</span>
+                                       <h3 class="timeline-header"><a href="<?= base_url('admin/aduan/edittangani/' . $detail->id_aduan) ?>">Edit Penanganan</a></h3>
+                                    </div>
+                                 </li>
+                              <?php } ?>
+                           <?php } else if ($detail->kewenangan == 2) { ?>
+                              <li>
+                                 <i class="fa fa-check bg-green"></i>
+                                 <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> <?= date('H:i:s', strtotime($detail->tangani_at)); ?></span>
+                                    <h3 class="timeline-header"><a href="#">Sudah Ditangani</a></h3>
+                                 </div>
+                              </li>
+                           <?php } ?>
+                        <?php } ?>
+                     <?php } ?>
                   </ul>
                </div>
             </div>
-
-
-
-
+         </div>
+      </div>
    </section>
 
 </div>

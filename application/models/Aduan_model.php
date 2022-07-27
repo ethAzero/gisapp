@@ -144,4 +144,12 @@ class Aduan_model extends CI_Model
 
 		return $query->result();
 	}
+
+	public function namaruas($kd_jalan)
+	{
+		$this->db->select('*');
+		$this->db->from('jalan');
+		$this->db->where('kd_jalan', $kd_jalan);
+		return $this->db->get()->row();
+	}
 }
