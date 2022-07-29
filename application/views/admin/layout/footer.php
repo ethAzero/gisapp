@@ -10,6 +10,20 @@
 
       </html>
       <script type="text/javascript">
+         function loader(id1, id2) {
+            $(id1).html('<center><img width=\'50px\' height=\'50px\' src="<?= base_url('assets/admin/img/loaders1.gif'); ?>" /> <br />Memuat Data...</center>');
+            $(id2).html('<center><img width=\'50px\' height=\'50px\' src="<?= base_url('assets/admin/img/loaders1.gif'); ?>" /> <br />Memuat Data...</center>');
+         }
+
+         function removeLoader(id1, id2) {
+            $(id1).html("");
+            $(id2).html("");
+         }
+
+         let tahunVal = () => $('#tahun').val();
+         let bidangbalaiVal = () => $('#bidangbalai').val();
+
+
          $(document).ready(function() {
             $(".gallery").latae({
                loader: '<?php echo base_url() ?>assets/admin/img/loader.gif',
@@ -33,11 +47,84 @@
             });
             $(".select2").select2();
 
+            getDataFilter(tahunVal(), bidangbalaiVal());
             jml_notif_unread();
             setInterval(jml_notif_unread, 1000);
-            chartbulan();
             charttahun();
          });
+
+
+         function getDataFilter(tahun, bidangbalai) {
+            $.ajax({
+               type: "GET",
+               url: "<?= base_url('/admin/dashboard/getDataFilter') ?>",
+               data: {
+                  tahunVal: tahun,
+                  bidangbalaiVal: bidangbalai
+               },
+               dataType: "json",
+               beforeSend: function() {
+                  $('#loader1').html("");
+                  $('#loader2').html("");
+                  loader("#loader1", "#loader2");
+               },
+               success: function(data) {
+                  // alert(data.chartbulan.length);
+                  let aduanbychanel = $('#aduanbychanel');
+                  let aduanbulanan = $('#tidakada');
+                  aduanbychanel.html('');
+                  aduanbulanan.html('');
+
+                  let chartStatus = Chart.getChart("chartMonthly");
+                  if (chartStatus != undefined) {
+                     chartStatus.destroy();
+                  }
+                  var chartCanvas = $('#chartMonthly'); //<canvas> id
+                  chartInstance = new Chart(chartCanvas, config = {
+                     type: 'line',
+                     data: data.chartbulan,
+                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        aspectRatio: 4,
+                        plugins: {
+                           legend: {
+                              position: 'bottom',
+                           }
+                        }
+                     }
+                  }, );
+
+                  if (data.chanel.length != 0) {
+                     for (let i = 0; i <= data.chanel.length; ++i) {
+                        let fa;
+                        let $fatext;
+                        if (data.chanel[i].id_chanel_aduan == 1) {
+                           fa = "fa-warning";
+                           bgcolor = "bg-yellow";
+                        } else if (data.chanel[i].id_chanel_aduan == 2) {
+                           fa = "fa-instagram";
+                           bgcolor = "bg-red";
+                        } else if (data.chanel[i].id_chanel_aduan == 3) {
+                           fa = "fa-whatsapp";
+                           bgcolor = "bg-green";
+                        } else {
+                           fa = "fa-twitter";
+                           bgcolor = "bg-blue";
+                        };
+                        aduanbychanel.append('<div class = \'col-md-3 col-sm-6 col-xs-12\'> <div class = \'info-box\'> <span class = \"info-box-icon ' + bgcolor + '\" > <i class = "fa fa-brand ' + fa + '\"></i></span> <div class = \'info-box-content\'> <span class = \'info-box-text\'>' + data.chanel[i].chanel_aduan + '</span> <span class = \'info-box-number\'>' + data.chanel[i].jml_aduan + '<small> Aduan</small></span> </div > </div> </div >');
+                        removeLoader("#loader1", "#loader2");
+                     };
+                  } else {
+                     aduanbychanel.append('<div class =\'col-md-12 col-sm-12 col-xs-12\'><div class =\'info-box\'> <center style=\'padding-top:35px\'><i class=\'fa fa-info fa-solid text-red\'> Tidak Ada Data Aduan</i></center></div></div><br>');
+                     //aduanbulanan.height('300px');
+                     aduanbulanan.html('<div class =\'col-md-12 col-sm-12 col-xs-12\' style=\'position:absolute; padding-top:130px;\'><center><i class=\'fa fa-info fa-solid text-red\'> Tidak Ada Data Aduan</i></center></div>');
+                     removeLoader("#loader1", "#loader2");
+                  };
+                  //chartbulanfilter(data.chartbulan);
+               },
+            })
+         }
 
          function jml_notif_unread() {
             hakakses = "<?= $this->session->userdata('hakakses'); ?>";
@@ -96,32 +183,7 @@
                }
             });
          }
-         // function ChartAduanBulanan() 
-         let chartbulan = () => $.ajax({
-            url: "<?= base_url('/admin/dashboard/get_MonthlyChart') ?>",
-            type: 'GET',
-            dataType: 'json',
-            success: function(DataChart) {
-               const ChartAduanBulanan = new Chart(
-                  document.getElementById('chartMonthly'),
-                  config = {
-                     type: 'line',
-                     data: DataChart,
-                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        aspectRatio: 4,
-                        plugins: {
-                           legend: {
-                              position: 'bottom',
-                           }
-                        }
-                     }
-                  },
-               );
-            },
-         });
-         // function ChartAduanTahunan() 
+
          let charttahun = () => $.ajax({
             url: "<?= base_url('/admin/dashboard/get_YearlyChart') ?>",
             type: 'GET',

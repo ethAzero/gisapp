@@ -15,21 +15,41 @@
 				<div class="box box-primary">
 					<div class="box-header with-border">
 						<div class="col-md-6">
-							<label>Filter By : Bidang / Balai </label>
-							<select name="bidangbalai" id="chanel" class="form-control select2" style="width: 100%;">
-								<option value="ALL">Dinas Perhubungan</option>
-								<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
-									<option value="<?php echo $bidangbalai->kd_balai ?>"><?php echo $bidangbalai->nm_balai ?></option>
+							<label>Filter By : Tahun </label>
+							<select name="tahun" id="tahun" class="form-control select2" style="width: 100%;" onchange="getDataFilter(this.value,bidangbalaiVal())">
+								<?php foreach ($listtahun as $listtahun) : ?>
+									<?php if ($listtahun->Tahun == date("Y")) { ?>
+										<option value="<?php echo $listtahun->Tahun ?>" selected><?php echo $listtahun->Tahun ?></option>
+									<?php } else { ?>
+										<option value="<?php echo $listtahun->Tahun ?>"><?php echo $listtahun->Tahun ?></option>
+									<?php } ?>
 								<?php endforeach ?>
 							</select>
 						</div>
 						<div class="col-md-6">
-							<label>Filter By : Tahun </label>
-							<select name="bidangbalai" id="chanel" class="form-control select2" style="width: 100%;">
-								<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
-									<option value="<?php echo $bidangbalai->kd_balai ?>"><?php echo $bidangbalai->nm_balai ?></option>
-								<?php endforeach ?>
-							</select>
+							<label>Filter By : Balai </label>
+							<?php
+							$hakakses = $this->session->userdata('hakakses');
+							if ($hakakses == '01' || $hakakses == '02' || $hakakses == '03' || $hakakses == '04' || $hakakses == '05' || $hakakses == '06') {
+								$lock = 'disabled';
+							?>
+								<select name="bidangbalai" id="bidangbalai" class="form-control select2" style="width: 100%;" onchange="getDataFilter(tahunVal(),this.value)" <?= $lock; ?>>
+									<option value="all">Dinas Perhubungan</option>
+									<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
+										<option value="<?php echo $bidangbalai->kd_balai ?>" <?php if ($bidangbalai->kd_balai === $hakakses) {
+																									echo "selected";
+																								} ?>><?php echo $bidangbalai->nm_balai ?></option>
+									<?php endforeach ?>
+								</select>
+							<?php } else if ($hakakses == 'S' || $hakakses == 'A' || $hakakses == 'AD') { ?>
+								<select name="bidangbalai" id="bidangbalai" class="form-control select2" style="width: 100%;" onchange="getDataFilter(tahunVal(),this.value)">
+									<option value="all" selected>Dinas Perhubungan</option>
+									<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
+										<option value="<?php echo $bidangbalai->kd_balai ?>"><?php echo $bidangbalai->nm_balai ?></option>
+									<?php endforeach ?>
+								</select>
+							<?php }
+							?>
 						</div>
 					</div>
 				</div>
@@ -38,44 +58,21 @@
 		<?php
 		$hakakses = $this->session->userdata('hakakses');
 		if ($hakakses != 'AJ' and $hakakses != 'JT' and $hakakses != 'LL' and $hakakses != 'PE' and $hakakses != '07') { ?>
-			<div class="row">
-				<?php foreach ($jmlAduanByChannel as $key => $jmlAduanByChannel) : ?>
-					<?php
-					if ($jmlAduanByChannel->id_chanel_aduan == 1) {
-						$fa = "fa-warning";
-						$bgcolor = "bg-yellow";
-					} else if ($jmlAduanByChannel->id_chanel_aduan == 2) {
-						$fa = "fa-instagram";
-						$bgcolor = "bg-red";
-					} else if ($jmlAduanByChannel->id_chanel_aduan == 3) {
-						$fa = "fa-whatsapp";
-						$bgcolor = "bg-green";
-					} else {
-						$fa = "fa-twitter";
-						$bgcolor = "bg-blue";
-					};
-					?>
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="info-box">
-							<span class="info-box-icon <?= $bgcolor; ?>"><i class="fa fa-brand <?= $fa; ?>"></i></span>
-							<div class="info-box-content">
-								<span class="info-box-text"><?= $jmlAduanByChannel->chanel_aduan; ?></span>
-								<span class="info-box-number"><?= $jmlAduanByChannel->jml_aduan; ?><small> Aduan</small></span>
-							</div>
-						</div>
-					</div>
-				<?php endforeach ?>
+			<div id='loader1'></div>
+			<div class="row" id="aduanbychanel">
 			</div>
 			<div class="row">
 				<section class="col-lg-8 connectedSortable">
 					<div class="nav-tabs-custom">
 						<ul class="nav nav-tabs pull-right">
-							<li class="pull-left header"><i class="fa fa-inbox"></i> Rekapan Aduan Bulanan Pada Tahun <?= date('Y'); ?></li>
+							<li class="pull-left header"><i class="fa fa-inbox"></i> Rekapan Aduan Bulanan</li>
 						</ul>
-						<div class="tab-content">
+						<div id='loader2'></div>
+						<div id="tidakada"></div>
+						<div class="tab-content" id="chartContainer">
 							<canvas id="chartMonthly" height="300px"></canvas>
-
 						</div>
+
 					</div>
 				</section>
 				<section class="col-lg-4 connectedSortable">

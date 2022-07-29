@@ -13,18 +13,18 @@ class Dashboard extends CI_Controller
 	public function index()
 	{
 		$list = $this->dashboard_model->listbalai();
-		$jmlAduanByChannel = $this->dashboard_model->jmlAduanByChannel();
 		$listbidangbalai = $this->dashboard_model->listbidangbalai();
+		$listtahun = $this->dashboard_model->listtahun();
 		// print_r($list);exit();
 		$data = array(
 			'title' 		=> 'Dashboard',
-			'list'		=> $list,
-			'listbidangbalai'		=> $listbidangbalai,
-			'jmlAduanByChannel' => $jmlAduanByChannel,
+			'list'			=> $list,
+			'listbidangbalai' => $listbidangbalai,
+			'listtahun'		=> $listtahun,
 			'isi' 		=> 'admin/dashboard/list'
 		);
 		$this->load->view('admin/layout/wrapper', $data);
-		// echo json_encode($jmlAduanByChannel);
+		// echo json_encode($listtahun);
 	}
 
 	// bagian aduan
@@ -54,44 +54,6 @@ class Dashboard extends CI_Controller
 	}
 
 	//mengambil data aduan perbulan untuk ditampilkan pada chart
-	public function get_MonthlyChart()
-	{
-		$aduanbulanan = $this->dashboard_model->get_aduanBulanan();
-		foreach ($aduanbulanan as $row) {
-			$bulan[] = $row->Bulan;
-			$jml_aduan[] = $row->jml_aduan;
-			$jml_ditanggapi[] = $row->jml_ditanggapi;
-			$jml_ditangani[] = $row->jml_ditangani;
-		};
-
-		$data = [
-			'labels' => $bulan,
-			'datasets' => [
-				[
-					'label' => 'Jumlah Aduan ',
-					'backgroundColor' => 'red',
-					'borderColor' => 'red',
-					'data' => $jml_aduan,
-					'tension' => 0.4
-				],
-				[
-					'label' => 'Jumlah Ditanggapi ',
-					'backgroundColor' => 'yellow',
-					'borderColor' => 'yellow',
-					'data' => $jml_ditanggapi,
-					'tension' => 0.4
-				],
-				[
-					'label' => 'Jumlah Ditangani ',
-					'backgroundColor' => 'green',
-					'borderColor' => 'green',
-					'data' => $jml_ditangani,
-					'tension' => 0.4
-				]
-			]
-		];
-		echo json_encode($data);
-	}
 
 	public function get_YearlyChart()
 	{
@@ -113,7 +75,7 @@ class Dashboard extends CI_Controller
 					'data' => $jml_aduan
 				],
 				[
-					'label' => 'Jumlah Ditanggapi ',
+					'label' => 'Jumlah Divalidasi ',
 					'backgroundColor' => 'yellow',
 					'borderColor' => 'yellow',
 					'data' => $jml_ditanggapi
@@ -127,5 +89,52 @@ class Dashboard extends CI_Controller
 			]
 		];
 		echo json_encode($data);
+	}
+
+	public function getDataFilter()
+	{
+		$tahun = $_GET['tahunVal'];
+		$bidangbalai = $_GET['bidangbalaiVal'];
+		$aduanbulanan = $this->dashboard_model->filterAduanBulanan($tahun, $bidangbalai);
+		$aduanchanelfilter = $this->dashboard_model->filterAduanByChanel($tahun, $bidangbalai);
+		if (count($aduanbulanan) != 0) {
+			foreach ($aduanbulanan as $row) {
+				$bulan[] = $row->Bulan;
+				$jml_aduan[] = $row->jml_aduan;
+				$jml_ditanggapi[] = $row->jml_ditanggapi;
+				$jml_ditangani[] = $row->jml_ditangani;
+			};
+
+			$databulanan = [
+				'labels' => $bulan,
+				'datasets' => [
+					[
+						'label' => 'Jumlah Aduan ',
+						'backgroundColor' => 'red',
+						'borderColor' => 'red',
+						'data' => $jml_aduan,
+						'tension' => 0.4
+					],
+					[
+						'label' => 'Jumlah Divalidasi ',
+						'backgroundColor' => 'yellow',
+						'borderColor' => 'yellow',
+						'data' => $jml_ditanggapi,
+						'tension' => 0.4
+					],
+					[
+						'label' => 'Jumlah Ditangani ',
+						'backgroundColor' => 'green',
+						'borderColor' => 'green',
+						'data' => $jml_ditangani,
+						'tension' => 0.4
+					]
+				]
+			];
+		} else {
+			$databulanan = [];
+		}
+		echo json_encode(['chanel' => $aduanchanelfilter, 'chartbulan' => $databulanan]);
+		// echo json_encode($aduanchanelfilter);
 	}
 }

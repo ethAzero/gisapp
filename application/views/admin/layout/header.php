@@ -17,7 +17,7 @@
                <li class="dropdown notifications-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                      <i class="fa fa-bell-o"></i>
-                     <span id="num_warning1" class="label label-warning"></span>
+                     <span id="num_warning1" class="label label-danger"></span>
                   </a>
                   <ul class="dropdown-menu">
                      <li class="header"><span id="num_warning2"></span></li>

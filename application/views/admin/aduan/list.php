@@ -74,9 +74,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                  echo "Dibaca : <i class=\"fa fa-check text-green\"></i><br>";
                               } ?>
                               <?php if ($list->stat_tanggap == 0) {
-                                 echo "Ditanggapi : <i class=\"fa fa-times text-red\" aria-hidden=\"true\"></i><br>";
+                                 echo "Divalidasi : <i class=\"fa fa-times text-red\" aria-hidden=\"true\"></i><br>";
                               } else {
-                                 echo "Ditanggapi : <i class=\"fa fa-check text-green\"></i><br>";
+                                 echo "Divalidasi : <i class=\"fa fa-check text-green\"></i><br>";
                               } ?>
                               <?php
                               if ($list->stat_tangani == 0) {

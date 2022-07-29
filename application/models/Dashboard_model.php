@@ -489,69 +489,6 @@ class Dashboard_model extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	public function jmlAduanByChannel()
-	{
-		$hakakses = $this->session->userdata('hakakses');
-		date_default_timezone_set("Asia/Bangkok");
-		$this->db->select('
-		tb_aduan.id_chanel_aduan,
-		tb_chanel_aduan.chanel_aduan,
-		COUNT( tb_aduan.id_chanel_aduan ) AS jml_aduan,
-		kabkota.kd_balai
-		');
-		$this->db->from('tb_aduan');
-		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
-		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
-		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
-		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
-		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
-		// jika hak akses sebagai balai maka data yang ditampilkan aduan per balai
-		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
-			$this->db->where('kabkota.kd_balai', $hakakses);
-		}
-		$this->db->where('YEAR(created_at)', date("Y"));
-		$this->db->group_by('id_chanel_aduan');
-		return $this->db->get()->result();
-	}
-
-	public function get_aduanBulanan()
-	{
-		$hakakses = $this->session->userdata('hakakses');
-		date_default_timezone_set("Asia/Bangkok");
-		$this->db->select('
-		DATE_FORMAT(created_at,\'%M\') AS Bulan,
-		DATE_FORMAT(created_at,\'%Y\') as Tahun,
-		COUNT( tb_aduan.id_aduan) AS jml_aduan,
-		CASE tb_aduan.stat_tanggap
-			WHEN 1 THEN
-				sum( tb_aduan.stat_tanggap)
-			ELSE
-			sum( tb_aduan.stat_tanggap)
-		END AS jml_ditanggapi,
-		CASE tb_aduan.stat_tangani
-			WHEN 1 THEN
-				sum( tb_aduan.stat_tangani)
-			ELSE
-			sum( tb_aduan.stat_tangani)
-		END AS jml_ditangani,
-		kabkota.kd_balai
-		');
-		$this->db->from('tb_aduan');
-		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
-		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
-		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
-		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
-		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
-		// jika hak akses sebagai balai maka data yang ditampilkan aduan per balai
-		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
-			$this->db->where('kabkota.kd_balai', $hakakses);
-		}
-		$this->db->where('YEAR(created_at)', date("Y"));
-		$this->db->group_by('MONTH(created_at)');
-		$this->db->group_by('YEAR(created_at)');
-		return $this->db->get()->result();
-	}
-
 	public function get_aduanTahunan()
 	{
 		$hakakses = $this->session->userdata('hakakses');
@@ -579,7 +516,7 @@ class Dashboard_model extends CI_Model
 		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
 		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
 		// jika hak akses sebagai balai maka data yang ditampilkan aduan per balai
-		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
+		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != 'A' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
 			$this->db->where('kabkota.kd_balai', $hakakses);
 		}
 		$this->db->group_by('YEAR(created_at)');
@@ -598,5 +535,84 @@ class Dashboard_model extends CI_Model
 		$this->db->where('kd_balai !=', 'A');
 		$query = $this->db->get('balai');
 		return $query->result();
+	}
+
+	public function listtahun()
+	{
+		$hakakses = $this->session->userdata('hakakses');
+		$this->db->select('DATE_FORMAT(created_at,\'%Y\') as Tahun, kabkota.kd_balai');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		// jika hak akses sebagai balai maka data yang ditampilkan aduan per balai
+		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
+			$this->db->where('kabkota.kd_balai', $hakakses);
+		}
+		$this->db->group_by('YEAR(created_at)');
+		return $this->db->get()->result();
+	}
+
+	// untuk tampilan data filter
+	public function filterAduanByChanel($tahun, $bidangbalai)
+	{
+		$this->db->select('
+		tb_aduan.id_chanel_aduan,
+		tb_chanel_aduan.chanel_aduan,
+		COUNT( tb_aduan.id_chanel_aduan ) AS jml_aduan,
+		kabkota.kd_balai
+		');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		if ($bidangbalai != 'all') {
+			$this->db->where('kabkota.kd_balai', $bidangbalai);
+		};
+		$this->db->where('YEAR(created_at)', $tahun);
+		$this->db->group_by('id_chanel_aduan');
+		return $this->db->get()->result();
+	}
+
+	public function filterAduanBulanan($tahun, $bidangbalai)
+	{
+		$hakakses = $this->session->userdata('hakakses');
+		date_default_timezone_set("Asia/Bangkok");
+		$this->db->select('
+		DATE_FORMAT(created_at,\'%M\') AS Bulan,
+		DATE_FORMAT(created_at,\'%Y\') as Tahun,
+		COUNT( tb_aduan.id_aduan) AS jml_aduan,
+		CASE tb_aduan.stat_tanggap
+		WHEN 1 THEN
+		sum( tb_aduan.stat_tanggap)
+		ELSE
+		sum( tb_aduan.stat_tanggap)
+		END AS jml_ditanggapi,
+		CASE tb_aduan.stat_tangani
+		WHEN 1 THEN
+		sum( tb_aduan.stat_tangani)
+		ELSE
+		sum( tb_aduan.stat_tangani)
+		END AS jml_ditangani,
+		kabkota.kd_balai
+		');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_kelurahan', 'tb_aduan.id_kelurahan = tb_kelurahan.id');
+		$this->db->join('tb_kecamatan', 'tb_kelurahan.id_kecamatan = tb_kecamatan.id');
+		$this->db->join('kabkota', 'tb_kecamatan.id_kota_kabupaten = kabkota.kd_kabkota');
+		$this->db->join('balai', 'kabkota.kd_balai = balai.kd_balai');
+		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
+		// jika yang dipilih budang balai maka ditampilkan semua data
+		if ($bidangbalai != 'all') {
+			$this->db->where('kabkota.kd_balai', $bidangbalai);
+		}
+		$this->db->where('YEAR(created_at)', $tahun);
+		$this->db->group_by('MONTH(created_at)');
+		$this->db->group_by('YEAR(created_at)');
+		return $this->db->get()->result();
 	}
 }
