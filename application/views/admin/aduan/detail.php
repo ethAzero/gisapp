@@ -89,6 +89,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            </div>
                         </div>
                      </li>
+                     <!-- lokasi -->
+                     <li>
+                        <i class="fa fa-map-marker bg-red"></i>
+                        <div class="timeline-item">
+                           <h3 class="timeline-header"><a href="#">Lokasi Aduan</a></h3>
+                           <div class="timeline-body">
+                              <?= $detail->jenis . ' ' . $detail->nama_kelurahan . ' Kec. ' . $detail->nama_kecamatan . ' Kab. ' . $detail->nm_kabkota; ?>
+                           </div>
+                        </div>
+                     </li>
 
                      <!-- Status Dibaca -->
                      <?php if ($detail->stat_read1 == 0) { ?>
@@ -103,7 +113,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            <i class="fa fa-check bg-green"></i>
                            <div class="timeline-item">
                               <span class="time"><i class="fa fa-clock-o"></i> <?= date('H:i:s', strtotime($detail->read_at)); ?></span>
-                              <h3 class="timeline-header"><a href="#">Dibaca <?= date('d F Y', strtotime($detail->created_at)) ?></a></h3>
+                              <h3 class="timeline-header"><a href="#">Dibaca <?= date('d F Y', strtotime($detail->read_at)) ?></a></h3>
                            </div>
                         </li>
                      <?php } ?>
