@@ -74,16 +74,56 @@ $this->authlogin->cek_login();
                      echo $error;
                      echo '</div>';
                   }
-                  echo form_open_multipart(base_url('admin/survay/addapill/'), array('onsubmit' => 'return ValidasiKoordinat()'));
+                  echo form_open_multipart(base_url('admin/apil/add/'), array('onsubmit' => 'return ValidasiKoordinat()'));
                   ?>
-                  <div class="row" style="padding: 0px;">
-                     <div class="col-md-12">
-
+                  <div class="row">
+                     <div class="col-md-9">
+                        <div class="box">
+                           <div class="box-body">
+                              <div class="row">
+                                 <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Lokasi</label><small> (Koordinat)</small>
+                                    <input type="text" id="lat" name="korx" class="form-control" placeholder="lat" required>
+                                    <small>
+                                       <p class="help-block-small">Contoh: -7.676383</p>
+                                    </small>
+                                    <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
+                                    <small>
+                                       <p class="help-block-small">Contoh: 110.676383</p>
+                                    </small>
+                                 </div>
+                                 <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Tahun</label>
+                                    <input type="text" name="tahun" maxlength="4" class="form-control" maxlength="4" placeholder="Tahun">
+                                 </div>
+                                 <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Km Lokasi</label>
+                                    <input type="text" name="kmlokasi" class="form-control" placeholder="Km Lokasi" required>
+                                 </div>
+                                 <div class="form-group col-md-3">
+                                    <label for="exampleInputEmail1">Jenis</label>
+                                    <input type="text" name="jenis" class="form-control" placeholder="Jenis">
+                                 </div>
+                                 <div class="form-group col-md-5">
+                                    <label for="exampleInputEmail1">Letak</label>
+                                    <input type="text" name="letak" class="form-control" placeholder="Letak">
+                                 </div>
+                                 <div class="form-group col-md-3">
+                                    <label for="exampleInputEmail1">Kondisi</label>
+                                    <select name="status" class="form-control select2">
+                                       <option value="Terpasang">Terpasang</option>
+                                       <option value="Kebutuhan">Kebutuhan</option>
+                                       <option value="Rusak">Rusak</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
                      </div>
                      <div class="col-md-3">
                         <div class="box box-primary">
                            <div class="modal-footer">
-                              <a href="<?php echo base_url('admin/survay') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
+                              <a href="<?php echo base_url('admin/apil/detail/') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
                               <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Simpan</button>
                            </div>
                         </div>
@@ -108,18 +148,20 @@ $this->authlogin->cek_login();
 </body>
 
 </html>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc"></script>
 <script src="<?php echo base_url() ?>assets/admin/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>assets/admin/plugins/select2/select2.full.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 <script src="<?php echo base_url() ?>assets/admin/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc"></script>
-<script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
 <script>
    let poly;
    let map;
+   let latVal = () => $('[name="korx"]').val();
+   let lngVal = () => $('[name="kory"]').val();
    $(document).ready(function() {
       // initmap();
       getLocation();
+      $(".select2").select2();
    });
 
    function addYourLocationButton(map, marker) {
@@ -265,5 +307,7 @@ $this->authlogin->cek_login();
          },
       });
       addYourLocationButton(map, marker);
+      $('[name="korx"]').val(tengah.lat);
+      $('[name="kory"]').val(tengah.lng);
    }
 </script>
