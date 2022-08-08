@@ -5,7 +5,17 @@
          <?php if ($this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
             <li class="<?= ($this->uri->segment(2) == 'aduan') ? 'active' : '' ?>">
                <a href="<?php echo base_url('admin/aduan') ?>">
-                  <i class="fa fa-bullhorn"></i> <span>Aduan</span>
+                  <i class="fa fa-bullhorn text-green"></i> <span>Aduan</span>
+                  <span class="pull-right-container">
+                     <small id="num_warning3" class="label pull-right bg-red"></small>
+                  </span>
+               </a>
+            </li>
+         <?php } ?>
+         <?php if ($this->session->userdata('hakakses') != 'AD' and $this->session->userdata('hakakses') != 'S' and $this->session->userdata('hakakses') != 'A' and $this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
+            <li class="<?= ($this->uri->segment(2) == 'aduan') ? 'active' : '' ?>">
+               <a href="<?php echo base_url('admin/survay') ?>">
+                  <i class="fa fa-road text-red"></i> <span>Survay</span>
                   <span class="pull-right-container">
                      <small id="num_warning3" class="label pull-right bg-red"></small>
                   </span>
