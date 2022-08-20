@@ -25,7 +25,6 @@ $this->authlogin->cek_login();
    <div class="wrapper">
       <header class="main-header">
          <a href="<?php echo base_url() ?>" target="_blank" class="logo">
-            <span class="logo-mini"><b>D</b>H</span>
             <span class="logo-lg"><b>Survay <?= $title; ?></b></span>
          </a>
          <nav class="navbar navbar-static-top" role="navigation">
@@ -74,7 +73,7 @@ $this->authlogin->cek_login();
                      echo $error;
                      echo '</div>';
                   }
-                  echo form_open_multipart(base_url('admin/apil/add/'), array('onsubmit' => 'return ValidasiKoordinat()'));
+                  echo form_open_multipart(base_url('admin/survayapill/add/'), array('onsubmit' => 'return ValidasiKoordinat()'));
                   ?>
                   <div class="row">
                      <div class="col-md-9">
@@ -83,18 +82,13 @@ $this->authlogin->cek_login();
                               <div class="row">
                                  <div class="form-group col-md-2">
                                     <label for="exampleInputEmail1">Lokasi</label><small> (Koordinat)</small>
-                                    <input type="text" id="lat" name="korx" class="form-control" placeholder="lat" required>
-                                    <small>
-                                       <p class="help-block-small">Contoh: -7.676383</p>
-                                    </small>
-                                    <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
-                                    <small>
-                                       <p class="help-block-small">Contoh: 110.676383</p>
-                                    </small>
+                                    <input type="text" id="lat" name="korx" class="form-control" placeholder="lat" required disabled>
+                                    <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required disabled>
                                  </div>
                                  <div class="form-group col-md-2">
-                                    <label for="exampleInputEmail1">Tahun</label>
-                                    <input type="text" name="tahun" maxlength="4" class="form-control" maxlength="4" placeholder="Tahun">
+                                    <label for="exampleInputEmail1">Ruas Jalan</label>
+                                    <input type="text" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required disabled>
+                                    <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required disabled>
                                  </div>
                                  <div class="form-group col-md-2">
                                     <label for="exampleInputEmail1">Km Lokasi</label>
@@ -301,6 +295,8 @@ $this->authlogin->cek_login();
                      nama);
                   infowindow.open(map);
                   infowindow.setPosition(event.latLng);
+                  $('[name="kdjalan"]').val(kode);
+                  $('[name="ruasjalan"]').val(nama);
                });
             }
             console.log(ruasjalan);

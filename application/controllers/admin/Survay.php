@@ -13,7 +13,6 @@ class Survay extends CI_Controller
 
 	public function index()
 	{
-
 		$data = array(
 			'title' 	=> 'Aduan',
 			'isi'		=> 'admin/survay/index'
