@@ -25,7 +25,7 @@ $this->authlogin->cek_login();
    <div class="wrapper">
       <header class="main-header">
          <a href="<?php echo base_url() ?>" target="_blank" class="logo">
-            <span class="logo-lg"><b>Survay <?= $title; ?></b></span>
+            <span class="logo-lg"><b><?= $title; ?></b></span>
          </a>
          <nav class="navbar navbar-static-top" role="navigation">
             <div class="navbar-custom-menu">
@@ -73,7 +73,7 @@ $this->authlogin->cek_login();
                      echo $error;
                      echo '</div>';
                   }
-                  echo form_open_multipart(base_url('admin/survayapill/add/'), array('onsubmit' => 'return ValidasiKoordinat()'));
+                  echo form_open_multipart(base_url('admin/survay/apill/'));
                   ?>
                   <div class="row">
                      <div class="col-md-9">
@@ -82,12 +82,12 @@ $this->authlogin->cek_login();
                               <div class="row">
                                  <div class="form-group col-md-2">
                                     <label for="exampleInputEmail1">Lokasi</label><small> (Koordinat)</small>
-                                    <input type="text" id="lat" name="korx" class="form-control" placeholder="lat" required disabled>
-                                    <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required disabled>
+                                    <input type="text" id="lat" name="korx" class="form-control" placeholder="lat" required>
+                                    <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
                                  </div>
                                  <div class="form-group col-md-2">
                                     <label for="exampleInputEmail1">Ruas Jalan</label>
-                                    <input type="text" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required disabled>
+                                    <input type="hidden" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required>
                                     <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required disabled>
                                  </div>
                                  <div class="form-group col-md-2">
@@ -247,6 +247,12 @@ $this->authlogin->cek_login();
          position: tengah,
          icon: icon,
          map: map,
+         draggable: true,
+      });
+
+      google.maps.event.addListener(marker, 'dragend', function(evt) {
+         $('[name="korx"]').val(evt.latLng.lat().toFixed(7));
+         $('[name="kory"]').val(evt.latLng.lng().toFixed(7));
       });
 
       $.ajax({

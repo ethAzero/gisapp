@@ -14,9 +14,9 @@ class Survayapill extends CI_Controller
 	}
 
 	//real yg dibutuhkan
-	public function add($balai, $jln)
+	public function add()
 	{
-		$jalan = $this->jalan_model->detail($jln);
+		// $jalan = $this->jalan_model->detail($jln);
 		$urut = $this->apil_model->kodeurut();
 		if ($urut->urutan == '') {
 			$kodeurut = '00001';
@@ -37,13 +37,17 @@ class Survayapill extends CI_Controller
 			'required',
 			array('required'	=> 'Koordinat Y harus diisi')
 		);
+		$valid->set_rules(
+			'kdjalan',
+			'kdjalan',
+			'required',
+			array('required'	=> 'Ruas Jalan Harus Dipilih! Silahkan Klik Ruas Jalan Pada Peta')
+		);
 		if ($valid->run() == FALSE) {
 			$data = array(
-				'title' 		=> 'Add Apil',
-				'jalan'		=> $jalan,
-				'isi' 		=> 'admin/apil/add'
+				'title' 	=> 'Survay Apill',
 			);
-			$this->load->view('admin/layout/wrapper', $data);
+			$this->load->view('admin/survay/apill', $data);
 		} else {
 			if (!empty($_FILES['gambar']['name'])) {
 				$config['upload_path'] 		= './assets/upload/apil/';
@@ -79,7 +83,7 @@ class Survayapill extends CI_Controller
 					$kode = 'AP' . $kodeurut;
 					$data = array(
 						'kd_apil'				=> $kode,
-						'kd_jalan'			=> $jln,
+						'kd_jalan'			=> $i->post('kdjalan'),
 						'thn_pengadaan'	=> $i->post('tahun'),
 						'km_lokasi	'		=> $i->post('kmlokasi'),
 						'jenis'				=> $i->post('jenis'),
@@ -91,14 +95,17 @@ class Survayapill extends CI_Controller
 					);
 					$this->apil_model->addapil($data);
 					$this->session->set_flashdata('sukses', 'Berhasil ditambah');
-					redirect(base_url('admin/apil/detail/' . $jalan->kd_balai . '/' . $jalan->kd_jalan));
+					$data = array(
+						'title' 	=> 'Survay Apill',
+					);
+					redirect(base_url('admin/survay/apill', $data));
 				}
 			} else {
 				$i = $this->input;
 				$kode = 'AP' . $kodeurut;
 				$data = array(
 					'kd_apil'				=> $kode,
-					'kd_jalan'			=> $jln,
+					'kd_jalan'			=> $i->post('kdjalan'),
 					'thn_pengadaan'	=> $i->post('tahun'),
 					'km_lokasi	'		=> $i->post('kmlokasi'),
 					'jenis'				=> $i->post('jenis'),
@@ -109,7 +116,10 @@ class Survayapill extends CI_Controller
 				);
 				$this->apil_model->addapil($data);
 				$this->session->set_flashdata('sukses', 'Berhasil ditambah');
-				redirect(base_url('admin/apil/detail/' . $jalan->kd_balai . '/' . $jalan->kd_jalan));
+				$data = array(
+					'title' 	=> 'Survay Apill',
+				);
+				redirect(base_url('admin/survay/apill', $data));
 			}
 		}
 	}

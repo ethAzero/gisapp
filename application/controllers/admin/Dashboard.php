@@ -24,7 +24,7 @@ class Dashboard extends CI_Controller
 			'isi' 		=> 'admin/dashboard/list'
 		);
 		$this->load->view('admin/layout/wrapper', $data);
-		echo json_encode($listtahun);
+		// echo json_encode($listtahun);
 	}
 
 	// bagian aduan
