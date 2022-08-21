@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -117,7 +117,9 @@ $route['apiservice/countsdp'] = 'api/restapikey/getcountsdp';
 $route['apiservice/countstasiun'] = 'api/restapikey/getcountstasiun';
 $route['apiservice/countdaerahrawan'] = 'api/restapikey/getcountdaerahrawan';
 
-
+//route survay
+// $routes->post('/apill', 'admin\survayapill::index');
+$route['apill'] = 'admin/survayapill/add';
 
 
 // // User API Routes

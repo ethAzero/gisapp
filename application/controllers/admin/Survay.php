@@ -36,6 +36,7 @@ class Survay extends CI_Controller
 
 	public function apill()
 	{
+		// $this->session->set_flashdata('sukses', 'Berhasil ditambah');
 		$urut = $this->apil_model->kodeurut();
 		if ($urut->urutan == '') {
 			$kodeurut = '00001';
