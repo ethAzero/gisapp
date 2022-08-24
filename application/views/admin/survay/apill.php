@@ -146,7 +146,7 @@ $this->authlogin->cek_login();
 <script src="<?php echo base_url() ?>assets/admin/plugins/growl/jquery.growl.js"></script>
 <link href="<?php echo base_url() ?>assets/admin/plugins/growl/jquery.growl.css" rel="stylesheet" />
 <script src="<?php echo base_url() ?>assets/admin/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="<?php echo base_url() ?>assets\admin\js\mapopsi.js"></script>
+<script src="<?php echo base_url() ?>assets/admin/js/mapopsi.js"></script>
 <script>
    let poly;
    let map;
@@ -258,59 +258,74 @@ $this->authlogin->cek_login();
                }
             };
 
-            var iconapill = '<?php echo base_url('assets/upload/apil/thumbs/') ?>';
-            for (b = 0; b < data.perjal.length; b++) {
-               let feature = new google.maps.Marker({
-                  position: new google.maps.LatLng(data.perjal[b].lat, data.perjal[b].lng),
-                  icon: icons[data.perjal[b].status].icon,
+            let iconapill = '<?php echo base_url('assets/upload/apil/thumbs/') ?>';
+            let infowindowperjal = null;
+
+            data.perjal.forEach(element => {
+               var feature = new google.maps.Marker({
+                  position: new google.maps.LatLng(element.lat, element.lng),
+                  icon: icons[element.status].icon,
                   map: map
-               })
-               var xxx = [];
+               });
+
                var contentString = '' +
                   '<div class="marker-holder">' +
-                  '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconapill + data.perjal[b].image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
+                  '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconapill + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
                   '<div class="map-item-info">' +
-                  '<h5 class="title">Apill (' + data.perjal[b].kd_apill + ')</h5>' +
+                  '<h5 class="title">Apill (' + element.kd_apill + ')</h5>' +
                   '<div class="describe">' +
                   '<div class="grup-info">' +
                   '<label class="title">Ruas</label>' +
-                  '<label class="isi">' + data.perjal[b].kd_jalan + '</label>' +
+                  '<label class="isi">' + element.kd_jalan + '</label>' +
                   '</div>' +
                   '<div class="grup-info">' +
                   '<label class="title">Jenis</label>' +
-                  '<label class="isi">' + data.perjal[b].jenis + '</label>' +
+                  '<label class="isi">' + element.jenis + '</label>' +
                   '</div>' +
                   '<div class="grup-info">' +
                   '<label class="title">Letak</label>' +
-                  '<label class="isi">' + data.perjal[b].letak + '</label>' +
+                  '<label class="isi">' + element.letak + '</label>' +
                   '</div>' +
                   '<div class="grup-info">' +
                   '<label class="title">Status</label>' +
-                  '<label class="isi">' + data.perjal[b].status + '</label>' +
+                  '<label class="isi">' + element.status + '</label>' +
                   '</div>' +
                   '</div>' +
                   '</div>' +
-                  '</div>';
-               xxx.push(contentString);
-               infoperjal.push(contentString);
-               var infowindowperjal = new google.maps.InfoWindow();
-               // var infowindowperjal = new google.maps.InfoWindow({
-               //    setContent: infoperjal
-               // });
-               feature.addListener('click', function() {
-                  infowindowperjal.setContent(
-                     'hallo' + [b]
-                  )
+                  '<button onclick=' +
+                  '\'edit({' +
+                  'kd_apill: "' + element.kd_apill + '", ' +
+                  'kd_jalan: "' + element.kd_jalan + '", ' +
+                  'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
+                  'km_lokasi: "' + element.km_lokasi + '", ' +
+                  'jenis: "' + element.jenis + '", ' +
+                  'letak: "' + element.letak + '"})\'>' +
+                  'edit</button>'
+               '</div>' +
+               '</div>';
+
+               google.maps.event.addListener(feature, 'click', function() {
+                  if (infowindowperjal) {
+                     infowindowperjal.close();
+                  }
+                  infowindowperjal = new google.maps.InfoWindow();
+                  infowindowperjal.setContent(contentString)
                   infowindowperjal.open(map, feature);
                });
-            }
-            console.log(infoperjal);
-            // console.log(ruasjalan);
+            });
+
+            // console.log(detailperjal);
          },
       });
       addYourLocationButton(map, marker);
       $('[name="korx"]').val(tengah.lat);
       $('[name="kory"]').val(tengah.lng);
+   }
+
+   function edit(obj) {
+      console.log(obj);
+      // alert(obj.jenis)
+      $('[name="kmlokasi"]').val(obj.km_lokasi);
    }
 
    $('#submit').validate({

@@ -18,6 +18,10 @@ $this->authlogin->cek_login();
          height: 100% !important;
          width: 100% !important;
       }
+
+      .invalid-feedback {
+         color: red;
+      }
    </style>
 </head>
 
@@ -66,74 +70,66 @@ $this->authlogin->cek_login();
             </div>
             <div class="row">
                <div class="col-md-12">
-                  <?php
-                  echo validation_errors('<div class="alert alert-warning">', '</div>');
-                  if (isset($error)) {
-                     echo '<div class="alert alert-warning">';
-                     echo $error;
-                     echo '</div>';
-                  }
-                  echo form_open_multipart(base_url('admin/survayapill/add/'));
-                  ?>
-                  <div class="row">
-                     <div class="col-md-9">
-                        <div class="box">
-                           <div class="box-body">
-                              <div class="row">
-                                 <div class="form-group col-md-2">
-                                    <label for="exampleInputEmail1">Lokasi</label><small> (Koordinat)</small>
-                                    <input type="text" id="lat" name="korx" class="form-control" placeholder="lat" required>
-                                    <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
+                  <form enctype="multipart/form-data" id="submit">
+                     <div class="row">
+                        <div class="col-md-9">
+                           <div class="box">
+                              <div class="box-body">
+                                 <div class="row">
+                                    <div class="form-group col-md-2">
+                                       <label for="exampleInputEmail1">Lokasi</label><small> (Koordinat)</small>
+                                       <input type="text" id="lat" name="korx" class="form-control" placeholder="lat" required>
+                                       <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                       <label for="exampleInputEmail1">Ruas Jalan</label>
+                                       <input type="hidden" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required>
+                                       <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                       <label for="exampleInputEmail1">Km Lokasi</label>
+                                       <input type="text" name="kmlokasi" class="form-control" placeholder="Km Lokasi" required>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                       <label for="exampleInputEmail1">Jenis</label>
+                                       <input type="text" name="jenis" class="form-control" placeholder="Jenis" required>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                       <label for="exampleInputEmail1">Letak</label>
+                                       <input type="text" name="letak" class="form-control" placeholder="Letak" required>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                       <label for="exampleInputEmail1">Kondisi</label>
+                                       <select name="status" class="form-control select2" required>
+                                          <option value="Terpasang">Terpasang</option>
+                                          <option value="Kebutuhan">Kebutuhan</option>
+                                          <option value="Rusak">Rusak</option>
+                                       </select>
+                                    </div>
                                  </div>
-                                 <div class="form-group col-md-2">
-                                    <label for="exampleInputEmail1">Ruas Jalan</label>
-                                    <input type="hidden" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required>
-                                    <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required disabled>
-                                 </div>
-                                 <div class="form-group col-md-2">
-                                    <label for="exampleInputEmail1">Km Lokasi</label>
-                                    <input type="text" name="kmlokasi" class="form-control" placeholder="Km Lokasi" required>
-                                 </div>
-                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1">Jenis</label>
-                                    <input type="text" name="jenis" class="form-control" placeholder="Jenis">
-                                 </div>
-                                 <div class="form-group col-md-5">
-                                    <label for="exampleInputEmail1">Letak</label>
-                                    <input type="text" name="letak" class="form-control" placeholder="Letak">
-                                 </div>
-                                 <div class="form-group col-md-3">
-                                    <label for="exampleInputEmail1">Kondisi</label>
-                                    <select name="status" class="form-control select2">
-                                       <option value="Terpasang">Terpasang</option>
-                                       <option value="Kebutuhan">Kebutuhan</option>
-                                       <option value="Rusak">Rusak</option>
-                                    </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-3">
+                           <div class="box box-primary">
+                              <div class="modal-footer">
+                                 <a href="<?php echo base_url('admin/apil/detail/') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
+                                 <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> <span id="titik">Simpan</span> </button>
+                              </div>
+                           </div>
+                           <div class="box box-primary">
+                              <div class="box-body">
+                                 <div class="form-group">
+                                    <input type="file" name="gambar" accept=".jpg, .jpeg" class="filestyle" data-buttonText="Foto April" data-buttonBefore="true" data-iconName="fa fa-upload">
+                                    <small>
+                                       <p class="help-block">.JPG Max. 1 Mb (800x500)</p>
+                                    </small>
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
-                     <div class="col-md-3">
-                        <div class="box box-primary">
-                           <div class="modal-footer">
-                              <a href="<?php echo base_url('admin/apil/detail/') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
-                              <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Simpan</button>
-                           </div>
-                        </div>
-                        <div class="box box-primary">
-                           <div class="box-body">
-                              <div class="form-group">
-                                 <input type="file" name="gambar" accept=".jpg, .jpeg" class="filestyle" data-buttonText="Foto April" data-buttonBefore="true" data-iconName="fa fa-upload">
-                                 <small>
-                                    <p class="help-block">.JPG Max. 1 Mb (800x500)</p>
-                                 </small>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <?php echo form_close(); ?>
+                  </form>
                </div>
             </div>
          </section>
@@ -149,23 +145,9 @@ $this->authlogin->cek_login();
 <script src="<?php echo base_url() ?>assets/admin/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>assets/admin/plugins/growl/jquery.growl.js"></script>
 <link href="<?php echo base_url() ?>assets/admin/plugins/growl/jquery.growl.css" rel="stylesheet" />
-
+<script src="<?php echo base_url() ?>assets/admin/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="<?php echo base_url() ?>assets\admin\js\mapopsi.js"></script>
 <script>
-   <?php
-   if ($this->session->flashdata('sukses')) {
-   ?>
-      $.growl.notice({
-         message: "<?php echo $this->session->flashdata('sukses') ?>"
-      });
-   <?php }
-   if ($this->session->flashdata('error')) { ?>
-      $.growl.error({
-         message: "<?php echo $this->session->flashdata('error') ?>"
-      });
-   <?php } ?>
-   $.growl.warning({
-      message: "The kitten is ugly!"
-   });
    let poly;
    let map;
    let latVal = () => $('[name="korx"]').val();
@@ -176,77 +158,8 @@ $this->authlogin->cek_login();
       $(".select2").select2();
    });
 
-   function addYourLocationButton(map, marker) {
-      var controlDiv = document.createElement('div');
-
-      var firstChild = document.createElement('button');
-      firstChild.style.backgroundColor = '#fff';
-      firstChild.style.border = 'none';
-      firstChild.style.outline = 'none';
-      firstChild.style.width = '28px';
-      firstChild.style.height = '28px';
-      firstChild.style.borderRadius = '2px';
-      firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
-      firstChild.style.cursor = 'pointer';
-      firstChild.style.marginRight = '10px';
-      firstChild.style.padding = '0';
-      firstChild.title = 'Your Location';
-      controlDiv.appendChild(firstChild);
-
-      var secondChild = document.createElement('div');
-      secondChild.style.margin = '5px';
-      secondChild.style.width = '18px';
-      secondChild.style.height = '18px';
-      secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-2x.png)';
-      secondChild.style.backgroundSize = '180px 18px';
-      secondChild.style.backgroundPosition = '0 0';
-      secondChild.style.backgroundRepeat = 'no-repeat';
-      firstChild.appendChild(secondChild);
-
-      google.maps.event.addListener(map, 'center_changed', function() {
-         secondChild.style['background-position'] = '0 0';
-      });
-
-      firstChild.addEventListener('click', function() {
-         var imgX = '0',
-            animationInterval = setInterval(function() {
-               imgX = imgX === '-18' ? '0' : '-18';
-               secondChild.style['background-position'] = imgX + 'px 0';
-            }, 500);
-
-         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-               var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-               map.setCenter(latlng);
-               clearInterval(animationInterval);
-               secondChild.style['background-position'] = '-144px 0';
-            });
-         } else {
-            clearInterval(animationInterval);
-            secondChild.style['background-position'] = '0 0';
-         }
-      });
-
-      controlDiv.index = 1;
-      map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
-   }
-
-   function getLocation() {
-      if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(function(position) {
-            var tengah = {
-               lat: position.coords.latitude,
-               lng: position.coords.longitude,
-            };
-            initmap(tengah);
-         });
-      } else {
-         x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-   }
-
    function initmap(tengah) {
-      console.log(tengah)
+      // console.log(tengah)
       let map = new google.maps.Map(document.getElementById('map'), {
          zoom: 18,
          center: tengah,
@@ -275,14 +188,18 @@ $this->authlogin->cek_login();
 
       $.ajax({
          type: "GET",
-         url: "<?php echo base_url('admin/survay/jalan') ?>",
+         url: "<?php echo base_url('jl') ?>",
          dataType: "json",
+         data: {
+            perjal: 'apill',
+         },
          success: function(data) {
             let ruasjalan = [];
             let namaruas = [];
             let kodejalan = [];
-            for (j = 0; j < data.length; j++) {
-               let explode = data[j].lintasan.split('|');
+            let infoperjal = [];
+            for (j = 0; j < data.ruasjalan.length; j++) {
+               let explode = data.ruasjalan[j].lintasan.split('|');
                const arr = explode.map(coor => {
                   return coor.replace(",", "#").split("#"); // replace will only replace the first comma
                });
@@ -297,10 +214,13 @@ $this->authlogin->cek_login();
                   coordarray.push(linecoord);
                }
                ruasjalan.push(coordarray);
-               namaruas.push(data[j].nmruas);
-               kodejalan.push(data[j].kdjalan);
+               namaruas.push(data.ruasjalan[j].nmruas);
+               kodejalan.push(data.ruasjalan[j].kdjalan);
             }
-            for (a = 0; a < data.length; a++) {
+
+
+            //ruas jalan
+            for (a = 0; a < data.ruasjalan.length; a++) {
                let randomnumber = Math.floor(Math.random() * 7);
 
                let colors = ["#FF0000", "#00ffff", "#FF00ff", "#Ffff00", "#555555", "#222222"];
@@ -323,11 +243,161 @@ $this->authlogin->cek_login();
                   $('[name="ruasjalan"]').val(nama);
                });
             }
-            console.log(ruasjalan);
+
+            //marker perlengkapan jalan
+            var iconBase = '<?php echo base_url('assets/theme/img/') ?>';
+            var icons = {
+               Terpasang: {
+                  icon: iconBase + 'apil_terpasang.png'
+               },
+               Kebutuhan: {
+                  icon: iconBase + 'apil_kebutuhan.png'
+               },
+               Rusak: {
+                  icon: iconBase + 'apil_rusak.png'
+               }
+            };
+
+            var iconapill = '<?php echo base_url('assets/upload/apil/thumbs/') ?>';
+            for (b = 0; b < data.perjal.length; b++) {
+               let feature = new google.maps.Marker({
+                  position: new google.maps.LatLng(data.perjal[b].lat, data.perjal[b].lng),
+                  icon: icons[data.perjal[b].status].icon,
+                  map: map
+               })
+               var xxx = [];
+               var contentString = '' +
+                  '<div class="marker-holder">' +
+                  '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconapill + data.perjal[b].image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
+                  '<div class="map-item-info">' +
+                  '<h5 class="title">Apill (' + data.perjal[b].kd_apill + ')</h5>' +
+                  '<div class="describe">' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Ruas</label>' +
+                  '<label class="isi">' + data.perjal[b].kd_jalan + '</label>' +
+                  '</div>' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Jenis</label>' +
+                  '<label class="isi">' + data.perjal[b].jenis + '</label>' +
+                  '</div>' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Letak</label>' +
+                  '<label class="isi">' + data.perjal[b].letak + '</label>' +
+                  '</div>' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Status</label>' +
+                  '<label class="isi">' + data.perjal[b].status + '</label>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>';
+               xxx.push(contentString);
+               infoperjal.push(contentString);
+
+
+               // var infowindowperjal = new google.maps.InfoWindow();
+               // // var infowindowperjal = new google.maps.InfoWindow({
+               // //    setContent: infoperjal
+               // // });
+               // feature.addListener('click', function() {
+               //    infowindowperjal.setContent(
+               //       'hallo' + [b]
+               //    )
+               //    infowindowperjal.open(map, feature);
+               // });
+
+               var infowindow = new google.maps.InfoWindow()
+               var x = data.perjal[b].kd_apill;
+               feature.addListener('click', function(event) {
+                  infowindow.setContent('kode apill ' +
+                     x);
+                  infowindow.open(map);
+                  infowindow.setPosition(event.latLng);
+               });
+
+            }
+            console.log(namaruas);
+            // console.log(ruasjalan);
          },
       });
       addYourLocationButton(map, marker);
       $('[name="korx"]').val(tengah.lat);
       $('[name="kory"]').val(tengah.lng);
    }
+
+   $('#submit').validate({
+      rules: {
+         korx: {
+            required: true
+         },
+         kory: {
+            required: true
+         },
+         kdjalan: {
+            required: true,
+         },
+         kmlokasi: {
+            required: true,
+            number: true
+         },
+         jenis: {
+            required: true,
+         },
+         letak: {
+            required: true,
+         },
+         status: {
+            required: true,
+         },
+      },
+      messages: {
+         korx: "Koordinat X Tidak Harus diisi",
+         kory: "Koordinat Y Tidak Harus diisi",
+         ruasjalan: "Nama Ruas Harus dipilih",
+         kmlokasi: "Kilometer Lokasi harus diisi",
+         jenis: "Jenis harus diisi",
+         letak: "Letak  harus diisi",
+         status: "Status harus diisi",
+      },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+         error.addClass('invalid-feedback');
+         element.closest('.form-group').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+         $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+         $(element).removeClass('is-invalid');
+      }
+   });
+
+   $('#submit').submit(function(e) {
+      e.preventDefault();
+      if ($('#submit').valid()) {
+         $.ajax({
+            url: "<?= base_url('apill') ?>",
+            type: "POST",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: false,
+            beforeSend: function() {
+               $('#titik').html('Menyimpan');
+            },
+            success: function(data) {
+               //if success close modal and reload ajax table
+               // $('#modal-lg').modal('hide');
+               $.growl.notice({
+                  message: "Data Berhasil Disimpan"
+               });
+               $('#titik').html('Simpan');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+               alert('Error adding / update data');
+            }
+         });
+      }
+   })
 </script>
