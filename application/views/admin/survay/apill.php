@@ -159,7 +159,7 @@ $this->authlogin->cek_login();
    });
 
    function initmap(tengah) {
-      console.log(tengah)
+      // console.log(tengah)
       let map = new google.maps.Map(document.getElementById('map'), {
          zoom: 18,
          center: tengah,
@@ -188,14 +188,18 @@ $this->authlogin->cek_login();
 
       $.ajax({
          type: "GET",
-         url: "<?php echo base_url('admin/survay/jalan') ?>",
+         url: "<?php echo base_url('jl') ?>",
          dataType: "json",
+         data: {
+            perjal: 'apill',
+         },
          success: function(data) {
             let ruasjalan = [];
             let namaruas = [];
             let kodejalan = [];
-            for (j = 0; j < data.length; j++) {
-               let explode = data[j].lintasan.split('|');
+            let infoperjal = [];
+            for (j = 0; j < data.ruasjalan.length; j++) {
+               let explode = data.ruasjalan[j].lintasan.split('|');
                const arr = explode.map(coor => {
                   return coor.replace(",", "#").split("#"); // replace will only replace the first comma
                });
@@ -210,10 +214,13 @@ $this->authlogin->cek_login();
                   coordarray.push(linecoord);
                }
                ruasjalan.push(coordarray);
-               namaruas.push(data[j].nmruas);
-               kodejalan.push(data[j].kdjalan);
+               namaruas.push(data.ruasjalan[j].nmruas);
+               kodejalan.push(data.ruasjalan[j].kdjalan);
             }
-            for (a = 0; a < data.length; a++) {
+
+
+            //ruas jalan
+            for (a = 0; a < data.ruasjalan.length; a++) {
                let randomnumber = Math.floor(Math.random() * 7);
 
                let colors = ["#FF0000", "#00ffff", "#FF00ff", "#Ffff00", "#555555", "#222222"];
@@ -236,7 +243,69 @@ $this->authlogin->cek_login();
                   $('[name="ruasjalan"]').val(nama);
                });
             }
-            console.log(ruasjalan);
+
+            //marker perlengkapan jalan
+            var iconBase = '<?php echo base_url('assets/theme/img/') ?>';
+            var icons = {
+               Terpasang: {
+                  icon: iconBase + 'apil_terpasang.png'
+               },
+               Kebutuhan: {
+                  icon: iconBase + 'apil_kebutuhan.png'
+               },
+               Rusak: {
+                  icon: iconBase + 'apil_rusak.png'
+               }
+            };
+
+            var iconapill = '<?php echo base_url('assets/upload/apil/thumbs/') ?>';
+            for (b = 0; b < data.perjal.length; b++) {
+               let feature = new google.maps.Marker({
+                  position: new google.maps.LatLng(data.perjal[b].lat, data.perjal[b].lng),
+                  icon: icons[data.perjal[b].status].icon,
+                  map: map
+               })
+               var xxx = [];
+               var contentString = '' +
+                  '<div class="marker-holder">' +
+                  '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconapill + data.perjal[b].image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
+                  '<div class="map-item-info">' +
+                  '<h5 class="title">Apill (' + data.perjal[b].kd_apill + ')</h5>' +
+                  '<div class="describe">' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Ruas</label>' +
+                  '<label class="isi">' + data.perjal[b].kd_jalan + '</label>' +
+                  '</div>' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Jenis</label>' +
+                  '<label class="isi">' + data.perjal[b].jenis + '</label>' +
+                  '</div>' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Letak</label>' +
+                  '<label class="isi">' + data.perjal[b].letak + '</label>' +
+                  '</div>' +
+                  '<div class="grup-info">' +
+                  '<label class="title">Status</label>' +
+                  '<label class="isi">' + data.perjal[b].status + '</label>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>';
+               xxx.push(contentString);
+               infoperjal.push(contentString);
+               var infowindowperjal = new google.maps.InfoWindow();
+               // var infowindowperjal = new google.maps.InfoWindow({
+               //    setContent: infoperjal
+               // });
+               feature.addListener('click', function() {
+                  infowindowperjal.setContent(
+                     'hallo' + [b]
+                  )
+                  infowindowperjal.open(map, feature);
+               });
+            }
+            console.log(infoperjal);
+            // console.log(ruasjalan);
          },
       });
       addYourLocationButton(map, marker);

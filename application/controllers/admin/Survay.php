@@ -152,21 +152,36 @@ class Survay extends CI_Controller
 
 	public function jalan()
 	{
+		$jenisperjal = $_GET['perjal'];
 		$jalan = $this->survay_model->koordinatjalan();
 
-		$data = array(
-			'title' 	=> 'Apill',
-			'isi'		=> 'admin/survay/apill',
-		);
-
 		foreach ($jalan as $row) {
-			// $lintasan[] = [preg_split('~,(?=\d+\.)~', $row->lintasan)];
 			$datajalan[] = array(
 				'kdjalan' =>  $row->kd_jalan,
 				'nmruas' =>  $row->nm_ruas,
 				'lintasan' => preg_replace('/\s+/', '|', $row->lintasan),
 			);
+			if ($jenisperjal == 'apill') {
+				// $perjal[] = array($this->survay_model->getApill($row->kd_jalan));
+				$perjal = $this->survay_model->getApill($row->kd_jalan);
+				foreach ($perjal as $perjal) {
+					$dataperjal[] = array(
+						'lat' => $perjal->lat,
+						'lng' => $perjal->lang,
+						'kd_apill' => $perjal->kd_apil,
+						'kd_jalan' => $perjal->kd_jalan,
+						'km_lokasi' => $perjal->km_lokasi,
+						'jenis' => $perjal->jenis,
+						'thn_pengadaan' => $perjal->thn_pengadaan,
+						'letak' => $perjal->letak,
+						'status' => $perjal->status,
+						'ruas' => $perjal->letak,
+						'image' => $perjal->img_apil
+					);
+				}
+			}
 		};
-		echo json_encode($datajalan);
+		echo json_encode(array('ruasjalan' => $datajalan, 'perjal' => $dataperjal));
+		// echo json_encode(array($datajalan));
 	}
 }

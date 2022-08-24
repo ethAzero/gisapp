@@ -19,4 +19,13 @@ class Survay_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function getApill($kd_jalan)
+	{
+		$this->db->select('*');
+		$this->db->from('apil');
+		$this->db->where('kd_jalan', $kd_jalan);
+		$query = $this->db->get();
+		return $query->result();
+	}
 }
