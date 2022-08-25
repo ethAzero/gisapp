@@ -83,6 +83,7 @@ $this->authlogin->cek_login();
                                     </div>
                                     <div class="form-group col-md-2">
                                        <label for="exampleInputEmail1">Ruas Jalan</label>
+                                       <input type="hidden" id="kdapill" name="kdapill" class="form-control">
                                        <input type="hidden" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required>
                                        <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required>
                                     </div>
@@ -161,7 +162,7 @@ $this->authlogin->cek_login();
    function initmap(tengah) {
       // console.log(tengah)
       let map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 18,
+         zoom: 9, //default 18
          center: tengah,
          zoomControl: false,
          disableDefaultUI: true,
@@ -276,7 +277,7 @@ $this->authlogin->cek_login();
                   '<div class="describe">' +
                   '<div class="grup-info">' +
                   '<label class="title">Ruas</label>' +
-                  '<label class="isi">' + element.kd_jalan + '</label>' +
+                  '<label class="isi">' + element.nm_ruas + '</label>' +
                   '</div>' +
                   '<div class="grup-info">' +
                   '<label class="title">Jenis</label>' +
@@ -296,10 +297,15 @@ $this->authlogin->cek_login();
                   '\'edit({' +
                   'kd_apill: "' + element.kd_apill + '", ' +
                   'kd_jalan: "' + element.kd_jalan + '", ' +
-                  'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
+                  'nm_ruas: "' + element.nm_ruas + '", ' +
                   'km_lokasi: "' + element.km_lokasi + '", ' +
                   'jenis: "' + element.jenis + '", ' +
-                  'letak: "' + element.letak + '"})\'>' +
+                  'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
+                  'letak: "' + element.letak + '", ' +
+                  'status: "' + element.status + '", ' +
+                  'lat: "' + element.lat + '", ' +
+                  'lng: "' + element.lng + '", ' +
+                  'img: "' + element.image + '"})\'>' +
                   'edit</button>'
                '</div>' +
                '</div>';
@@ -314,7 +320,7 @@ $this->authlogin->cek_login();
                });
             });
 
-            // console.log(detailperjal);
+            // console.log(data.perjal[0]);
          },
       });
       addYourLocationButton(map, marker);
@@ -323,9 +329,16 @@ $this->authlogin->cek_login();
    }
 
    function edit(obj) {
-      console.log(obj);
-      // alert(obj.jenis)
+      $('[name="korx"]').val(obj.lat);
+      $('[name="kory"]').val(obj.lng);
+      $('[name="kdapill"]').val(obj.kd_apill);
+      $('[name="kdjalan"]').val(obj.kd_jalan);
+      $('[name="ruasjalan"]').val(obj.nm_ruas);
       $('[name="kmlokasi"]').val(obj.km_lokasi);
+      $('[name="jenis"]').val(obj.jenis);
+      $('[name="letak"]').val(obj.letak);
+      $('[name="status"]').val(obj.status).trigger('change');
+      // console.log(obj);
    }
 
    $('#submit').validate({
@@ -396,6 +409,10 @@ $this->authlogin->cek_login();
                   message: "Data Berhasil Disimpan"
                });
                $('#titik').html('Simpan');
+               $('[name="kmlokasi"]').val('');
+               $('[name="jenis"]').val('');
+               $('[name="letak"]').val('');
+               // alert(data);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                alert('Error adding / update data');

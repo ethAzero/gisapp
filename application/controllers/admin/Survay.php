@@ -175,13 +175,13 @@ class Survay extends CI_Controller
 						'thn_pengadaan' => $perjal->thn_pengadaan,
 						'letak' => $perjal->letak,
 						'status' => $perjal->status,
-						'ruas' => $perjal->letak,
+						'nm_ruas' => $perjal->nm_ruas,
 						'image' => $perjal->img_apil
 					);
 				}
 			}
 		};
 		echo json_encode(array('ruasjalan' => $datajalan, 'perjal' => $dataperjal));
-		// echo json_encode(array($datajalan));
+		// echo json_encode($perjal);
 	}
 }
