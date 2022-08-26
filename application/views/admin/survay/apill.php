@@ -405,14 +405,21 @@ $this->authlogin->cek_login();
             success: function(data) {
                //if success close modal and reload ajax table
                // $('#modal-lg').modal('hide');
+               // if (data.sukses == 1) {
+               //    var methode = "Ditambahkan";
+               // } else {
+               //    var methode = "Diupdate";
+               // };
+
                $.growl.notice({
-                  message: "Data Berhasil Disimpan"
+                  message: "Data Berhasil methode + "
                });
                $('#titik').html('Simpan');
                $('[name="kmlokasi"]').val('');
                $('[name="jenis"]').val('');
                $('[name="letak"]').val('');
                // alert(data);
+               console.log(data);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                alert('Error adding / update data');
