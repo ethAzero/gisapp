@@ -13,6 +13,7 @@ $this->authlogin->cek_login();
    <link href="<?php echo base_url() ?>assets/admin/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
    <link href="<?php echo base_url() ?>assets/admin/plugins/select2/select2.css" rel="stylesheet" />
    <link href="<?php echo base_url() ?>assets/admin/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+
    <style>
       #map {
          height: 100% !important;
@@ -82,6 +83,11 @@ $this->authlogin->cek_login();
                                        <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
                                     </div>
                                     <div class="form-group col-md-2">
+                                       <label for="exampleInputEmail1">Kode Apill <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
+                                       <input type="hidden" id="kdcermin" name="kdcermin" class="form-control">
+                                       <input type="text" id="kdcerminfake" name="kdcerminfake" class="form-control" placeholder="Kode Cermin Tikung" disabled>
+                                    </div>
+                                    <div class="form-group col-md-2">
                                        <label for="exampleInputEmail1">Ruas Jalan</label>
                                        <input type="hidden" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required>
                                        <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required>
@@ -113,7 +119,8 @@ $this->authlogin->cek_login();
                         <div class="col-md-3">
                            <div class="box box-primary">
                               <div class="modal-footer">
-                                 <a href="<?php echo base_url('admin/apil/detail/') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
+                                 <button type="button" onclick="resetform()" class="btn btn-default btn-flat"><i class="fa fa-square-o"></i> Reset Form</button>
+                                 <a href="<?php echo base_url('admin/survay') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
                                  <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> <span id="titik">Simpan</span> </button>
                               </div>
                            </div>
@@ -146,7 +153,7 @@ $this->authlogin->cek_login();
 <script src="<?php echo base_url() ?>assets/admin/plugins/growl/jquery.growl.js"></script>
 <link href="<?php echo base_url() ?>assets/admin/plugins/growl/jquery.growl.css" rel="stylesheet" />
 <script src="<?php echo base_url() ?>assets/admin/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="<?php echo base_url() ?>assets\admin\js\mapopsi.js"></script>
+<script src="<?php echo base_url() ?>assets/admin/js/mapopsi.js"></script>
 <script>
    let poly;
    let map;
@@ -161,7 +168,7 @@ $this->authlogin->cek_login();
    function initmap(tengah) {
       // console.log(tengah)
       let map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 18,
+         zoom: 18, //default 18
          center: tengah,
          zoomControl: false,
          disableDefaultUI: true,
@@ -191,7 +198,7 @@ $this->authlogin->cek_login();
          url: "<?php echo base_url('jl') ?>",
          dataType: "json",
          data: {
-            perjal: 'apill',
+            perjal: 'cermin',
          },
          success: function(data) {
             let ruasjalan = [];
@@ -248,81 +255,97 @@ $this->authlogin->cek_login();
             var iconBase = '<?php echo base_url('assets/theme/img/') ?>';
             var icons = {
                Terpasang: {
-                  icon: iconBase + 'apil_terpasang.png'
+                  icon: iconBase + 'cermin_terpasang.png'
                },
                Kebutuhan: {
-                  icon: iconBase + 'apil_kebutuhan.png'
+                  icon: iconBase + 'cermin_kebutuhan.png'
                },
                Rusak: {
-                  icon: iconBase + 'apil_rusak.png'
+                  icon: iconBase + 'cermin_rusak.png'
                }
             };
 
-            var iconapill = '<?php echo base_url('assets/upload/apil/thumbs/') ?>';
-            for (b = 0; b < data.perjal.length; b++) {
-               let feature = new google.maps.Marker({
-                  position: new google.maps.LatLng(data.perjal[b].lat, data.perjal[b].lng),
-                  icon: icons[data.perjal[b].status].icon,
+            let iconcermin = '<?php echo base_url('assets/upload/cermin/thumbs/') ?>';
+            let infowindowperjal = null;
+
+            data.perjal.forEach(element => {
+               var feature = new google.maps.Marker({
+                  position: new google.maps.LatLng(element.lat, element.lng),
+                  icon: icons[element.status].icon,
                   map: map
-               })
-               var xxx = [];
+               });
+
                var contentString = '' +
                   '<div class="marker-holder">' +
-                  '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconapill + data.perjal[b].image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
+                  '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconcermin + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
                   '<div class="map-item-info">' +
-                  '<h5 class="title">Apill (' + data.perjal[b].kd_apill + ')</h5>' +
+                  '<h5 class="title">Cermin Tikung (' + element.kd_cermin + ')</h5>' +
                   '<div class="describe">' +
                   '<div class="grup-info">' +
                   '<label class="title">Ruas</label>' +
-                  '<label class="isi">' + data.perjal[b].kd_jalan + '</label>' +
+                  '<label class="isi">' + element.nm_ruas + '</label>' +
                   '</div>' +
                   '<div class="grup-info">' +
                   '<label class="title">Jenis</label>' +
-                  '<label class="isi">' + data.perjal[b].jenis + '</label>' +
+                  '<label class="isi">' + element.jenis + '</label>' +
                   '</div>' +
                   '<div class="grup-info">' +
                   '<label class="title">Letak</label>' +
-                  '<label class="isi">' + data.perjal[b].letak + '</label>' +
+                  '<label class="isi">' + element.letak + '</label>' +
                   '</div>' +
                   '<div class="grup-info">' +
                   '<label class="title">Status</label>' +
-                  '<label class="isi">' + data.perjal[b].status + '</label>' +
+                  '<label class="isi">' + element.status + '</label>' +
                   '</div>' +
                   '</div>' +
                   '</div>' +
-                  '</div>';
-               xxx.push(contentString);
-               infoperjal.push(contentString);
+                  '<button onclick=' +
+                  '\'edit({' +
+                  'kd_cermin: "' + element.kd_cermin + '", ' +
+                  'kd_jalan: "' + element.kd_jalan + '", ' +
+                  'nm_ruas: "' + element.nm_ruas + '", ' +
+                  'km_lokasi: "' + element.km_lokasi + '", ' +
+                  'jenis: "' + element.jenis + '", ' +
+                  'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
+                  'letak: "' + element.letak + '", ' +
+                  'status: "' + element.status + '", ' +
+                  'lat: "' + element.lat + '", ' +
+                  'lng: "' + element.lng + '", ' +
+                  'img: "' + element.image + '"})\'>' +
+                  'edit</button>'
+               '</div>' +
+               '</div>';
 
-
-               // var infowindowperjal = new google.maps.InfoWindow();
-               // // var infowindowperjal = new google.maps.InfoWindow({
-               // //    setContent: infoperjal
-               // // });
-               // feature.addListener('click', function() {
-               //    infowindowperjal.setContent(
-               //       'hallo' + [b]
-               //    )
-               //    infowindowperjal.open(map, feature);
-               // });
-
-               var infowindow = new google.maps.InfoWindow()
-               var x = data.perjal[b].kd_apill;
-               feature.addListener('click', function(event) {
-                  infowindow.setContent('kode apill ' +
-                     x);
-                  infowindow.open(map);
-                  infowindow.setPosition(event.latLng);
+               google.maps.event.addListener(feature, 'click', function() {
+                  if (infowindowperjal) {
+                     infowindowperjal.close();
+                  }
+                  infowindowperjal = new google.maps.InfoWindow();
+                  infowindowperjal.setContent(contentString)
+                  infowindowperjal.open(map, feature);
                });
+            });
 
-            }
-            console.log(namaruas);
-            // console.log(ruasjalan);
+            // console.log(data.perjal[0]);
          },
       });
       addYourLocationButton(map, marker);
       $('[name="korx"]').val(tengah.lat);
       $('[name="kory"]').val(tengah.lng);
+   }
+
+   function edit(obj) {
+      $('[name="korx"]').val(obj.lat);
+      $('[name="kory"]').val(obj.lng);
+      $('[name="kdcermin"]').val(obj.kd_cermin);
+      $('[name="kdcerminfake"]').val(obj.kd_cermin);
+      $('[name="kdjalan"]').val(obj.kd_jalan);
+      $('[name="ruasjalan"]').val(obj.nm_ruas);
+      $('[name="kmlokasi"]').val(obj.km_lokasi);
+      $('[name="jenis"]').val(obj.jenis);
+      $('[name="letak"]').val(obj.letak);
+      $('[name="status"]').val(obj.status).trigger('change');
+      // console.log(obj);
    }
 
    $('#submit').validate({
@@ -351,9 +374,9 @@ $this->authlogin->cek_login();
          },
       },
       messages: {
-         korx: "Koordinat X Tidak Harus diisi",
-         kory: "Koordinat Y Tidak Harus diisi",
-         ruasjalan: "Nama Ruas Harus dipilih",
+         korx: "Koordinat X dan ",
+         kory: "Koordinat Y Harus diisi (arahkan icon orang pada peta)",
+         ruasjalan: "Ruas Jalan Harus dipilih (klik ruas jalan pada peta)",
          kmlokasi: "Kilometer Lokasi harus diisi",
          jenis: "Jenis harus diisi",
          letak: "Letak  harus diisi",
@@ -376,23 +399,33 @@ $this->authlogin->cek_login();
       e.preventDefault();
       if ($('#submit').valid()) {
          $.ajax({
-            url: "<?= base_url('apill') ?>",
+            url: "<?= base_url('cermin') ?>",
             type: "POST",
             data: new FormData(this),
             processData: false,
             contentType: false,
             cache: false,
             async: false,
+            dataType: "JSON",
             beforeSend: function() {
                $('#titik').html('Menyimpan');
             },
             success: function(data) {
-               //if success close modal and reload ajax table
-               // $('#modal-lg').modal('hide');
+               if (data.method == 'add') {
+                  var methode = "Di Tambahkan";
+               } else {
+                  var methode = "Di Update";
+               };
                $.growl.notice({
-                  message: "Data Berhasil Disimpan"
+                  message: "Data Berhasil " + methode,
                });
                $('#titik').html('Simpan');
+               $('[name="kdcermin"]').val('');
+               $('[name="kdcerminfake"]').val('');
+               $('[name="kmlokasi"]').val('');
+               $('[name="jenis"]').val('');
+               $('[name="letak"]').val('');
+               $('[name="gambar"]').val('');
             },
             error: function(jqXHR, textStatus, errorThrown) {
                alert('Error adding / update data');
@@ -400,4 +433,17 @@ $this->authlogin->cek_login();
          });
       }
    })
+
+   function resetform() {
+      $('[name="korx"]').val('');
+      $('[name="kory"]').val('');
+      $('[name="kdcermin"]').val('');
+      $('[name="kdcerminfake"]').val('');
+      $('[name="kdjalan"]').val('');
+      $('[name="ruasjalan"]').val('');
+      $('[name="kmlokasi"]').val('');
+      $('[name="jenis"]').val('');
+      $('[name="letak"]').val('');
+      $('[name="gambar"]').val('');
+   }
 </script>

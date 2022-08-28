@@ -120,6 +120,7 @@ $route['apiservice/countdaerahrawan'] = 'api/restapikey/getcountdaerahrawan';
 //route survay
 // $routes->post('/apill', 'admin\survayapill::index');
 $route['apill'] = 'admin/survayapill/add';
+$route['cermin'] = 'admin/survaycermin/add';
 $route['jl'] = 'admin/survay/jalan';
 
 

@@ -139,7 +139,6 @@ $this->authlogin->cek_login();
                   </form>
                </div>
             </div>
-            <a href="#" class="tooltip-9">Hover over me!</a><br />
          </section>
       </div>
    </div>
@@ -169,7 +168,7 @@ $this->authlogin->cek_login();
    function initmap(tengah) {
       // console.log(tengah)
       let map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 9, //default 18
+         zoom: 18, //default 18
          center: tengah,
          zoomControl: false,
          disableDefaultUI: true,

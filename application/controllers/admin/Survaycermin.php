@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Survayapill extends CI_Controller
+class survaycermin extends CI_Controller
 {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('apil_model');
+		$this->load->model('cermin_model');
 		$this->load->model('survay_model');
 	}
 
@@ -17,10 +17,10 @@ class Survayapill extends CI_Controller
 	{
 		date_default_timezone_set("Asia/Bangkok");
 		$tahun = date('Y');
-		if (!$this->input->post('kdapill')) {
+		if (!$this->input->post('kdcermin')) {
 
-			//jik kode_apill kosong maka tambah data baru
-			$urut = $this->apil_model->kodeurut();
+			//jik kode_cermin kosong maka tambah data baru
+			$urut = $this->cermin_model->kodeurut();
 			if ($urut->urutan == '') {
 				$kodeurut = '00001';
 			} else {
@@ -29,9 +29,9 @@ class Survayapill extends CI_Controller
 			}
 
 			if (!empty($_FILES['gambar']['name'])) {
-				$kode = 'AP' . $kodeurut;
+				$kode = 'CR' . $kodeurut;
 				$filename = $kode . '_' . $this->input->post('status') . '_' . time();
-				$config['upload_path'] 		= './assets/upload/apil/';
+				$config['upload_path'] 		= './assets/upload/cermin/';
 				$config['allowed_types'] 	= 'gif|jpg|jpeg|png|svg';
 				$config['max_size']			= '1000';
 				$config['file_name'] = $filename;
@@ -42,8 +42,8 @@ class Survayapill extends CI_Controller
 					$upload_data				= array('uploads' => $this->upload->data());
 					$config['image_library']	= 'gd2';
 					$config['encrypt_name'] 	= TRUE;
-					$config['source_image'] 	= './assets/upload/apil/' . $upload_data['uploads']['file_name'];
-					$config['new_image'] 		= './assets/upload/apil/thumbs/';
+					$config['source_image'] 	= './assets/upload/cermin/' . $upload_data['uploads']['file_name'];
+					$config['new_image'] 		= './assets/upload/cermin/thumbs/';
 					$config['create_thumb'] 	= TRUE;
 					$config['quality'] 			= "100%";
 					$config['maintain_ratio'] 	= TRUE;
@@ -57,25 +57,25 @@ class Survayapill extends CI_Controller
 					$this->image_lib->resize();
 
 					$data = array(
-						'kd_apil'			=> $kode,
+						'kd_cermin'			=> $kode,
 						'kd_jalan'			=> $this->input->post('kdjalan'),
 						'thn_pengadaan'		=> $tahun,
 						'km_lokasi	'		=> $this->input->post('kmlokasi'),
 						'jenis'				=> $this->input->post('jenis'),
-						'img_apil'			=> $upload_data['uploads']['file_name'],
+						'img_cermin'		=> $upload_data['uploads']['file_name'],
 						'letak'				=> $this->input->post('letak'),
 						'status'			=> $this->input->post('status'),
 						'lat'				=> $this->input->post('korx'),
 						'lang'				=> $this->input->post('kory')
 					);
-					$this->apil_model->addapil($data);
+					$this->cermin_model->addcermin($data);
 					echo json_encode(array('method' => 'add'));
 				}
 			} else {
 				$i = $this->input;
-				$kode = 'AP' . $kodeurut;
+				$kode = 'CR' . $kodeurut;
 				$data = array(
-					'kd_apil'			=> $kode,
+					'kd_cermin'			=> $kode,
 					'kd_jalan'			=> $i->post('kdjalan'),
 					'thn_pengadaan'		=> $tahun,
 					'km_lokasi	'		=> $i->post('kmlokasi'),
@@ -85,23 +85,23 @@ class Survayapill extends CI_Controller
 					'lat'				=> $i->post('korx'),
 					'lang'				=> $i->post('kory')
 				);
-				$this->apil_model->addapil($data);
+				$this->cermin_model->addcermin($data);
 				echo json_encode(array('method' => 'add'));
 			}
-		} elseif ($this->input->post('kdapill')) {
-			//jik kode_apill tidak kosong maka edit data berdasarkan kode apil
+		} elseif ($this->input->post('kdcermin')) {
+			//jik kode_cermin tidak kosong maka edit data berdasarkan kode cermin
 			$date = new DateTime();
 			$a = $date->getTimestamp();
 			$updated_at = date('Y-m-d H:i:s', $a);
 
 			//ambil data lama untuk disimpan ke history
-			$kodeapill = $this->input->post('kdapill');
+			$kodecermin = $this->input->post('kdcermin');
 			$kodejalan = $this->input->post('kdjalan');
-			$datalama = $this->apil_model->detailapil($kodejalan, $kodeapill);
+			$datalama = $this->cermin_model->detailcermin($kodejalan, $kodecermin);
 			$data = array(
-				'kd_perjal'			=> $datalama->kd_apil,
+				'kd_perjal'			=> $datalama->kd_cermin,
 				'status'			=> $datalama->status,
-				'img'				=> $datalama->img_apil,
+				'img'				=> $datalama->img_cermin,
 				'created_at'		=> $datalama->updated_at,
 			);
 			//history hanya akan ditambahkan jika status perlengkapan jalan berubah
@@ -110,8 +110,8 @@ class Survayapill extends CI_Controller
 			}
 
 			if (!empty($_FILES['gambar']['name'])) {
-				$filename = $kodeapill . '_' . $this->input->post('status') . '_' . time();
-				$config['upload_path'] 		= './assets/upload/apil/';
+				$filename = $kodecermin . '_' . $this->input->post('status') . '_' . time();
+				$config['upload_path'] 		= './assets/upload/cermin/';
 				$config['allowed_types'] 	= 'gif|jpg|jpeg|png|svg';
 				$config['max_size']			= '1000';
 				$config['file_name'] = $filename;
@@ -122,8 +122,8 @@ class Survayapill extends CI_Controller
 					$upload_data				= array('uploads' => $this->upload->data());
 					$config['image_library']	= 'gd2';
 					$config['encrypt_name'] 	= TRUE;
-					$config['source_image'] 	= './assets/upload/apil/' . $upload_data['uploads']['file_name'];
-					$config['new_image'] 		= './assets/upload/apil/thumbs/';
+					$config['source_image'] 	= './assets/upload/cermin/' . $upload_data['uploads']['file_name'];
+					$config['new_image'] 		= './assets/upload/cermin/thumbs/';
 					$config['create_thumb'] 	= TRUE;
 					$config['quality'] 			= "100%";
 					$config['maintain_ratio'] 	= TRUE;
@@ -136,19 +136,19 @@ class Survayapill extends CI_Controller
 					$this->load->library('image_lib', $config);
 					$this->image_lib->resize();
 
-					if ($datalama->status == $this->input->post('status') && $datalama->img_apil != '') {
-						unlink('./assets/upload/apil/' . $datalama->img_apil);
-						unlink('./assets/upload/apil/thumbs/' . $datalama->img_apil);
+					if ($datalama->status == $this->input->post('status') && $datalama->img_cermin != '') {
+						unlink('./assets/upload/cermin/' . $datalama->img_cermin);
+						unlink('./assets/upload/cermin/thumbs/' . $datalama->img_cermin);
 					}
 
 					//jika data status tidak berubah data updated_at tidak berubah
 					if ($datalama->status == $this->input->post('status')) {
 						$data = array(
-							'kd_apil'			=> $this->input->post('kdapill'),
+							'kd_cermin'			=> $this->input->post('kdcermin'),
 							'kd_jalan'			=> $this->input->post('kdjalan'),
 							'km_lokasi	'		=> $this->input->post('kmlokasi'),
 							'jenis'				=> $this->input->post('jenis'),
-							'img_apil'			=> $upload_data['uploads']['file_name'],
+							'img_cermin'			=> $upload_data['uploads']['file_name'],
 							'letak'				=> $this->input->post('letak'),
 							'status'			=> $this->input->post('status'),
 							'lat'				=> $this->input->post('korx'),
@@ -156,11 +156,11 @@ class Survayapill extends CI_Controller
 						);
 					} else if ($datalama->status != $this->input->post('status')) {
 						$data = array(
-							'kd_apil'			=> $this->input->post('kdapill'),
+							'kd_cermin'			=> $this->input->post('kdcermin'),
 							'kd_jalan'			=> $this->input->post('kdjalan'),
 							'km_lokasi	'		=> $this->input->post('kmlokasi'),
 							'jenis'				=> $this->input->post('jenis'),
-							'img_apil'			=> $upload_data['uploads']['file_name'],
+							'img_cermin'			=> $upload_data['uploads']['file_name'],
 							'letak'				=> $this->input->post('letak'),
 							'status'			=> $this->input->post('status'),
 							'lat'				=> $this->input->post('korx'),
@@ -169,17 +169,16 @@ class Survayapill extends CI_Controller
 						);
 					}
 
-					$this->apil_model->editapil($data);
+					$this->cermin_model->editcermin($data);
 					echo json_encode(array('method' => 'edit'));
 				}
 			} else {
 				$i = $this->input;
 
-
 				//jika data status tidak berubah data updated_at tidak berubah
 				if ($datalama->status == $this->input->post('status')) {
 					$data = array(
-						'kd_apil'			=> $this->input->post('kdapill'),
+						'kd_cermin'			=> $this->input->post('kdcermin'),
 						'kd_jalan'			=> $i->post('kdjalan'),
 						'km_lokasi	'		=> $i->post('kmlokasi'),
 						'jenis'				=> $i->post('jenis'),
@@ -190,7 +189,7 @@ class Survayapill extends CI_Controller
 					);
 				} else if ($datalama->status != $this->input->post('status')) {
 					$data = array(
-						'kd_apil'			=> $this->input->post('kdapill'),
+						'kd_cermin'			=> $this->input->post('kdcermin'),
 						'kd_jalan'			=> $i->post('kdjalan'),
 						'km_lokasi	'		=> $i->post('kmlokasi'),
 						'jenis'				=> $i->post('jenis'),
@@ -201,7 +200,7 @@ class Survayapill extends CI_Controller
 						'updated_at'		=> $updated_at
 					);
 				}
-				$this->apil_model->editapil($data);
+				$this->cermin_model->editcermin($data);
 				echo json_encode(array('method' => 'edit'));
 			}
 		}

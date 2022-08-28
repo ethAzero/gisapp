@@ -12,7 +12,7 @@
                </a>
             </div>
             <div class='col-md-3 col-sm-6 col-xs-12'>
-               <a href="oke.html">
+               <a href="<?= base_url('/admin/survay/cermin'); ?>">
                   <div class='info-box'> <span class="info-box-icon bg-orange"> <i class="fa fa-brand fa-road"></i></span>
                      <div class='info-box-content'> <span class='info-box-text'>Cermin Tikung</span> <span class='info-box-number'><small> Survay</small> Cermin Tikung</span> </div>
                   </div>
