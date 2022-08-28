@@ -6,4 +6,7 @@
 5. file view layout head ditambahkan notifikasi aduan bagi balai dan tanggapan bagi admin aduan done
 6. file view layout footer, nav ada perubahan done
 7. tambah data user dengan pilihan sebagai admin aduan done
-8. tampilan dashboar dilengkapi dengan statistik chart 
+8. tampilan dashboar dilengkapi dengan statistik chart done
+9. tambah tabel history untuk mengetahui histroy perlengkapan jalan tahun ke tahun done
+10. tambah field created_at dan update_at pada tabel apill done 
+11. halaman survay apill done 

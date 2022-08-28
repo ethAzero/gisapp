@@ -33,4 +33,9 @@ class Survay_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function updatehistory($data)
+	{
+		$this->db->insert('history', $data);
+	}
 }

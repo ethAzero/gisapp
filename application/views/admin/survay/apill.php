@@ -13,6 +13,7 @@ $this->authlogin->cek_login();
    <link href="<?php echo base_url() ?>assets/admin/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
    <link href="<?php echo base_url() ?>assets/admin/plugins/select2/select2.css" rel="stylesheet" />
    <link href="<?php echo base_url() ?>assets/admin/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+
    <style>
       #map {
          height: 100% !important;
@@ -82,8 +83,12 @@ $this->authlogin->cek_login();
                                        <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
                                     </div>
                                     <div class="form-group col-md-2">
-                                       <label for="exampleInputEmail1">Ruas Jalan</label>
+                                       <label for="exampleInputEmail1">Kode Apill <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
                                        <input type="hidden" id="kdapill" name="kdapill" class="form-control">
+                                       <input type="text" id="kdapillfake" name="kdapillfake" class="form-control" placeholder="Kode APILL" disabled>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                       <label for="exampleInputEmail1">Ruas Jalan</label>
                                        <input type="hidden" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required>
                                        <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required>
                                     </div>
@@ -114,7 +119,8 @@ $this->authlogin->cek_login();
                         <div class="col-md-3">
                            <div class="box box-primary">
                               <div class="modal-footer">
-                                 <a href="<?php echo base_url('admin/apil/detail/') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
+                                 <button type="button" onclick="resetform()" class="btn btn-default btn-flat"><i class="fa fa-square-o"></i> Reset Form</button>
+                                 <a href="<?php echo base_url('admin/survay') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
                                  <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> <span id="titik">Simpan</span> </button>
                               </div>
                            </div>
@@ -133,6 +139,7 @@ $this->authlogin->cek_login();
                   </form>
                </div>
             </div>
+            <a href="#" class="tooltip-9">Hover over me!</a><br />
          </section>
       </div>
    </div>
@@ -332,6 +339,7 @@ $this->authlogin->cek_login();
       $('[name="korx"]').val(obj.lat);
       $('[name="kory"]').val(obj.lng);
       $('[name="kdapill"]').val(obj.kd_apill);
+      $('[name="kdapillfake"]').val(obj.kd_apill);
       $('[name="kdjalan"]').val(obj.kd_jalan);
       $('[name="ruasjalan"]').val(obj.nm_ruas);
       $('[name="kmlokasi"]').val(obj.km_lokasi);
@@ -367,9 +375,9 @@ $this->authlogin->cek_login();
          },
       },
       messages: {
-         korx: "Koordinat X Tidak Harus diisi",
-         kory: "Koordinat Y Tidak Harus diisi",
-         ruasjalan: "Nama Ruas Harus dipilih",
+         korx: "Koordinat X dan ",
+         kory: "Koordinat Y Harus diisi (arahkan icon orang pada peta)",
+         ruasjalan: "Ruas Jalan Harus dipilih (klik ruas jalan pada peta)",
          kmlokasi: "Kilometer Lokasi harus diisi",
          jenis: "Jenis harus diisi",
          letak: "Letak  harus diisi",
@@ -399,27 +407,26 @@ $this->authlogin->cek_login();
             contentType: false,
             cache: false,
             async: false,
+            dataType: "JSON",
             beforeSend: function() {
                $('#titik').html('Menyimpan');
             },
             success: function(data) {
-               //if success close modal and reload ajax table
-               // $('#modal-lg').modal('hide');
-               // if (data.sukses == 1) {
-               //    var methode = "Ditambahkan";
-               // } else {
-               //    var methode = "Diupdate";
-               // };
-
+               if (data.method == 'add') {
+                  var methode = "Di Tambahkan";
+               } else {
+                  var methode = "Di Update";
+               };
                $.growl.notice({
-                  message: "Data Berhasil methode + "
+                  message: "Data Berhasil " + methode,
                });
                $('#titik').html('Simpan');
+               $('[name="kdapill"]').val('');
+               $('[name="kdapillfake"]').val('');
                $('[name="kmlokasi"]').val('');
                $('[name="jenis"]').val('');
                $('[name="letak"]').val('');
-               // alert(data);
-               console.log(data);
+               $('[name="gambar"]').val('');
             },
             error: function(jqXHR, textStatus, errorThrown) {
                alert('Error adding / update data');
@@ -427,4 +434,17 @@ $this->authlogin->cek_login();
          });
       }
    })
+
+   function resetform() {
+      $('[name="korx"]').val('');
+      $('[name="kory"]').val('');
+      $('[name="kdapill"]').val('');
+      $('[name="kdapillfake"]').val('');
+      $('[name="kdjalan"]').val('');
+      $('[name="ruasjalan"]').val('');
+      $('[name="kmlokasi"]').val('');
+      $('[name="jenis"]').val('');
+      $('[name="letak"]').val('');
+      $('[name="gambar"]').val('');
+   }
 </script>
