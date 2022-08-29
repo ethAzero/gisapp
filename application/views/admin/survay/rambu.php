@@ -92,13 +92,23 @@ $this->authlogin->cek_login();
                                        <input type="hidden" id="kdjalan" name="kdjalan" class="form-control" placeholder="Kode Jalan" required>
                                        <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required>
                                     </div>
-                                    <div class="form-group col-md-2">
-                                       <label for="exampleInputEmail1">Km Lokasi</label>
-                                       <input type="text" name="kmlokasi" class="form-control" placeholder="Km Lokasi" required>
-                                    </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Jenis</label>
-                                       <input type="text" name="jenis" class="form-control" placeholder="Jenis" required>
+                                       <select name="jenis" class="form-control select2" required>
+                                          <option value="">~~Jenis~~</option>
+                                          <option value="JR01">Larangan</option>
+                                          <option value="JR02">Peringatan</option>
+                                          <option value="JR03">Perintah</option>
+                                          <option value="JR04">Petunjuk</option>
+                                       </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                       <label for="exampleInputEmail1">Status</label>
+                                       <select name="status" class="form-control select2" required>
+                                          <option value="">~~Status~~</option>
+                                          <option value="Terpasang">Terpasang</option>
+                                          <option value="Kebutuhan">Kebutuhan</option>
+                                       </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Letak</label>
@@ -118,6 +128,12 @@ $this->authlogin->cek_login();
                                           <option value="Rusak">Rusak</option>
                                        </select>
                                     </div>
+                                    <div class="form-group col-md-2">
+                                       <label for="exampleInputEmail1">Km Lokasi</label>
+                                       <input type="text" name="kmlokasi" class="form-control" placeholder="Km Lokasi" required>
+                                    </div>
+
+
                                  </div>
                               </div>
                            </div>
