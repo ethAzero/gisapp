@@ -83,9 +83,9 @@ $this->authlogin->cek_login();
                                        <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
                                     </div>
                                     <div class="form-group col-md-2">
-                                       <label for="exampleInputEmail1">Kode Apill <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
-                                       <input type="hidden" id="kdapill" name="kdapill" class="form-control">
-                                       <input type="text" id="kdapillfake" name="kdapillfake" class="form-control" placeholder="Kode APILL" disabled>
+                                       <label for="exampleInputEmail1">Kode Flash / WL <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
+                                       <input type="hidden" id="kdflash" name="kdflash" class="form-control">
+                                       <input type="text" id="kdflashfake" name="kdflashfake" class="form-control" placeholder="Kode Flash / WL" disabled>
                                     </div>
                                     <div class="form-group col-md-2">
                                        <label for="exampleInputEmail1">Ruas Jalan</label>
@@ -198,7 +198,7 @@ $this->authlogin->cek_login();
          url: "<?php echo base_url('jl') ?>",
          dataType: "json",
          data: {
-            perjal: 'apill',
+            perjal: 'flash',
          },
          success: function(data) {
             let ruasjalan = [];
@@ -255,17 +255,17 @@ $this->authlogin->cek_login();
             var iconBase = '<?php echo base_url('assets/theme/img/') ?>';
             var icons = {
                Terpasang: {
-                  icon: iconBase + 'apil_terpasang.png'
+                  icon: iconBase + 'flash_terpasang.png'
                },
                Kebutuhan: {
-                  icon: iconBase + 'apil_kebutuhan.png'
+                  icon: iconBase + 'flash_kebutuhan.png'
                },
                Rusak: {
-                  icon: iconBase + 'apil_rusak.png'
+                  icon: iconBase + 'flash_rusak.png'
                }
             };
 
-            let iconapill = '<?php echo base_url('assets/upload/apil/thumbs/') ?>';
+            let iconflash = '<?php echo base_url('assets/upload/flash/thumbs/') ?>';
             let infowindowperjal = null;
 
             if (data.perjal) {
@@ -278,9 +278,9 @@ $this->authlogin->cek_login();
 
                   var contentString = '' +
                      '<div class="marker-holder">' +
-                     '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconapill + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
+                     '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconflash + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
                      '<div class="map-item-info">' +
-                     '<h5 class="title">Apill (' + element.kd_apill + ')</h5>' +
+                     '<h5 class="title">Flash / WL (' + element.kd_flash + ')</h5>' +
                      '<div class="describe">' +
                      '<div class="grup-info">' +
                      '<label class="title">Ruas</label>' +
@@ -302,7 +302,7 @@ $this->authlogin->cek_login();
                      '</div>' +
                      '<button onclick=' +
                      '\'edit({' +
-                     'kd_apill: "' + element.kd_apill + '", ' +
+                     'kd_flash: "' + element.kd_flash + '", ' +
                      'kd_jalan: "' + element.kd_jalan + '", ' +
                      'nm_ruas: "' + element.nm_ruas + '", ' +
                      'km_lokasi: "' + element.km_lokasi + '", ' +
@@ -338,8 +338,8 @@ $this->authlogin->cek_login();
    function edit(obj) {
       $('[name="korx"]').val(obj.lat);
       $('[name="kory"]').val(obj.lng);
-      $('[name="kdapill"]').val(obj.kd_apill);
-      $('[name="kdapillfake"]').val(obj.kd_apill);
+      $('[name="kdflash"]').val(obj.kd_flash);
+      $('[name="kdflashfake"]').val(obj.kd_flash);
       $('[name="kdjalan"]').val(obj.kd_jalan);
       $('[name="ruasjalan"]').val(obj.nm_ruas);
       $('[name="kmlokasi"]').val(obj.km_lokasi);
@@ -400,7 +400,7 @@ $this->authlogin->cek_login();
       e.preventDefault();
       if ($('#submit').valid()) {
          $.ajax({
-            url: "<?= base_url('apill') ?>",
+            url: "<?= base_url('flash') ?>",
             type: "POST",
             data: new FormData(this),
             processData: false,
@@ -421,8 +421,8 @@ $this->authlogin->cek_login();
                   message: "Data Berhasil " + methode,
                });
                $('#titik').html('Simpan');
-               $('[name="kdapill"]').val('');
-               $('[name="kdapillfake"]').val('');
+               $('[name="kdflash"]').val('');
+               $('[name="kdflashfake"]').val('');
                $('[name="kmlokasi"]').val('');
                $('[name="jenis"]').val('');
                $('[name="letak"]').val('');
@@ -438,8 +438,8 @@ $this->authlogin->cek_login();
    function resetform() {
       $('[name="korx"]').val('');
       $('[name="kory"]').val('');
-      $('[name="kdapill"]').val('');
-      $('[name="kdapillfake"]').val('');
+      $('[name="kdflash"]').val('');
+      $('[name="kdflashfake"]').val('');
       $('[name="kdjalan"]').val('');
       $('[name="ruasjalan"]').val('');
       $('[name="kmlokasi"]').val('');

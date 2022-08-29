@@ -83,9 +83,9 @@ $this->authlogin->cek_login();
                                        <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
                                     </div>
                                     <div class="form-group col-md-2">
-                                       <label for="exampleInputEmail1">Kode Apill <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
-                                       <input type="hidden" id="kdapill" name="kdapill" class="form-control">
-                                       <input type="text" id="kdapillfake" name="kdapillfake" class="form-control" placeholder="Kode APILL" disabled>
+                                       <label for="exampleInputEmail1">Kode Marka <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
+                                       <input type="hidden" id="kdmarka" name="kdmarka" class="form-control">
+                                       <input type="text" id="kdmarkafake" name="kdmarkafake" class="form-control" placeholder="Kode Marka" disabled>
                                     </div>
                                     <div class="form-group col-md-2">
                                        <label for="exampleInputEmail1">Ruas Jalan</label>
@@ -93,21 +93,21 @@ $this->authlogin->cek_login();
                                        <input type="text" id="ruasjalan" name="ruasjalan" class="form-control" placeholder="Ruas Jalan" required>
                                     </div>
                                     <div class="form-group col-md-2">
-                                       <label for="exampleInputEmail1">Km Lokasi</label>
-                                       <input type="text" name="kmlokasi" class="form-control" placeholder="Km Lokasi" required>
+                                       <label for="exampleInputEmail1">Panjang (m')</label>
+                                       <input type="text" name="panjang" class="form-control" placeholder="Panjang" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                       <label for="exampleInputEmail1">Jenis</label>
-                                       <input type="text" name="jenis" class="form-control" placeholder="Jenis" required>
-                                    </div>
-                                    <div class="form-group col-md-5">
                                        <label for="exampleInputEmail1">Letak</label>
-                                       <input type="text" name="letak" class="form-control" placeholder="Letak" required>
+                                       <select name="letak" class="form-control select2" required>
+                                          <option value="">~~Letak~~</option>
+                                          <option value="Tepi">Tepi</option>
+                                          <option value="Tengah">Tengah</option>
+                                       </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Kondisi</label>
                                        <select name="status" class="form-control select2" required>
-                                          <option value="Terpasang">Terpasang</option>
+                                          <option value="Baik">Baik</option>
                                           <option value="Kebutuhan">Kebutuhan</option>
                                           <option value="Rusak">Rusak</option>
                                        </select>
@@ -168,7 +168,7 @@ $this->authlogin->cek_login();
    function initmap(tengah) {
       // console.log(tengah)
       let map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 18, //default 18
+         zoom: 9, //default 18
          center: tengah,
          zoomControl: false,
          disableDefaultUI: true,
@@ -198,7 +198,7 @@ $this->authlogin->cek_login();
          url: "<?php echo base_url('jl') ?>",
          dataType: "json",
          data: {
-            perjal: 'apill',
+            perjal: 'marka',
          },
          success: function(data) {
             let ruasjalan = [];
@@ -254,18 +254,18 @@ $this->authlogin->cek_login();
             //marker perlengkapan jalan
             var iconBase = '<?php echo base_url('assets/theme/img/') ?>';
             var icons = {
-               Terpasang: {
-                  icon: iconBase + 'apil_terpasang.png'
+               Baik: {
+                  icon: iconBase + 'marka_baik.png'
                },
                Kebutuhan: {
-                  icon: iconBase + 'apil_kebutuhan.png'
+                  icon: iconBase + 'marka_kebutuhan.png'
                },
                Rusak: {
-                  icon: iconBase + 'apil_rusak.png'
+                  icon: iconBase + 'marka_rusak.png'
                }
             };
 
-            let iconapill = '<?php echo base_url('assets/upload/apil/thumbs/') ?>';
+            let iconmarka = '<?php echo base_url('assets/upload/marka/thumbs/') ?>';
             let infowindowperjal = null;
 
             if (data.perjal) {
@@ -276,19 +276,23 @@ $this->authlogin->cek_login();
                      map: map
                   });
 
+                  if (!element.panjang) {
+                     var panjang = '-';
+                  } else {
+                     var panjang = element.panjang;
+                  }
                   var contentString = '' +
-                     '<div class="marker-holder">' +
-                     '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconapill + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
+                     '<div class="marker-holder">' + '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconmarka + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
                      '<div class="map-item-info">' +
-                     '<h5 class="title">Apill (' + element.kd_apill + ')</h5>' +
+                     '<h5 class="title">Marka (' + element.kd_marka + ')</h5>' +
                      '<div class="describe">' +
                      '<div class="grup-info">' +
                      '<label class="title">Ruas</label>' +
                      '<label class="isi">' + element.nm_ruas + '</label>' +
                      '</div>' +
                      '<div class="grup-info">' +
-                     '<label class="title">Jenis</label>' +
-                     '<label class="isi">' + element.jenis + '</label>' +
+                     '<label class="title">Panjang</label>' +
+                     '<label class="isi">' + panjang + ' m</label>' +
                      '</div>' +
                      '<div class="grup-info">' +
                      '<label class="title">Letak</label>' +
@@ -302,11 +306,10 @@ $this->authlogin->cek_login();
                      '</div>' +
                      '<button onclick=' +
                      '\'edit({' +
-                     'kd_apill: "' + element.kd_apill + '", ' +
+                     'kd_marka: "' + element.kd_marka + '", ' +
                      'kd_jalan: "' + element.kd_jalan + '", ' +
                      'nm_ruas: "' + element.nm_ruas + '", ' +
-                     'km_lokasi: "' + element.km_lokasi + '", ' +
-                     'jenis: "' + element.jenis + '", ' +
+                     'panjang: "' + element.panjang + '", ' +
                      'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
                      'letak: "' + element.letak + '", ' +
                      'status: "' + element.status + '", ' +
@@ -338,16 +341,43 @@ $this->authlogin->cek_login();
    function edit(obj) {
       $('[name="korx"]').val(obj.lat);
       $('[name="kory"]').val(obj.lng);
-      $('[name="kdapill"]').val(obj.kd_apill);
-      $('[name="kdapillfake"]').val(obj.kd_apill);
+      $('[name="kdmarka"]').val(obj.kd_marka);
+      $('[name="kdmarkafake"]').val(obj.kd_marka);
       $('[name="kdjalan"]').val(obj.kd_jalan);
       $('[name="ruasjalan"]').val(obj.nm_ruas);
-      $('[name="kmlokasi"]').val(obj.km_lokasi);
-      $('[name="jenis"]').val(obj.jenis);
-      $('[name="letak"]').val(obj.letak);
+      $('[name="panjang"]').val(obj.panjang);
+      $('[name="letak"]').val(obj.letak).trigger('change');
       $('[name="status"]').val(obj.status).trigger('change');
       // console.log(obj);
    }
+
+   $('[name="panjang"]').on('keyup', function() {
+      $(this).validate({
+         rules: {
+            panjang: {
+               required: true,
+               number: true
+            },
+         },
+         messages: {
+            panjang: {
+               required: "Panjang Marka harus diisi",
+               number: "Harus Berupa Angka"
+            },
+         },
+         errorElement: 'span',
+         errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+         },
+         highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+         },
+         unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+         }
+      })
+   });
 
    $('#submit').validate({
       rules: {
@@ -360,12 +390,9 @@ $this->authlogin->cek_login();
          kdjalan: {
             required: true,
          },
-         kmlokasi: {
+         panjang: {
             required: true,
             number: true
-         },
-         jenis: {
-            required: true,
          },
          letak: {
             required: true,
@@ -378,8 +405,10 @@ $this->authlogin->cek_login();
          korx: "Koordinat X dan ",
          kory: "Koordinat Y Harus diisi (arahkan icon orang pada peta)",
          ruasjalan: "Ruas Jalan Harus dipilih (klik ruas jalan pada peta)",
-         kmlokasi: "Kilometer Lokasi harus diisi",
-         jenis: "Jenis harus diisi",
+         panjang: {
+            required: "Panjang Marka harus diisi",
+            number: "Harus Berupa Angka"
+         },
          letak: "Letak  harus diisi",
          status: "Status harus diisi",
       },
@@ -400,7 +429,7 @@ $this->authlogin->cek_login();
       e.preventDefault();
       if ($('#submit').valid()) {
          $.ajax({
-            url: "<?= base_url('apill') ?>",
+            url: "<?= base_url('marka') ?>",
             type: "POST",
             data: new FormData(this),
             processData: false,
@@ -421,10 +450,9 @@ $this->authlogin->cek_login();
                   message: "Data Berhasil " + methode,
                });
                $('#titik').html('Simpan');
-               $('[name="kdapill"]').val('');
-               $('[name="kdapillfake"]').val('');
-               $('[name="kmlokasi"]').val('');
-               $('[name="jenis"]').val('');
+               $('[name="kdmarka"]').val('');
+               $('[name="kdmarkafake"]').val('');
+               $('[name="panjang"]').val('');
                $('[name="letak"]').val('');
                $('[name="gambar"]').val('');
             },
@@ -438,13 +466,13 @@ $this->authlogin->cek_login();
    function resetform() {
       $('[name="korx"]').val('');
       $('[name="kory"]').val('');
-      $('[name="kdapill"]').val('');
-      $('[name="kdapillfake"]').val('');
+      $('[name="kdmarka"]').val('');
+      $('[name="kdmarkafake"]').val('');
       $('[name="kdjalan"]').val('');
       $('[name="ruasjalan"]').val('');
-      $('[name="kmlokasi"]').val('');
-      $('[name="jenis"]').val('');
+      $('[name="panjang"]').val('');
       $('[name="letak"]').val('');
+      $('[name="letak"]').val('').trigger('change');
       $('[name="gambar"]').val('');
    }
 </script>

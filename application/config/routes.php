@@ -121,6 +121,12 @@ $route['apiservice/countdaerahrawan'] = 'api/restapikey/getcountdaerahrawan';
 // $routes->post('/apill', 'admin\survayapill::index');
 $route['apill'] = 'admin/survayapill/add';
 $route['cermin'] = 'admin/survaycermin/add';
+$route['delinator'] = 'admin/surveidelinator/add';
+$route['flash'] = 'admin/surveiflash/add';
+$route['guardrail'] = 'admin/surveiguardrail/add';
+$route['marka'] = 'admin/surveimarka/add';
+$route['pju'] = 'admin/surveipju/add';
+$route['rppj'] = 'admin/surveirppj/add';
 $route['jl'] = 'admin/survay/jalan';
 
 

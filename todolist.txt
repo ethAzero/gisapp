@@ -11,3 +11,5 @@
 10. tambah field created_at dan update_at pada tabel apill done 
 11. halaman survay apill done 
 12. halaman survay cermin done
+13. Tambahkan folder thumbs pada folder PJU
+14. Tambahkan folder thumbs pada folder RPPJ

@@ -83,7 +83,7 @@ $this->authlogin->cek_login();
                                        <input type="text" id="lng" name="kory" class="form-control" placeholder="lng" required>
                                     </div>
                                     <div class="form-group col-md-2">
-                                       <label for="exampleInputEmail1">Kode Apill <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
+                                       <label for="exampleInputEmail1">Kode Cermin <br><i class="fa fa-info-circle text-orange tip"> Jika Opsi Update Silahkan Pilih Perlengkapan Jalan Pada Peta, Jika Kosong Sistem Melakukan Metode Penyimpanan sebagai Data Baru</i> </label>
                                        <input type="hidden" id="kdcermin" name="kdcermin" class="form-control">
                                        <input type="text" id="kdcerminfake" name="kdcerminfake" class="form-control" placeholder="Kode Cermin Tikung" disabled>
                                     </div>
@@ -268,64 +268,65 @@ $this->authlogin->cek_login();
             let iconcermin = '<?php echo base_url('assets/upload/cermin/thumbs/') ?>';
             let infowindowperjal = null;
 
-            data.perjal.forEach(element => {
-               var feature = new google.maps.Marker({
-                  position: new google.maps.LatLng(element.lat, element.lng),
-                  icon: icons[element.status].icon,
-                  map: map
+            if (data.perjal) {
+               data.perjal.forEach(element => {
+                  var feature = new google.maps.Marker({
+                     position: new google.maps.LatLng(element.lat, element.lng),
+                     icon: icons[element.status].icon,
+                     map: map
+                  });
+
+                  var contentString = '' +
+                     '<div class="marker-holder">' +
+                     '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconcermin + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
+                     '<div class="map-item-info">' +
+                     '<h5 class="title">Cermin Tikung (' + element.kd_cermin + ')</h5>' +
+                     '<div class="describe">' +
+                     '<div class="grup-info">' +
+                     '<label class="title">Ruas</label>' +
+                     '<label class="isi">' + element.nm_ruas + '</label>' +
+                     '</div>' +
+                     '<div class="grup-info">' +
+                     '<label class="title">Jenis</label>' +
+                     '<label class="isi">' + element.jenis + '</label>' +
+                     '</div>' +
+                     '<div class="grup-info">' +
+                     '<label class="title">Letak</label>' +
+                     '<label class="isi">' + element.letak + '</label>' +
+                     '</div>' +
+                     '<div class="grup-info">' +
+                     '<label class="title">Status</label>' +
+                     '<label class="isi">' + element.status + '</label>' +
+                     '</div>' +
+                     '</div>' +
+                     '</div>' +
+                     '<button onclick=' +
+                     '\'edit({' +
+                     'kd_cermin: "' + element.kd_cermin + '", ' +
+                     'kd_jalan: "' + element.kd_jalan + '", ' +
+                     'nm_ruas: "' + element.nm_ruas + '", ' +
+                     'km_lokasi: "' + element.km_lokasi + '", ' +
+                     'jenis: "' + element.jenis + '", ' +
+                     'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
+                     'letak: "' + element.letak + '", ' +
+                     'status: "' + element.status + '", ' +
+                     'lat: "' + element.lat + '", ' +
+                     'lng: "' + element.lng + '", ' +
+                     'img: "' + element.image + '"})\'>' +
+                     'edit</button>'
+                  '</div>' +
+                  '</div>';
+
+                  google.maps.event.addListener(feature, 'click', function() {
+                     if (infowindowperjal) {
+                        infowindowperjal.close();
+                     }
+                     infowindowperjal = new google.maps.InfoWindow();
+                     infowindowperjal.setContent(contentString)
+                     infowindowperjal.open(map, feature);
+                  });
                });
-
-               var contentString = '' +
-                  '<div class="marker-holder">' +
-                  '<div class="marker-company-thumbnail"><div class="crop-to-square"><div class="crop-to-square-positioner"><a id="happy-img" data-toggle="modal" data-target="#exampleModal" data-id=""><img src="' + iconcermin + element.image + '" class="crop-to-square-img" alt=""></a></div></div></div>' +
-                  '<div class="map-item-info">' +
-                  '<h5 class="title">Cermin Tikung (' + element.kd_cermin + ')</h5>' +
-                  '<div class="describe">' +
-                  '<div class="grup-info">' +
-                  '<label class="title">Ruas</label>' +
-                  '<label class="isi">' + element.nm_ruas + '</label>' +
-                  '</div>' +
-                  '<div class="grup-info">' +
-                  '<label class="title">Jenis</label>' +
-                  '<label class="isi">' + element.jenis + '</label>' +
-                  '</div>' +
-                  '<div class="grup-info">' +
-                  '<label class="title">Letak</label>' +
-                  '<label class="isi">' + element.letak + '</label>' +
-                  '</div>' +
-                  '<div class="grup-info">' +
-                  '<label class="title">Status</label>' +
-                  '<label class="isi">' + element.status + '</label>' +
-                  '</div>' +
-                  '</div>' +
-                  '</div>' +
-                  '<button onclick=' +
-                  '\'edit({' +
-                  'kd_cermin: "' + element.kd_cermin + '", ' +
-                  'kd_jalan: "' + element.kd_jalan + '", ' +
-                  'nm_ruas: "' + element.nm_ruas + '", ' +
-                  'km_lokasi: "' + element.km_lokasi + '", ' +
-                  'jenis: "' + element.jenis + '", ' +
-                  'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
-                  'letak: "' + element.letak + '", ' +
-                  'status: "' + element.status + '", ' +
-                  'lat: "' + element.lat + '", ' +
-                  'lng: "' + element.lng + '", ' +
-                  'img: "' + element.image + '"})\'>' +
-                  'edit</button>'
-               '</div>' +
-               '</div>';
-
-               google.maps.event.addListener(feature, 'click', function() {
-                  if (infowindowperjal) {
-                     infowindowperjal.close();
-                  }
-                  infowindowperjal = new google.maps.InfoWindow();
-                  infowindowperjal.setContent(contentString)
-                  infowindowperjal.open(map, feature);
-               });
-            });
-
+            }
             // console.log(data.perjal[0]);
          },
       });
