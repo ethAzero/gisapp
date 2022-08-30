@@ -107,13 +107,12 @@ $this->authlogin->cek_login();
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Tipe Rambu</label>
-                                       <select name="tipe" id="tipe" class="form-control select2" required>
-                                          <option value="">~~Tipe Rambu~~</option>
+                                       <select name="tipe" id="tipe" class="form-control" required>
                                        </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Status</label>
-                                       <select name="status" class="form-control select2" required>
+                                       <select name="status" id="status" class="form-control select2" required onchange="getKondisi(this.value)">
                                           <option value="">~~Pilih Status~~</option>
                                           <option value="Terpasang">Terpasang</option>
                                           <option value="Kebutuhan">Kebutuhan</option>
@@ -128,12 +127,12 @@ $this->authlogin->cek_login();
                                           <option value="tengah">Tengah</option>
                                        </select>
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-3 kondisi">
                                        <label for="exampleInputEmail1">Kondisi</label>
-                                       <select name="status" class="form-control select2" required>
+                                       <select name="kondisi" class="form-control select2" required>
                                           <option value="">~~Kondisi~~</option>
-                                          <option value="Terpasang">Terpasang</option>
-                                          <option value="Kebutuhan">Kebutuhan</option>
+                                          <option value="Baik">Baik</option>
+                                          <option value="Sedang">Sedang</option>
                                           <option value="Rusak">Rusak</option>
                                        </select>
                                     </div>
@@ -187,6 +186,7 @@ $this->authlogin->cek_login();
 <script src="<?php echo base_url() ?>assets/admin/js/mapopsi.js"></script>
 <script>
    let klasifikasiVal = () => $('#jenis').val();
+   // let statusVal = () => $('#status').val();
    let poly;
    let map;
    let latVal = () => $('[name="korx"]').val();
@@ -195,60 +195,22 @@ $this->authlogin->cek_login();
       // initmap();
       getLocation();
       $(".select2").select2();
-
+      $("#tipe").select2({
+         placeholder: "~~Pilih Tipe Rambu~~",
+         templateResult: imageRambu,
+         templateSelection: imageRambu
+      });
+      $('.kondisi').hide();
    });
 
-   // mengambil data Program 
-   function getTipe(val) {
-      $.ajax({
-         type: "GET",
-         url: "<?= base_url('tipe') ?>",
-         data: {
-            klasifikasiVal: val
-         },
-         dataType: "json",
-         beforeSend: function() {
-            $("#tipe").html("");
-         },
-         error: function() {
-            $('#tipe').append($('<option>').val("").text(" ~~~ Data Tidak Ditemukan ~~~"));
-         },
-         success: function(data) {
-            let options = document.getElementById('tipe');
-            $('option', options).remove();
-            iconpath = '<?= base_url("assets/upload/img_rambu/") ?>';
-            for (let i = 0; i < data.length; i++) {
-               // options[options.length] = new Option(data[i].desk_tipe, data[i].id_rambu, data[i].img_tipe);
-               // $('#tipe').append($('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe));
-               $('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe).appendTo('#tipe');
-            }
-
-            console.log(options);
-         }
-      })
-   }
-
-   $("#tipe").select2({
-      templateResult: formatState,
-      templateSelection: formatState
-   });
-
-   function formatState(opt) {
-      if (!opt.id) {
-         return opt.text.toUpperCase();
-      }
-
-      var optimage = $(opt.element).attr('data-image');
-      console.log(optimage)
-      if (!optimage) {
-         return opt.text.toUpperCase();
+   function getKondisi(val) {
+      if (val == "Terpasang") {
+         $('.kondisi').show();
       } else {
-         var $opt = $(
-            '<span><img src="' + optimage + '" width="60px" /> ' + opt.text.toUpperCase() + '</span>'
-         );
-         return $opt;
+         $('.kondisi').hide();
       }
-   };
+      // alert(val);
+   }
 
    function initmap(tengah) {
       // console.log(tengah)
@@ -392,9 +354,13 @@ $this->authlogin->cek_login();
                      'nm_ruas: "' + element.nm_ruas + '", ' +
                      'km_lokasi: "' + element.km_lokasi + '", ' +
                      'jenis: "' + element.jenis + '", ' +
+                     'tipe: "' + element.tipe + '", ' +
+                     'tipe_rambu: "' + element.tipe_rambu + '", ' +
+                     'img_tipe: "' + element.img_tipe + '", ' +
                      'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
                      'letak: "' + element.letak + '", ' +
                      'status: "' + element.status + '", ' +
+                     'kondisi: "' + element.kondisi + '", ' +
                      'lat: "' + element.lat + '", ' +
                      'lng: "' + element.lng + '", ' +
                      'img: "' + element.image + '"})\'>' +
@@ -420,6 +386,54 @@ $this->authlogin->cek_login();
       $('[name="kory"]').val(tengah.lng);
    }
 
+   function imageRambu(opt) {
+      if (!opt.id) {
+         return opt.text;
+      }
+
+      var optimage = $(opt.element).attr('data-image');
+      if (!optimage) {
+         return opt.text;
+      } else {
+         var $opt = $(
+            '<span><img src="' + optimage + '" width="30px" height="30px" style="padding-top:0px;" /> ' + opt.text + '</span>'
+         );
+         return $opt;
+      }
+   };
+
+
+
+   // mengambil data Tipe Rambu
+   function getTipe(val) {
+      $.ajax({
+         type: "GET",
+         url: "<?= base_url('tipe') ?>",
+         data: {
+            klasifikasiVal: val
+         },
+         dataType: "json",
+         beforeSend: function() {
+            // $('[name="tipe"]').val('').text('~~Tipe Rambu~~').trigger('change');
+            // $('[name="tipe"]').val('').trigger('change');
+            $('#tipe').val('').trigger('change');
+         },
+         error: function() {
+            $('#tipe').append($('<option>').val("").text(" ~~~ Data Tidak Ditemukan ~~~"));
+         },
+         success: function(data) {
+            let options = document.getElementById('tipe');
+            $('option', options).remove();
+            iconpath = '<?= base_url("assets/upload/img_rambu/") ?>';
+            // $('[name="tipe"]').val('--').trigger('change');
+            for (let i = 0; i < data.length; i++) {
+               $('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe).appendTo('#tipe');
+            }
+
+         }
+      })
+   }
+
    function edit(obj) {
       $('[name="korx"]').val(obj.lat);
       $('[name="kory"]').val(obj.lng);
@@ -428,11 +442,14 @@ $this->authlogin->cek_login();
       $('[name="kdjalan"]').val(obj.kd_jalan);
       $('[name="ruasjalan"]').val(obj.nm_ruas);
       $('[name="kmlokasi"]').val(obj.km_lokasi);
-      $('[name="jenis"]').val(obj.jenis);
+      $('[name="jenis"]').val(obj.jenis).trigger('change');
+      $('#tipe').val(obj.tipe).trigger('change');
       $('[name="letak"]').val(obj.letak).trigger('change');
       $('[name="status"]').val(obj.status).trigger('change');
-      // console.log(obj);
+      $('[name="kondisi"]').val(obj.kondisi).trigger('change');
+      console.log(obj);
    }
+
 
    $('#submit').validate({
       rules: {
@@ -452,11 +469,19 @@ $this->authlogin->cek_login();
          jenis: {
             required: true,
          },
+         tipe: {
+            required: true,
+         },
          letak: {
             required: true,
          },
          status: {
             required: true,
+         },
+         kondisi: {
+            required: function() {
+               return $("#status").val() == "Terpasang"
+            }
          },
       },
       messages: {
@@ -465,8 +490,10 @@ $this->authlogin->cek_login();
          ruasjalan: "Ruas Jalan Harus dipilih (klik ruas jalan pada peta)",
          kmlokasi: "Kilometer Lokasi harus diisi",
          jenis: "Jenis harus diisi",
+         tipe: "Tipe Rambu harus diisi",
          letak: "Letak  harus diisi",
-         status: "Kondisi harus diisi",
+         status: "Status harus diisi",
+         kondisi: "Kondisi harus diisi",
       },
       errorElement: 'span',
       errorPlacement: function(error, element) {
@@ -485,7 +512,7 @@ $this->authlogin->cek_login();
       e.preventDefault();
       if ($('#submit').valid()) {
          $.ajax({
-            url: "<?= base_url('pju') ?>",
+            url: "<?= base_url('rambu') ?>",
             type: "POST",
             data: new FormData(this),
             processData: false,
@@ -528,8 +555,9 @@ $this->authlogin->cek_login();
       $('[name="kdjalan"]').val('');
       $('[name="ruasjalan"]').val('');
       $('[name="kmlokasi"]').val('');
-      $('[name="jenis"]').val('');
+      $("[name='jenis']").val('').trigger('change')
       $('[name="letak"]').val('').trigger('change');
+      $('[name="kondisi"]').val('').trigger('change');
       $('[name="status"]').val('').trigger('change');
       $('[name="gambar"]').val('');
    }

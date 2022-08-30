@@ -95,7 +95,19 @@ class Survay_model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('rambu');
 		$this->db->join('jalan', 'jalan.kd_jalan = rambu.kd_jalan', 'LEFT');
+		$this->db->join('rambu_tipe', 'rambu_tipe.id_rambu = rambu.tipe', 'LEFT');
 		$this->db->where('rambu.kd_jalan', $kd_jalan);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getRambuById($id)
+	{
+		$this->db->select('*');
+		$this->db->from('rambu');
+		$this->db->join('jalan', 'jalan.kd_jalan = rambu.kd_jalan', 'LEFT');
+		$this->db->join('rambu_tipe', 'rambu_tipe.id_rambu = rambu.tipe', 'LEFT');
+		$this->db->where('rambu.id_rambu', $id);
 		$query = $this->db->get();
 		return $query->result();
 	}

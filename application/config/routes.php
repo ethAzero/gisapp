@@ -126,6 +126,7 @@ $route['flash'] = 'admin/surveiflash/add';
 $route['guardrail'] = 'admin/surveiguardrail/add';
 $route['marka'] = 'admin/surveimarka/add';
 $route['pju'] = 'admin/surveipju/add';
+$route['rambu'] = 'admin/surveirambu/add';
 $route['rppj'] = 'admin/surveirppj/add';
 $route['jl'] = 'admin/survay/jalan';
 $route['tipe'] = 'admin/survay/tipe';

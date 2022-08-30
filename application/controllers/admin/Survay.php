@@ -92,7 +92,7 @@ class Survay extends CI_Controller
 			'klasifikasi' 	=> $klasifikasi,
 			'tipe' 	=> $tipe,
 		);
-		$this->load->view('admin/survay/coba', $data);
+		$this->load->view('admin/survay/rambu', $data);
 	}
 
 	public function rppj()
@@ -255,6 +255,8 @@ class Survay extends CI_Controller
 						'kd_jalan' => $perjal->kd_jalan,
 						'nm_ruas' => $perjal->nm_ruas,
 						'kd_rambu' => $perjal->kd_rambu,
+						'tipe_rambu' => $perjal->desk_tipe,
+						'img_tipe' => $perjal->img_tipe,
 						'jenis' => $perjal->jenis,
 						'tipe' => $perjal->tipe,
 						'thn_pengadaan' => $perjal->thn_pengadaan,
