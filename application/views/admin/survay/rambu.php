@@ -94,18 +94,27 @@ $this->authlogin->cek_login();
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Jenis</label>
-                                       <select name="jenis" class="form-control select2" required>
-                                          <option value="">~~Jenis~~</option>
-                                          <option value="JR01">Larangan</option>
-                                          <option value="JR02">Peringatan</option>
-                                          <option value="JR03">Perintah</option>
-                                          <option value="JR04">Petunjuk</option>
+                                       <select name="jenis" id="jenis" class="form-control select2" required onchange="getTipe(this.value)">
+                                          <option value="">~~Pilih klasifikasi~~</option>
+                                          <?php
+                                          foreach ($klasifikasi as $row) {
+                                          ?>
+                                             <option value="<?php echo $row->id_tabel; ?>"><?php echo $row->nm_perjal; ?></option>
+                                          <?php
+                                          };
+                                          ?>
+                                       </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                       <label for="exampleInputEmail1">Tipe Rambu</label>
+                                       <select name="tipe" id="tipe" class="form-control select2" required>
+                                          <option value="">~~Tipe Rambu~~</option>
                                        </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Status</label>
                                        <select name="status" class="form-control select2" required>
-                                          <option value="">~~Status~~</option>
+                                          <option value="">~~Pilih Status~~</option>
                                           <option value="Terpasang">Terpasang</option>
                                           <option value="Kebutuhan">Kebutuhan</option>
                                        </select>
@@ -177,6 +186,7 @@ $this->authlogin->cek_login();
 <script src="<?php echo base_url() ?>assets/admin/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="<?php echo base_url() ?>assets/admin/js/mapopsi.js"></script>
 <script>
+   let klasifikasiVal = () => $('#jenis').val();
    let poly;
    let map;
    let latVal = () => $('[name="korx"]').val();
@@ -185,7 +195,60 @@ $this->authlogin->cek_login();
       // initmap();
       getLocation();
       $(".select2").select2();
+
    });
+
+   // mengambil data Program 
+   function getTipe(val) {
+      $.ajax({
+         type: "GET",
+         url: "<?= base_url('tipe') ?>",
+         data: {
+            klasifikasiVal: val
+         },
+         dataType: "json",
+         beforeSend: function() {
+            $("#tipe").html("");
+         },
+         error: function() {
+            $('#tipe').append($('<option>').val("").text(" ~~~ Data Tidak Ditemukan ~~~"));
+         },
+         success: function(data) {
+            let options = document.getElementById('tipe');
+            $('option', options).remove();
+            iconpath = '<?= base_url("assets/upload/img_rambu/") ?>';
+            for (let i = 0; i < data.length; i++) {
+               // options[options.length] = new Option(data[i].desk_tipe, data[i].id_rambu, data[i].img_tipe);
+               // $('#tipe').append($('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe));
+               $('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe).appendTo('#tipe');
+            }
+
+            console.log(options);
+         }
+      })
+   }
+
+   $("#tipe").select2({
+      templateResult: formatState,
+      templateSelection: formatState
+   });
+
+   function formatState(opt) {
+      if (!opt.id) {
+         return opt.text.toUpperCase();
+      }
+
+      var optimage = $(opt.element).attr('data-image');
+      console.log(optimage)
+      if (!optimage) {
+         return opt.text.toUpperCase();
+      } else {
+         var $opt = $(
+            '<span><img src="' + optimage + '" width="60px" /> ' + opt.text.toUpperCase() + '</span>'
+         );
+         return $opt;
+      }
+   };
 
    function initmap(tengah) {
       // console.log(tengah)

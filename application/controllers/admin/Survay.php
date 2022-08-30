@@ -15,6 +15,7 @@ class Survay extends CI_Controller
 		$this->load->model('apil_model');
 		$this->load->model('dashboard_model');
 		$this->load->model('home_model');
+		$this->load->model('rambu_model');
 	}
 
 	public function index()
@@ -84,10 +85,14 @@ class Survay extends CI_Controller
 
 	public function rambu()
 	{
+		$klasifikasi = $this->rambu_model->detailKlasifikasi();
+		$tipe = $this->survay_model->tipeRambu('JR01');
 		$data = array(
 			'title' 	=> 'Survei Rambu',
+			'klasifikasi' 	=> $klasifikasi,
+			'tipe' 	=> $tipe,
 		);
-		$this->load->view('admin/survay/rambu', $data);
+		$this->load->view('admin/survay/coba', $data);
 	}
 
 	public function rppj()
@@ -271,5 +276,12 @@ class Survay extends CI_Controller
 			echo json_encode(array('ruasjalan' => $datajalan, 'perjal' => NULL));
 		}
 		// echo json_encode(array_sum($dataperjal));
+	}
+
+	public function tipe()
+	{
+		$id_jenis = $_GET['klasifikasiVal'];
+		$tipe = $this->survay_model->tipeRambu($id_jenis);
+		echo json_encode($tipe);
 	}
 }

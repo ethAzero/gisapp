@@ -110,6 +110,15 @@ class Survay_model extends CI_Model
 		return $query->result();
 	}
 
+	public function tipeRambu($id_jenis)
+	{
+		$this->db->select('*');
+		$this->db->from('rambu_tipe');
+		$this->db->where('rambu_tipe.id_jenis', $id_jenis);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function updatehistory($data)
 	{
 		$this->db->insert('history', $data);
