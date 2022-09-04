@@ -116,6 +116,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc&callback=myMap"></script>
+<script src="<?php echo base_url() ?>assets/admin/js/mapopsi.js"></script>
 <script>
    let kewenanganVal = () => $('[name="kewenangan"]').val();
    let ruasVal = () => $('[name="ruas"]').val();
@@ -127,7 +128,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
          $('[name="id_ruas"]').val(kd_jalan);
          if (kewenanganVal() == 1) {
             peta.show();
-            myMap();
+            getLocation();
+
          } else {
             $('[name="id_ruas"]').val('0');
             peta.hide();
@@ -144,7 +146,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
          $('[name="ruas"]').val('');
          $('[name="id_ruas"]').val('');
          peta.show();
-         myMap();
+         getLocation();
       } else {
          $('[name="id_ruas"]').val('0');
          peta.hide();
@@ -152,30 +154,75 @@ defined('BASEPATH') or exit('No direct script access allowed');
       console.log(kewenanganVal());
    });
 
-   function myMap() {
-      var tengah = {
-         lat: -7.2051406,
-         lng: 110.1389888
-      };
+   function initmap(tengah) {
+      // var tengah = {
+      //    lat: -7.2051406,
+      //    lng: 110.1389888
+      // };
       var map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 7,
+         zoom: 8,
          center: tengah,
       });
 
-      var ctaLayer = new google.maps.KmlLayer({
-         url: 'https://gis.perhubungan.jatengprov.go.id/jalan/jalankml1',
-         map: map
+      $.ajax({
+         type: "GET",
+         url: "<?php echo base_url('jl') ?>",
+         dataType: "json",
+         data: {
+            perjal: 'apill',
+         },
+         success: function(data) {
+            let ruasjalan = [];
+            let namaruas = [];
+            let kodejalan = [];
+            let infoperjal = [];
+            for (j = 0; j < data.ruasjalan.length; j++) {
+               let explode = data.ruasjalan[j].lintasan.split('|');
+               const arr = explode.map(coor => {
+                  return coor.replace(",", "#").split("#"); // replace will only replace the first comma
+               });
+               let coordarray = [];
+               for (i = 0; i < arr.length; i++) {
+                  let lat = arr[i][1];
+                  let lng = arr[i][0];
+                  let linecoord = {
+                     'lat': parseFloat(lat),
+                     'lng': parseFloat(lng)
+                  };
+                  coordarray.push(linecoord);
+               }
+               ruasjalan.push(coordarray);
+               namaruas.push(data.ruasjalan[j].nmruas);
+               kodejalan.push(data.ruasjalan[j].kdjalan);
+            }
+
+
+            //ruas jalan
+            for (a = 0; a < data.ruasjalan.length; a++) {
+               let randomnumber = Math.floor(Math.random() * 7);
+
+               let colors = ["#FF0000", "#00ffff", "#FF00ff", "#Ffff00", "#555555", "#222222"];
+               let routeLine = new google.maps.Polyline({
+                  path: ruasjalan[a],
+                  strokeColor: colors[randomnumber],
+                  strokeOpacity: 2.0,
+                  strokeWeight: 4,
+               });
+               routeLine.setMap(map);
+               let nama = namaruas[a];
+               let kode = kodejalan[a];
+               var infowindow = new google.maps.InfoWindow()
+               routeLine.addListener('click', function(event) {
+                  infowindow.setContent('Ruas Jl. ' +
+                     nama);
+                  infowindow.open(map);
+                  infowindow.setPosition(event.latLng);
+                  $('[name="id_ruas"]').val(kode);
+                  $('[name="ruas"]').val(kode + ' - ' + nama);
+               });
+            }
+            // console.log(data.perjal[0]);
+         },
       });
-
-      ctaLayer.addListener('click', function(kmlEvent) {
-         let text = kmlEvent.featureData.name;
-         let textid = text.substring(0, 7);;
-         //$('[name="ruas_jalan"]').val('');
-
-         $('[name="ruas"]').val(text);
-         $('[name="id_ruas"]').val(textid);
-         console.log(textid + text);
-      });
-
    };
 </script>
