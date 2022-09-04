@@ -12,6 +12,11 @@ class Surveirambu extends CI_Controller
 	}
 
 	// //real yg dibutuhkan
+	public function rambu()
+	{
+		$datalama = $this->survay_model->getRambuById('RB18945');
+		echo json_encode($datalama);
+	}
 
 	public function add()
 	{
@@ -19,7 +24,7 @@ class Surveirambu extends CI_Controller
 		$tahun = date('Y');
 		if (!$this->input->post('kdrambu')) {
 
-			//jik kode_apill kosong maka tambah data baru
+			//jik kode_rambu kosong maka tambah data baru
 			$urut = $this->rambu_model->kodeurut();
 			if ($urut->urutan == '') {
 				$kodeurut = '00001';
@@ -30,7 +35,11 @@ class Surveirambu extends CI_Controller
 
 			if (!empty($_FILES['gambar']['name'])) {
 				$kode = 'RB' . $kodeurut;
-				$filename = $kode . '_' . $this->input->post('status') . '_' . time();
+				if ($this->input->post('status') == 'Terpasang') {
+					$filename = $kode . '_' . $this->input->post('status') . $this->input->post('kondisi') . '_' . time();
+				} else if ($this->input->post('status') == 'Kebutuhan') {
+					$filename = $kode . '_' . $this->input->post('status')  . '_' . time();
+				};
 				$config['upload_path'] 		= './assets/upload/rambu/';
 				$config['allowed_types'] 	= 'gif|jpg|jpeg|png|svg';
 				$config['max_size']			= '1000';
@@ -57,19 +66,18 @@ class Surveirambu extends CI_Controller
 					$this->image_lib->resize();
 
 					$data = array(
-						'kd_rambu'			=> $kode,
-						'kd_jalan'			=> $this->input->post('kdjalan'),
+						'kd_rambu'		=> $kode,
+						'kd_jalan'		=> $this->input->post('kdjalan'),
 						'jenis'			=> $this->input->post('jenis'),
 						'tipe'			=> $this->input->post('tipe'),
-						'thn_pengadaan'		=> $tahun,
-						'status'			=> $this->input->post('status'),
-						'km_lokasi	'		=> $this->input->post('kmlokasi'),
-						'jenis'				=> $this->input->post('jenis'),
-						'img_rambu'			=> $upload_data['uploads']['file_name'],
-						'posisi'				=> $this->input->post('letak'),
-						'kondisi'				=> $this->input->post('kondisi'),
-						'lat'				=> $this->input->post('korx'),
-						'lang'				=> $this->input->post('kory')
+						'thn_pengadaan'	=> $tahun,
+						'status'		=> $this->input->post('status'),
+						'km_lokasi'		=> $this->input->post('kmlokasi'),
+						'img_rambu'		=> $upload_data['uploads']['file_name'],
+						'posisi'		=> $this->input->post('letak'),
+						'kondisi'		=> $this->input->post('kondisi'),
+						'lat'			=> $this->input->post('korx'),
+						'lang'			=> $this->input->post('kory')
 					);
 					$this->rambu_model->addrambu($data);
 					echo json_encode(array('method' => 'add'));
@@ -78,45 +86,50 @@ class Surveirambu extends CI_Controller
 				$i = $this->input;
 				$kode = 'RB' . $kodeurut;
 				$data = array(
-					'kd_rambu'			=> $kode,
-					'kd_jalan'			=> $this->input->post('kdjalan'),
+					'kd_rambu'		=> $kode,
+					'kd_jalan'		=> $this->input->post('kdjalan'),
 					'jenis'			=> $this->input->post('jenis'),
 					'tipe'			=> $this->input->post('tipe'),
-					'thn_pengadaan'		=> $tahun,
-					'status'			=> $this->input->post('status'),
-					'km_lokasi	'		=> $this->input->post('kmlokasi'),
-					'jenis'				=> $this->input->post('jenis'),
-					'posisi'				=> $this->input->post('letak'),
-					'kondisi'				=> $this->input->post('kondisi'),
-					'lat'				=> $this->input->post('korx'),
-					'lang'				=> $this->input->post('kory')
+					'thn_pengadaan'	=> $tahun,
+					'status'		=> $this->input->post('status'),
+					'km_lokasi'		=> $this->input->post('kmlokasi'),
+					'posisi'		=> $this->input->post('letak'),
+					'kondisi'		=> $this->input->post('kondisi'),
+					'lat'			=> $this->input->post('korx'),
+					'lang'			=> $this->input->post('kory')
 				);
 				$this->rambu_model->addrambu($data);
 				echo json_encode(array('method' => 'add'));
 			}
-		} elseif ($this->input->post('kdrambu')) {
-			//jik kode_apill tidak kosong maka edit data berdasarkan kode apil
+		} else if ($this->input->post('kdrambu')) {
+			//jik kode_rambu tidak kosong maka edit data berdasarkan kode rambu
 			$date = new DateTime();
 			$a = $date->getTimestamp();
 			$updated_at = date('Y-m-d H:i:s', $a);
 
 			//ambil data lama untuk disimpan ke history
-			$kdrambu = $this->input->post('kdrambu');
-			$kodejalan = $this->input->post('kdjalan');
-			$datalama = $this->survay_model->getRambuById($kdrambu);
+			$koderambu = $this->input->post('kdrambu');
+			// $kodejalan = $this->input->post('kdjalan');
+			$datalama = $this->survay_model->getRambuById($koderambu);
 			$data = array(
 				'kd_perjal'			=> $datalama->kd_rambu,
 				'status'			=> $datalama->status,
 				'img'				=> $datalama->img_rambu,
 				'created_at'		=> $datalama->updated_at,
 			);
+
 			//history hanya akan ditambahkan jika status perlengkapan jalan berubah
 			if ($datalama->status != $this->input->post('status')) {
 				$this->survay_model->updatehistory($data);
 			}
 
+
 			if (!empty($_FILES['gambar']['name'])) {
-				$filename = $kdrambu . '_' . $this->input->post('status') . '_' . time();
+				if ($this->input->post('status') == 'Terpasang') {
+					$filename = $koderambu . '_' . $this->input->post('status') . $this->input->post('kondisi') . '_' . time();
+				} else if ($this->input->post('status') == 'Kebutuhan') {
+					$filename = $koderambu . '_' . $this->input->post('status')  . '_' . time();
+				};
 				$config['upload_path'] 		= './assets/upload/rambu/';
 				$config['allowed_types'] 	= 'gif|jpg|jpeg|png|svg';
 				$config['max_size']			= '1000';
@@ -150,75 +163,68 @@ class Surveirambu extends CI_Controller
 					//jika data status tidak berubah data updated_at tidak berubah
 					if ($datalama->status == $this->input->post('status')) {
 						$data = array(
-							'kd_jalan'			=> $this->input->post('kdjalan'),
+							'kd_rambu'		=> $this->input->post('kdrambu'),
+							'kd_jalan'		=> $this->input->post('kdjalan'),
 							'jenis'			=> $this->input->post('jenis'),
 							'tipe'			=> $this->input->post('tipe'),
-							'thn_pengadaan'		=> $tahun,
-							'status'			=> $this->input->post('status'),
-							'km_lokasi	'		=> $this->input->post('kmlokasi'),
-							'jenis'				=> $this->input->post('jenis'),
-							'img_rambu'			=> $upload_data['uploads']['file_name'],
-							'posisi'				=> $this->input->post('letak'),
-							'kondisi'				=> $this->input->post('kondisi'),
-							'lat'				=> $this->input->post('korx'),
-							'lang'				=> $this->input->post('kory')
+							'status'		=> $this->input->post('status'),
+							'km_lokasi'		=> $this->input->post('kmlokasi'),
+							'img_rambu'		=> $upload_data['uploads']['file_name'],
+							'posisi'		=> $this->input->post('letak'),
+							'kondisi'		=> $this->input->post('kondisi'),
+							'lat'			=> $this->input->post('korx'),
+							'lang'			=> $this->input->post('kory')
 						);
 					} else if ($datalama->status != $this->input->post('status')) {
 						$data = array(
-							'kd_jalan'			=> $this->input->post('kdjalan'),
+							'kd_rambu'		=> $this->input->post('kdrambu'),
+							'kd_jalan'		=> $this->input->post('kdjalan'),
 							'jenis'			=> $this->input->post('jenis'),
 							'tipe'			=> $this->input->post('tipe'),
-							'thn_pengadaan'		=> $tahun,
-							'status'			=> $this->input->post('status'),
-							'km_lokasi	'		=> $this->input->post('kmlokasi'),
-							'jenis'				=> $this->input->post('jenis'),
-							'img_rambu'			=> $upload_data['uploads']['file_name'],
-							'posisi'				=> $this->input->post('letak'),
-							'kondisi'				=> $this->input->post('kondisi'),
-							'lat'				=> $this->input->post('korx'),
-							'lang'				=> $this->input->post('kory'),
-							'updated_at'		=> $updated_at
+							'status'		=> $this->input->post('status'),
+							'km_lokasi'		=> $this->input->post('kmlokasi'),
+							'img_rambu'		=> $upload_data['uploads']['file_name'],
+							'posisi'		=> $this->input->post('letak'),
+							'kondisi'		=> $this->input->post('kondisi'),
+							'lat'			=> $this->input->post('korx'),
+							'lang'			=> $this->input->post('kory'),
+							'updated_at'	=> $updated_at
 						);
 					}
-
 					$this->rambu_model->editrambu($data);
 					echo json_encode(array('method' => 'edit'));
 				}
 			} else {
-				$i = $this->input;
-
-
-				//jika data status tidak berubah data updated_at tidak berubah
+				// jika data status tidak berubah data updated_at tidak berubah
 				if ($datalama->status == $this->input->post('status')) {
 					$data = array(
-						'kd_jalan'			=> $this->input->post('kdjalan'),
+						'kd_rambu'		=> $this->input->post('kdrambu'),
+						'kd_jalan'		=> $this->input->post('kdjalan'),
 						'jenis'			=> $this->input->post('jenis'),
 						'tipe'			=> $this->input->post('tipe'),
-						'thn_pengadaan'		=> $tahun,
-						'status'			=> $this->input->post('status'),
-						'km_lokasi	'		=> $this->input->post('kmlokasi'),
-						'jenis'				=> $this->input->post('jenis'),
-						'posisi'				=> $this->input->post('letak'),
-						'kondisi'				=> $this->input->post('kondisi'),
-						'lat'				=> $this->input->post('korx'),
-						'lang'				=> $this->input->post('kory')
+						'status'		=> $this->input->post('status'),
+						'km_lokasi'		=> $this->input->post('kmlokasi'),
+						'posisi'		=> $this->input->post('letak'),
+						'kondisi'		=> $this->input->post('kondisi'),
+						'lat'			=> $this->input->post('korx'),
+						'lang'			=> $this->input->post('kory')
 					);
 				} else if ($datalama->status != $this->input->post('status')) {
 					$data = array(
-						'kd_jalan'			=> $this->input->post('kdjalan'),
+						'kd_rambu'		=> $this->input->post('kdrambu'),
+						'kd_jalan'		=> $this->input->post('kdjalan'),
 						'jenis'			=> $this->input->post('jenis'),
 						'tipe'			=> $this->input->post('tipe'),
-						'thn_pengadaan'		=> $tahun,
-						'status'			=> $this->input->post('status'),
-						'km_lokasi	'		=> $this->input->post('kmlokasi'),
-						'jenis'				=> $this->input->post('jenis'),
-						'posisi'				=> $this->input->post('letak'),
-						'kondisi'				=> $this->input->post('kondisi'),
-						'lat'				=> $this->input->post('korx'),
-						'lang'				=> $this->input->post('kory'),
-						'updated_at'		=> $updated_at
+						'status'		=> $this->input->post('status'),
+						'km_lokasi'		=> $this->input->post('kmlokasi'),
+						'posisi'		=> $this->input->post('letak'),
+						'kondisi'		=> $this->input->post('kondisi'),
+						'lat'			=> $this->input->post('korx'),
+						'lang'			=> $this->input->post('kory'),
+						'updated_at'	=> $updated_at
 					);
 				}
+				// echo json_encode($filename);
 				$this->rambu_model->editrambu($data);
 				echo json_encode(array('method' => 'edit'));
 			}

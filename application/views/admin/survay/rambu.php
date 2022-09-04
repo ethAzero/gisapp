@@ -94,7 +94,7 @@ $this->authlogin->cek_login();
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Jenis</label>
-                                       <select name="jenis" id="jenis" class="form-control select2" required onchange="getTipe(this.value)">
+                                       <select name="jenis" id="jenis" class="form-control select2" required>
                                           <option value="">~~Pilih klasifikasi~~</option>
                                           <?php
                                           foreach ($klasifikasi as $row) {
@@ -140,8 +140,6 @@ $this->authlogin->cek_login();
                                        <label for="exampleInputEmail1">Km Lokasi</label>
                                        <input type="text" name="kmlokasi" class="form-control" placeholder="Km Lokasi" required>
                                     </div>
-
-
                                  </div>
                               </div>
                            </div>
@@ -185,22 +183,19 @@ $this->authlogin->cek_login();
 <script src="<?php echo base_url() ?>assets/admin/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="<?php echo base_url() ?>assets/admin/js/mapopsi.js"></script>
 <script>
-   let klasifikasiVal = () => $('#jenis').val();
-   // let statusVal = () => $('#status').val();
    let poly;
    let map;
    let latVal = () => $('[name="korx"]').val();
    let lngVal = () => $('[name="kory"]').val();
-   $(document).ready(function() {
-      // initmap();
-      getLocation();
-      $(".select2").select2();
-      $("#tipe").select2({
-         placeholder: "~~Pilih Tipe Rambu~~",
-         templateResult: imageRambu,
-         templateSelection: imageRambu
-      });
-      $('.kondisi').hide();
+
+   getLocation();
+   $(".select2").select2();
+   $('.kondisi').hide();
+
+   $("#tipe").select2({
+      placeholder: "~~Pilih Tipe Rambu~~",
+      templateResult: imageRambu,
+      templateSelection: imageRambu,
    });
 
    function getKondisi(val) {
@@ -386,6 +381,68 @@ $this->authlogin->cek_login();
       $('[name="kory"]').val(tengah.lng);
    }
 
+   $('#jenis').on('select2:select', function(e) {
+      getTipe(this.value)
+   });
+
+   // mengambil data Tipe Rambu
+   function getTipe(val) {
+      $.ajax({
+         type: 'GET',
+         url: '<?= base_url('tipe') ?>',
+         data: {
+            klasifikasiVal: val
+         },
+         dataType: "json",
+      }).then(function(data) {
+         let options = document.getElementById('tipe');
+         $('option', options).remove();
+
+         iconpath = '<?= base_url("assets/upload/img_rambu/") ?>';
+         for (let i = 0; i < data.length; i++) {
+            $('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe).appendTo('#tipe');
+         }
+         $('#tipe').val(null).trigger('change');
+      });
+   }
+
+   function edit(obj) {
+      if (!obj.tipe) {
+         getTipe(obj);
+      } else if (obj.tipe) {
+         $.ajax({
+            type: 'GET',
+            url: '<?= base_url('tipe') ?>',
+            data: {
+               klasifikasiVal: obj.jenis
+            },
+            dataType: "json",
+            success: function(data) {
+               let options = document.getElementById('tipe');
+               $('option', options).remove();
+               iconpath = '<?= base_url("assets/upload/img_rambu/") ?>';
+               for (let i = 0; i < data.length; i++) {
+                  $('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe).appendTo('#tipe');
+               }
+            }
+         }).then(function(data) {
+            $('#tipe').val(obj.tipe);
+            $('#tipe').trigger('change');
+            $('[name="jenis"]').val(obj.jenis).trigger('change');
+            $('[name="korx"]').val(obj.lat);
+            $('[name="kory"]').val(obj.lng);
+            $('[name="kdrambu"]').val(obj.kd_rambu);
+            $('[name="kdrambufake"]').val(obj.kd_rambu);
+            $('[name="kdjalan"]').val(obj.kd_jalan);
+            $('[name="ruasjalan"]').val(obj.nm_ruas);
+            $('[name="kmlokasi"]').val(obj.km_lokasi);
+            $('[name="letak"]').val(obj.letak).trigger('change');
+            $('[name="status"]').val(obj.status).trigger('change');
+            $('[name="kondisi"]').val(obj.kondisi).trigger('change');
+         });
+      }
+   }
+
    function imageRambu(opt) {
       if (!opt.id) {
          return opt.text;
@@ -401,55 +458,6 @@ $this->authlogin->cek_login();
          return $opt;
       }
    };
-
-
-
-   // mengambil data Tipe Rambu
-   function getTipe(val) {
-      $.ajax({
-         type: "GET",
-         url: "<?= base_url('tipe') ?>",
-         data: {
-            klasifikasiVal: val
-         },
-         dataType: "json",
-         beforeSend: function() {
-            // $('[name="tipe"]').val('').text('~~Tipe Rambu~~').trigger('change');
-            // $('[name="tipe"]').val('').trigger('change');
-            $('#tipe').val('').trigger('change');
-         },
-         error: function() {
-            $('#tipe').append($('<option>').val("").text(" ~~~ Data Tidak Ditemukan ~~~"));
-         },
-         success: function(data) {
-            let options = document.getElementById('tipe');
-            $('option', options).remove();
-            iconpath = '<?= base_url("assets/upload/img_rambu/") ?>';
-            // $('[name="tipe"]').val('--').trigger('change');
-            for (let i = 0; i < data.length; i++) {
-               $('<option>').val(data[i].id_rambu).text(data[i].desk_tipe).attr('data-image', iconpath + data[i].img_tipe).appendTo('#tipe');
-            }
-
-         }
-      })
-   }
-
-   function edit(obj) {
-      $('[name="korx"]').val(obj.lat);
-      $('[name="kory"]').val(obj.lng);
-      $('[name="kdrambu"]').val(obj.kd_rambu);
-      $('[name="kdrambufake"]').val(obj.kd_rambu);
-      $('[name="kdjalan"]').val(obj.kd_jalan);
-      $('[name="ruasjalan"]').val(obj.nm_ruas);
-      $('[name="kmlokasi"]').val(obj.km_lokasi);
-      $('[name="jenis"]').val(obj.jenis).trigger('change');
-      $('#tipe').val(obj.tipe).trigger('change');
-      $('[name="letak"]').val(obj.letak).trigger('change');
-      $('[name="status"]').val(obj.status).trigger('change');
-      $('[name="kondisi"]').val(obj.kondisi).trigger('change');
-      console.log(obj);
-   }
-
 
    $('#submit').validate({
       rules: {
@@ -555,7 +563,8 @@ $this->authlogin->cek_login();
       $('[name="kdjalan"]').val('');
       $('[name="ruasjalan"]').val('');
       $('[name="kmlokasi"]').val('');
-      $("[name='jenis']").val('').trigger('change')
+      $("[name='jenis']").val('').trigger('change');
+      $("[name='tipe']").val('').trigger('change');
       $('[name="letak"]').val('').trigger('change');
       $('[name="kondisi"]').val('').trigger('change');
       $('[name="status"]').val('').trigger('change');
