@@ -46,13 +46,21 @@
                ]
             });
             $(".select2").select2();
-
+            $('#datepicker').datepicker({
+               autoclose: true,
+               format: 'yyyy-mm-dd'
+            });
+            loadlapsurvei();
             getDataFilter(tahunVal(), bidangbalaiVal());
             jml_notif_unread();
             setInterval(jml_notif_unread, 1000);
             charttahun();
          });
 
+         function lapsurvei() {
+            tanggalVal = $("#datepicker").val();
+            alert(tanggalVal);
+         }
 
          function getDataFilter(tahun, bidangbalai) {
             $.ajax({
@@ -184,6 +192,44 @@
             });
          }
 
+         function loadlapsurvei() {
+            dataindikaorsub = $('#tabelindikatorsubkegiatan').DataTable({
+               destroy: true,
+               processing: true,
+               serverSide: true,
+               //scrollX: true,
+               ajax: {
+                  url: '<?= base_url('getIndikatorSubkegiatanByBidangbalai ') ?>',
+                  type: 'GET',
+                  data: function(d) {
+                     d.subKegaiatanVal = val;
+                     d.bidangbalaiVal = bidangbalaiVal;
+                  },
+               },
+               columns: [{
+                     data: "indikator_subkegiatan"
+                  },
+                  {
+                     data: "satuan"
+                  },
+                  {
+                     data: "target_2022",
+                     // render: $.fn.dataTable.render.number('.', ',', 0, ''),
+                     className: "text-center",
+                  },
+                  {
+                     data: "target_2023",
+                     // render: $.fn.dataTable.render.number('.', ',', 0, ''),
+                     className: "text-right",
+                  },
+                  {
+                     data: "action",
+                     orderable: false
+                  },
+               ],
+            });
+         }
+
          let charttahun = () => $.ajax({
             url: "<?= base_url('/admin/dashboard/get_YearlyChart') ?>",
             type: 'GET',
@@ -212,6 +258,7 @@
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc"></script>
       <script src="<?php echo base_url() ?>assets/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url() ?>assets/admin/js/app.min.js" type="text/javascript"></script>
+      <script src="<?php echo base_url() ?>assets/admin/plugins/datepicker/bootstrap-datepicker.min.js"></script>
       <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/jquery.dataTables.js"></script>
       <script src="<?php echo base_url() ?>assets/admin/plugins/chartjs/chart.js"></script>
       <script src="<?php echo base_url() ?>assets/admin/plugins/dataTables/dataTables.bootstrap.js"></script>

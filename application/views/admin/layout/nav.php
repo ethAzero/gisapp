@@ -13,13 +13,12 @@
             </li>
          <?php } ?>
          <?php if ($this->session->userdata('hakakses') != 'AD' and $this->session->userdata('hakakses') != 'S' and $this->session->userdata('hakakses') != 'A' and $this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
-            <li class="<?= ($this->uri->segment(2) == 'aduan') ? 'active' : '' ?>">
-               <a href="<?php echo base_url('admin/survay') ?>">
-                  <i class="fa fa-road text-red"></i> <span>Survay</span>
-                  <span class="pull-right-container">
-                     <small id="num_warning3" class="label pull-right bg-red"></small>
-                  </span>
-               </a>
+            <li class="<?= (($this->uri->segment(2) == 'survay') | ($this->uri->segment(2) == 'lapsurvei')) ? 'active' : '' ?>">
+               <a href="#"><i class="fa fa-th-large"></i><span>Survei</span> <i class="fa fa-angle-left pull-right"></i></a>
+               <ul class="treeview-menu">
+                  <li class="<?= ($this->uri->segment(2) == 'survay') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/survay') ?>"><i class="fa fa-road text-red"></i> Survei</a></li>
+                  <li class="<?= ($this->uri->segment(2) == 'lapsurvei') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/lapsurvei') ?>"><i class="fa fa-file text-blue"></i> Laporan Survei</a></li>
+               </ul>
             </li>
          <?php } ?>
 

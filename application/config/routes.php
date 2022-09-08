@@ -129,6 +129,7 @@ $route['pju'] = 'admin/surveipju/add';
 $route['rambu'] = 'admin/surveirambu/add';
 $route['rppj'] = 'admin/surveirppj/add';
 $route['jl'] = 'admin/survay/jalan';
+$route['admin/lapsurvei'] = 'admin/survay/lapsurvei';
 $route['tipe'] = 'admin/survay/tipe';
 
 

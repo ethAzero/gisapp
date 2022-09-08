@@ -47,7 +47,7 @@ class Survayapill extends CI_Controller
 					$config['create_thumb'] 	= TRUE;
 					$config['quality'] 			= "100%";
 					$config['maintain_ratio'] 	= TRUE;
-					$config['width'] 				= 360;
+					$config['width'] 			= 360;
 					$config['height'] 			= 200;
 					$config['x_axis'] 			= 0;
 					$config['y_axis'] 			= 0;

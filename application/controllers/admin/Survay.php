@@ -286,4 +286,15 @@ class Survay extends CI_Controller
 		$tipe = $this->survay_model->tipeRambu($id_jenis);
 		echo json_encode($tipe);
 	}
+
+	public function lapsurvei()
+	{
+		$jalan = $this->survay_model->koordinatjalan();
+		$data = array(
+			'title' 	=> 'Laporan Survei',
+			'ruasjalan' => $jalan,
+			'isi'		=> 'admin/survay/lapsurvei'
+		);
+		$this->load->view('admin/layout/wrapper', $data);
+	}
 }
