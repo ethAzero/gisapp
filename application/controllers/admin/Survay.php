@@ -1,5 +1,6 @@
 <?php
 
+use LDAP\Result;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -296,5 +297,36 @@ class Survay extends CI_Controller
 			'isi'		=> 'admin/survay/lapsurvei'
 		);
 		$this->load->view('admin/layout/wrapper', $data);
+	}
+
+	public function datalaporan()
+	{
+		$jenisperjal = $_GET['jenisperjal'];
+		$ruasjalan = $_GET['ruasjalan'];
+		$tanggalsurvei = $_GET['tanggal'];
+		if ($jenisperjal == 'apil') {
+			$data = $this->survay_model->datalaporanapil($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'pju') {
+			$data = $this->survay_model->datalaporanpju($ruasjalan, $tanggalsurvei);
+		}
+		echo json_encode($data);
+	}
+
+	public function cetakexcel()
+	{
+		$jenisperjal = $_GET['jenisperjal'];
+		$ruasjalan = $_GET['ruasjalan'];
+		$tanggalsurvei = $_GET['tanggal'];
+		// $pju = $this->pju_model->cetakexcel($kd);
+		// $jalan = $this->jalan_model->detail($kd);
+		$jalan = $this->survay_model->detailjalan($ruasjalan);
+		$dataperjal = $this->survay_model->excelpju($ruasjalan, $tanggalsurvei);
+		$data = array(
+			'ruasjalan'		=> $jalan,
+			'dataperjal' => $dataperjal['data'],
+			'columns' => $dataperjal['columns'],
+		);
+		$this->load->view('admin/survay/excellapsurvei', $data);
+		// echo json_encode($data);
 	}
 }

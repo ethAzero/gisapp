@@ -20,6 +20,15 @@ class Survay_model extends CI_Model
 		return $query->result();
 	}
 
+	public function detailjalan($kd_jalan)
+	{
+		$this->db->select('kd_jalan,nm_ruas');
+		$this->db->from('jalan');
+		$this->db->where('kd_jalan', $kd_jalan);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
 	public function getApill($kd_jalan)
 	{
 		$this->db->select('*');
@@ -134,5 +143,79 @@ class Survay_model extends CI_Model
 	public function updatehistory($data)
 	{
 		$this->db->insert('history', $data);
+	}
+
+	public function datalaporanpju($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_pju as Kode PJU,
+		pju.kd_jalan as Kode Jalan, 
+		nm_ruas as Ruas Jalan,
+		km_lokasi as Km Lokasi,
+		img_pju as Photo
+		');
+		$this->db->from('pju');
+		$this->db->join('jalan', 'jalan.kd_jalan = pju.kd_jalan', 'LEFT');
+		$this->db->where('DATE(pju.updated_at)', $tanggalsurvei);
+		$this->db->where('pju.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+
+		$columns = [];
+		foreach ($query->list_fields() as $field) {
+			$datafield = array(
+				'data' => $field,
+				'title' => $field
+			);
+			array_push($columns, $datafield);
+		}
+		return array('data' => $query->result(), 'columns' => $columns);
+	}
+
+	public function excelpju($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_pju,
+		pju.kd_jalan, 
+		nm_ruas,
+		km_lokasi,
+		img_pju
+		');
+		$this->db->from('pju');
+		$this->db->join('jalan', 'jalan.kd_jalan = pju.kd_jalan', 'LEFT');
+		$this->db->where('DATE(pju.updated_at)', $tanggalsurvei);
+		$this->db->where('pju.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+
+		$columns = [];
+		foreach ($query->list_fields() as $field) {
+			$datafield = array(
+				'data' => $field,
+				'title' => $field
+			);
+			array_push($columns, $datafield);
+		}
+		return array('data' => $query->result(), 'columns' => $columns);
+	}
+	public function datalaporanapil($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_apil as Kode APILL,
+		apil.kd_jalan as Kode Jalan, 
+		nm_ruas as Ruas Jalan,
+		km_lokasi as Km Lokasi,
+		img_apil as Photo
+		');
+		$this->db->from('apil');
+		$this->db->join('jalan', 'jalan.kd_jalan = apil.kd_jalan', 'LEFT');
+		$this->db->where('DATE(apil.updated_at)', $tanggalsurvei);
+		$this->db->where('apil.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+
+		$columns = [];
+		foreach ($query->list_fields() as $field) {
+			$datafield = array(
+				'data' => $field,
+				'title' => $field
+			);
+			array_push($columns, $datafield);
+		}
+		return array('data' => $query->result(), 'columns' => $columns);
 	}
 }

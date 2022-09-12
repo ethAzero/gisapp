@@ -69,7 +69,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <div class="col-md-6">
                      <label></label>
                      <div class="input-group date">
-                        <button class="btn btn-primary btn-flat" onclick="lapsurvei()"><i class="fa fa-file-excel-o"></i> Tampilkan</button>
+                        <button class="btn btn-primary btn-flat" onclick="loadlapsurvei()"><i class="fa fa-file-excel-o"></i> Tampilkan</button>
                      </div>
                   </div>
                </div>
@@ -79,25 +79,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="box box-primary">
          <div class="box-body">
             <div class="table-responsive">
-               <table class="table table-striped table-bordered table-hover" id="tabelindikatorsubkegiatan">
-                  <<thead>
-                     <tr>
-                        <th>Indikator Sub Kegiatan</th>
-                        <th>Satuan</th>
-                        <th>Target 2022</th>
-                        <th>Target 2023</th>
-                        <th>Aksi</th>
-                     </tr>
-                     </thead>
-                     <tfoot>
-                        <tr>
-                           <th>Indikator Sub Kegiatan</th>
-                           <th>Satuan</th>
-                           <th>Target 2022</th>
-                           <th>Target 2023</th>
-                           <th>Aksi</th>
-                        </tr>
-                     </tfoot>
+               <table class="table table-striped table-bordered table-hover" id="tabellaporan">
+                  <button onclick="cetak()" hidden id="cetakexcel">Export ke Excel</button>
+                  <p></p>
                </table>
             </div>
          </div>

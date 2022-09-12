@@ -38,29 +38,25 @@
                },
                displayTitle: false
             });
-            $('#dataTables-example').dataTable();
-            $('#dataTables-example1').DataTable({
-               dom: 'Bfrtip',
-               buttons: [
-                  'copy', 'csv', 'excel', 'pdf', 'print'
-               ]
-            });
+            // $('#dataTables-example').dataTable();
+            // $('#dataTables-example1').DataTable({
+            //    dom: 'Bfrtip',
+            //    buttons: [
+            //       'copy', 'csv', 'excel', 'pdf', 'print'
+            //    ]
+            // });
+
             $(".select2").select2();
             $('#datepicker').datepicker({
                autoclose: true,
                format: 'yyyy-mm-dd'
             });
-            loadlapsurvei();
+
             getDataFilter(tahunVal(), bidangbalaiVal());
             jml_notif_unread();
             setInterval(jml_notif_unread, 1000);
             charttahun();
          });
-
-         function lapsurvei() {
-            tanggalVal = $("#datepicker").val();
-            alert(tanggalVal);
-         }
 
          function getDataFilter(tahun, bidangbalai) {
             $.ajax({
@@ -104,32 +100,31 @@
                   }, );
 
                   if (data.chanel.length != 0) {
-                     for (let i = 0; i <= data.chanel.length; ++i) {
-                        let fa;
-                        let $fatext;
-                        if (data.chanel[i].id_chanel_aduan == 1) {
+                     let fa;
+                     let $fatext;
+                     data.chanel.forEach((chanel) => {
+                        if (chanel.id_chanel_aduan === '1') {
                            fa = "fa-warning";
                            bgcolor = "bg-yellow";
-                        } else if (data.chanel[i].id_chanel_aduan == 2) {
+                        } else if (chanel.id_chanel_aduan === '2') {
                            fa = "fa-instagram";
                            bgcolor = "bg-red";
-                        } else if (data.chanel[i].id_chanel_aduan == 3) {
+                        } else if (chanel.id_chanel_aduan === '3') {
                            fa = "fa-whatsapp";
                            bgcolor = "bg-green";
                         } else {
                            fa = "fa-twitter";
                            bgcolor = "bg-blue";
                         };
-                        aduanbychanel.append('<div class = \'col-md-3 col-sm-6 col-xs-12\'> <div class = \'info-box\'> <span class = \"info-box-icon ' + bgcolor + '\" > <i class = "fa fa-brand ' + fa + '\"></i></span> <div class = \'info-box-content\'> <span class = \'info-box-text\'>' + data.chanel[i].chanel_aduan + '</span> <span class = \'info-box-number\'>' + data.chanel[i].jml_aduan + '<small> Aduan</small></span> </div > </div> </div >');
+                        aduanbychanel.append('<div class = \'col-md-3 col-sm-6 col-xs-12\'> <div class = \'info-box\'> <span class = \"info-box-icon ' + bgcolor + '\" > <i class = "fa fa-brand ' + fa + '\"></i></span> <div class = \'info-box-content\'> <span class = \'info-box-text\'>' + chanel.chanel_aduan + '</span> <span class = \'info-box-number\'>' + chanel.jml_aduan + '<small> Aduan</small></span> </div > </div> </div >');
                         removeLoader("#loader1", "#loader2");
-                     };
+                     });
                   } else {
                      aduanbychanel.append('<div class =\'col-md-12 col-sm-12 col-xs-12\'><div class =\'info-box\'> <center style=\'padding-top:35px\'><i class=\'fa fa-info fa-solid text-red\'> Tidak Ada Data Aduan</i></center></div></div><br>');
                      //aduanbulanan.height('300px');
                      aduanbulanan.html('<div class =\'col-md-12 col-sm-12 col-xs-12\' style=\'position:absolute; padding-top:130px;\'><center><i class=\'fa fa-info fa-solid text-red\'> Tidak Ada Data Aduan</i></center></div>');
                      removeLoader("#loader1", "#loader2");
                   };
-                  //chartbulanfilter(data.chartbulan);
                },
             })
          }
@@ -170,64 +165,78 @@
                   }
 
                   ulnotif.html('');
-                  for (let i = 0; i <= data.notif.length; ++i) {
-                     let fa;
-                     let $fatext;
-                     if (data.notif[i].id_chanel_aduan == 1) {
+                  let fa;
+                  let fatext;
+                  data.notif.forEach((notif) => {
+                     if (notif.id_chanel_aduan === '1') {
                         fa = "fa-warning";
                         fatext = "text-yellow";
-                     } else if (data.notif[i].id_chanel_aduan == 2) {
+                     } else if (notif.id_chanel_aduan === '2') {
                         fa = "fa-instagram";
                         fatext = "text-red";
-                     } else if (data.notif[i].id_chanel_aduan == 3) {
+                     } else if (notif.id_chanel_aduan === '3') {
                         fa = "fa-whatsapp";
                         fatext = "text-green";
-                     } else {
+                     } else if (notif.id_chanel_aduan === '4') {
                         fa = "fa-twitter";
                         fatext = "text-blue";
                      };
-                     ulnotif.append('<li><a href=\'<?php echo base_url('admin/aduan/detail') ?>/' + data.notif[i].id_aduan + '\'><i class=\'fa fa-brand ' + fa + ' ' + fatext + '\'></i><label>' + data.notif[i].chanel_aduan + '</label> <br>' + data.notif[i].aduan + '</a></li>')
-                  }
+                     ulnotif.append('<li><a href=\'<?php echo base_url('admin/aduan/detail') ?>/' + notif.id_aduan + '\'><i class=\'fa fa-brand ' + fa + ' ' + fatext + '\'></i><label>' + notif.chanel_aduan + '</label> <br>' + notif.aduan + '</a></li>')
+                  });
                }
             });
          }
 
          function loadlapsurvei() {
-            dataindikaorsub = $('#tabelindikatorsubkegiatan').DataTable({
-               destroy: true,
-               processing: true,
-               serverSide: true,
-               //scrollX: true,
-               ajax: {
-                  url: '<?= base_url('getIndikatorSubkegiatanByBidangbalai ') ?>',
-                  type: 'GET',
-                  data: function(d) {
-                     d.subKegaiatanVal = val;
-                     d.bidangbalaiVal = bidangbalaiVal;
-                  },
+            tanggalVal = $("#datepicker").val();
+            koderuasVal = $("#nmruas").val();
+            jenisperjalVal = $("#jenisperjal").val();
+
+            if (jenisperjalVal == 'apil') {
+               baseimage = '<?= base_url('assets/upload/apil/thumbs/') ?>';
+            } else if (jenisperjalVal == 'pju') {
+               baseimage = '<?= base_url('assets/upload/pju/thumbs/') ?>';
+            };
+
+            // console.log(jenisperjalVal);
+            $.ajax({
+               type: 'GET',
+               url: '<?= base_url('getLapSurvei') ?>',
+               data: {
+                  jenisperjal: jenisperjalVal,
+                  ruasjalan: koderuasVal,
+                  tanggal: tanggalVal,
                },
-               columns: [{
-                     data: "indikator_subkegiatan"
-                  },
-                  {
-                     data: "satuan"
-                  },
-                  {
-                     data: "target_2022",
-                     // render: $.fn.dataTable.render.number('.', ',', 0, ''),
-                     className: "text-center",
-                  },
-                  {
-                     data: "target_2023",
-                     // render: $.fn.dataTable.render.number('.', ',', 0, ''),
-                     className: "text-right",
-                  },
-                  {
-                     data: "action",
-                     orderable: false
-                  },
-               ],
+               dataType: 'JSON',
+               success: function(d) {
+                  $("#tabellaporan").DataTable({
+                     destroy: true,
+                     data: d.data,
+                     columns: d.columns,
+                     columnDefs: [{
+                        'targets': 4,
+                        'data': 'Photo',
+                        'render': function(data, type, row, meta) {
+                           if (data === '') {
+                              return '-';
+                           } else {
+                              return '<img height="75%" width="75%" src="' + baseimage + data + '"/>';
+                           }
+                        },
+                     }]
+                  });
+                  console.log(d);
+                  $("#cetakexcel").show();
+               }
             });
+         }
+
+         function cetak() {
+            tanggalVal = $("#datepicker").val();
+            koderuasVal = $("#nmruas").val();
+            jenisperjalVal = $("#jenisperjal").val();
+            url = '<?= base_url('cetaklapsurvei') ?>';
+            window.location.href = '' + url + '?jenisperjal=' + jenisperjalVal + '&ruasjalan=' + koderuasVal + '&tanggal=' + tanggalVal;
          }
 
          let charttahun = () => $.ajax({
@@ -255,6 +264,7 @@
             },
          });
       </script>
+
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc"></script>
       <script src="<?php echo base_url() ?>assets/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url() ?>assets/admin/js/app.min.js" type="text/javascript"></script>

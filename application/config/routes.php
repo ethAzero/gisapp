@@ -130,6 +130,8 @@ $route['rambu'] = 'admin/surveirambu/add';
 $route['rppj'] = 'admin/surveirppj/add';
 $route['jl'] = 'admin/survay/jalan';
 $route['admin/lapsurvei'] = 'admin/survay/lapsurvei';
+$route['getLapSurvei'] = 'admin/survay/datalaporan';
+$route['cetaklapsurvei'] = 'admin/survay/cetakexcel';
 $route['tipe'] = 'admin/survay/tipe';
 
 

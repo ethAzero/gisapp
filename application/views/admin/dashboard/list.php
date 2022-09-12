@@ -18,7 +18,8 @@
 							<label>Filter By : Tahun </label>
 							<select name="tahun" id="tahun" class="form-control select2" style="width: 100%;" onchange="getDataFilter(this.value,bidangbalaiVal())">
 								<?php foreach ($listtahun as $listtahun) : ?>
-									<?php if ($listtahun->Tahun == date("Y")) { ?>
+									<?php date_default_timezone_set("Asia/Bangkok");
+									if ($listtahun->Tahun == date("Y")) { ?>
 										<option value="<?php echo $listtahun->Tahun ?>" selected><?php echo $listtahun->Tahun ?></option>
 									<?php } else { ?>
 										<option value="<?php echo $listtahun->Tahun ?>"><?php echo $listtahun->Tahun ?></option>

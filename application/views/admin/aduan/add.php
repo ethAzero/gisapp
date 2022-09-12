@@ -110,7 +110,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
    </section>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="<?php echo base_url() ?>assets/admin/plugins/jquery-ui/jquery-ui.js"></script>
 <script>
    $(document).ready(function() {
       $('#nm_desa').autocomplete({
