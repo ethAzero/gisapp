@@ -194,6 +194,7 @@ class Survay_model extends CI_Model
 		}
 		return array('data' => $query->result(), 'columns' => $columns);
 	}
+
 	public function datalaporanapil($ruasjalan, $tanggalsurvei)
 	{
 		$this->db->select('kd_apil as Kode APILL,
@@ -217,5 +218,27 @@ class Survay_model extends CI_Model
 			array_push($columns, $datafield);
 		}
 		return array('data' => $query->result(), 'columns' => $columns);
+	}
+
+	public function excelapil($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_apil, km_lokasi, jenis, letak, status, lang, lat, img_apil');
+		$this->db->from('apil');
+		$this->db->join('jalan', 'jalan.kd_jalan = apil.kd_jalan', 'LEFT');
+		$this->db->where('DATE(apil.updated_at)', $tanggalsurvei);
+		$this->db->where('apil.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function columnsapil($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_apil as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`, img_apil as `Photo`');
+		$this->db->from('apil');
+		$this->db->join('jalan', 'jalan.kd_jalan = apil.kd_jalan', 'LEFT');
+		$this->db->where('DATE(apil.updated_at)', $tanggalsurvei);
+		$this->db->where('apil.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->list_fields();
 	}
 }

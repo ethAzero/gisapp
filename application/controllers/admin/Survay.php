@@ -317,15 +317,26 @@ class Survay extends CI_Controller
 		$jenisperjal = $_GET['jenisperjal'];
 		$ruasjalan = $_GET['ruasjalan'];
 		$tanggalsurvei = $_GET['tanggal'];
-		// $pju = $this->pju_model->cetakexcel($kd);
-		// $jalan = $this->jalan_model->detail($kd);
+
 		$jalan = $this->survay_model->detailjalan($ruasjalan);
-		$dataperjal = $this->survay_model->excelpju($ruasjalan, $tanggalsurvei);
-		$data = array(
-			'ruasjalan'		=> $jalan,
-			'dataperjal' => $dataperjal['data'],
-			'columns' => $dataperjal['columns'],
-		);
+		if ($jenisperjal == 'apil') {
+			$dataperjal = $this->survay_model->excelapil($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnsapil($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		} else if ($jenisperjal == 'pju') {
+			$dataperjal = $this->survay_model->excelpju($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnspju($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		}
+
 		$this->load->view('admin/survay/excellapsurvei', $data);
 		// echo json_encode($data);
 	}

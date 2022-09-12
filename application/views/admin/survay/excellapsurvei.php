@@ -45,7 +45,7 @@ header("Expires: 0");
       <tr style="font-weight:bold;">
          <td style="vertical-align:middle" width="40" height="40" align="center">No</td>
          <?php foreach ($columns as $columns) : ?>
-            <td style="vertical-align:middle" height="40" align="center"><?= $columns['title'] ?></td>
+            <td style="vertical-align:middle" height="40" align="center"><?= $columns ?></td>
          <?php endforeach ?>
       </tr>
       <?php
