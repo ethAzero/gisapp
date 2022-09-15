@@ -187,6 +187,18 @@
             });
          }
 
+         function getColumnIndexesWithClass(columns, className) {
+            var indexes = [];
+            $.each(columns, function(index, columnInfo) {
+               // note: doesn't attempt to support multiple class names on a column
+               if (columnInfo.className == className) {
+                  indexes.push(index);
+               }
+            });
+
+            return indexes;
+         }
+
          function loadlapsurvei() {
             tanggalVal = $("#datepicker").val();
             koderuasVal = $("#nmruas").val();
@@ -196,6 +208,20 @@
                baseimage = '<?= base_url('assets/upload/apil/thumbs/') ?>';
             } else if (jenisperjalVal == 'pju') {
                baseimage = '<?= base_url('assets/upload/pju/thumbs/') ?>';
+            } else if (jenisperjalVal == 'cermin') {
+               baseimage = '<?= base_url('assets/upload/cermin/thumbs/') ?>';
+            } else if (jenisperjalVal == 'delinator') {
+               baseimage = '<?= base_url('assets/upload/delinator/thumbs/') ?>';
+            } else if (jenisperjalVal == 'flash') {
+               baseimage = '<?= base_url('assets/upload/flash/thumbs/') ?>';
+            } else if (jenisperjalVal == 'guardrail') {
+               baseimage = '<?= base_url('assets/upload/guardrail/thumbs/') ?>';
+            } else if (jenisperjalVal == 'marka') {
+               baseimage = '<?= base_url('assets/upload/marka/thumbs/') ?>';
+            } else if (jenisperjalVal == 'rambu') {
+               baseimage = '<?= base_url('assets/upload/rambu/thumbs/') ?>';
+            } else if (jenisperjalVal == 'rppj') {
+               baseimage = '<?= base_url('assets/upload/rppj/thumbs/') ?>';
             };
 
             // console.log(jenisperjalVal);
@@ -211,11 +237,10 @@
                success: function(d) {
                   $("#tabellaporan").DataTable({
                      destroy: true,
-                     data: d.data,
-                     columns: d.columns,
+                     data: d.data.data,
+                     columns: d.data.columns,
                      columnDefs: [{
-                        'targets': 4,
-                        'data': 'Photo',
+                        'targets': 0,
                         'render': function(data, type, row, meta) {
                            if (data === '') {
                               return '-';

@@ -308,8 +308,16 @@ class Survay extends CI_Controller
 			$data = $this->survay_model->datalaporanapil($ruasjalan, $tanggalsurvei);
 		} else if ($jenisperjal == 'pju') {
 			$data = $this->survay_model->datalaporanpju($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'cermin') {
+			$data = $this->survay_model->datalaporancermin($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'delinator') {
+			$data = $this->survay_model->datalaporandelinator($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'flash') {
+			$data = $this->survay_model->datalaporanflash($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'guardrail') {
+			$data = $this->survay_model->datalaporanguardrail($ruasjalan, $tanggalsurvei);
 		}
-		echo json_encode($data);
+		echo json_encode(array('jenisperjal' => $jenisperjal, 'data' => $data));
 	}
 
 	public function cetakexcel()
@@ -317,12 +325,16 @@ class Survay extends CI_Controller
 		$jenisperjal = $_GET['jenisperjal'];
 		$ruasjalan = $_GET['ruasjalan'];
 		$tanggalsurvei = $_GET['tanggal'];
-
+		date_default_timezone_set("Asia/Bangkok");
+		$date = date_create($tanggalsurvei);
 		$jalan = $this->survay_model->detailjalan($ruasjalan);
+
 		if ($jenisperjal == 'apil') {
 			$dataperjal = $this->survay_model->excelapil($ruasjalan, $tanggalsurvei);
 			$columns = $this->survay_model->columnsapil($ruasjalan, $tanggalsurvei);
 			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
 				'ruasjalan'		=> $jalan,
 				'dataperjal' => $dataperjal,
 				'columns' => $columns,
@@ -331,13 +343,45 @@ class Survay extends CI_Controller
 			$dataperjal = $this->survay_model->excelpju($ruasjalan, $tanggalsurvei);
 			$columns = $this->survay_model->columnspju($ruasjalan, $tanggalsurvei);
 			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		} else if ($jenisperjal == 'cermin') {
+			$dataperjal = $this->survay_model->excelcermin($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnscermin($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		} else if ($jenisperjal == 'delinator') {
+			$dataperjal = $this->survay_model->exceldelinator($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnsdelinator($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		} else if ($jenisperjal == 'flash') {
+			$dataperjal = $this->survay_model->excelflash($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnsflash($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
 				'ruasjalan'		=> $jalan,
 				'dataperjal' => $dataperjal,
 				'columns' => $columns,
 			);
 		}
 
-		$this->load->view('admin/survay/excellapsurvei', $data);
-		// echo json_encode($data);
+		// $this->load->view('admin/survay/excellapsurvei', $data);
+		echo json_encode($data);
 	}
 }

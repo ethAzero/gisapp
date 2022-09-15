@@ -145,14 +145,10 @@ class Survay_model extends CI_Model
 		$this->db->insert('history', $data);
 	}
 
+	//PJU
 	public function datalaporanpju($ruasjalan, $tanggalsurvei)
 	{
-		$this->db->select('kd_pju as Kode PJU,
-		pju.kd_jalan as Kode Jalan, 
-		nm_ruas as Ruas Jalan,
-		km_lokasi as Km Lokasi,
-		img_pju as Photo
-		');
+		$this->db->select('img_pju as `Photo`, kd_pju as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`');
 		$this->db->from('pju');
 		$this->db->join('jalan', 'jalan.kd_jalan = pju.kd_jalan', 'LEFT');
 		$this->db->where('DATE(pju.updated_at)', $tanggalsurvei);
@@ -172,37 +168,30 @@ class Survay_model extends CI_Model
 
 	public function excelpju($ruasjalan, $tanggalsurvei)
 	{
-		$this->db->select('kd_pju,
-		pju.kd_jalan, 
-		nm_ruas,
-		km_lokasi,
-		img_pju
-		');
+		$this->db->select('kd_pju, km_lokasi, jenis, letak, status, lang, lat, img_pju');
 		$this->db->from('pju');
 		$this->db->join('jalan', 'jalan.kd_jalan = pju.kd_jalan', 'LEFT');
 		$this->db->where('DATE(pju.updated_at)', $tanggalsurvei);
 		$this->db->where('pju.kd_jalan', $ruasjalan);
 		$query = $this->db->get();
-
-		$columns = [];
-		foreach ($query->list_fields() as $field) {
-			$datafield = array(
-				'data' => $field,
-				'title' => $field
-			);
-			array_push($columns, $datafield);
-		}
-		return array('data' => $query->result(), 'columns' => $columns);
+		return $query->result();
 	}
 
+	public function columnspju($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_pju as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`, img_pju as `Photo`');
+		$this->db->from('pju');
+		$this->db->join('jalan', 'jalan.kd_jalan = pju.kd_jalan', 'LEFT');
+		$this->db->where('DATE(pju.updated_at)', $tanggalsurvei);
+		$this->db->where('pju.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->list_fields();
+	}
+
+	//Apill
 	public function datalaporanapil($ruasjalan, $tanggalsurvei)
 	{
-		$this->db->select('kd_apil as Kode APILL,
-		apil.kd_jalan as Kode Jalan, 
-		nm_ruas as Ruas Jalan,
-		km_lokasi as Km Lokasi,
-		img_apil as Photo
-		');
+		$this->db->select('img_apil as `Photo`, kd_apil as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`');
 		$this->db->from('apil');
 		$this->db->join('jalan', 'jalan.kd_jalan = apil.kd_jalan', 'LEFT');
 		$this->db->where('DATE(apil.updated_at)', $tanggalsurvei);
@@ -238,6 +227,174 @@ class Survay_model extends CI_Model
 		$this->db->join('jalan', 'jalan.kd_jalan = apil.kd_jalan', 'LEFT');
 		$this->db->where('DATE(apil.updated_at)', $tanggalsurvei);
 		$this->db->where('apil.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->list_fields();
+	}
+
+	//Cermin
+	public function datalaporancermin($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('img_cermin as `Photo`, kd_cermin as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`');
+		$this->db->from('cermin');
+		$this->db->join('jalan', 'jalan.kd_jalan = cermin.kd_jalan', 'LEFT');
+		$this->db->where('DATE(cermin.updated_at)', $tanggalsurvei);
+		$this->db->where('cermin.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+
+		$columns = [];
+		foreach ($query->list_fields() as $field) {
+			$datafield = array(
+				'data' => $field,
+				'title' => $field
+			);
+			array_push($columns, $datafield);
+		}
+		return array('data' => $query->result(), 'columns' => $columns);
+	}
+
+	public function excelcermin($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_cermin, km_lokasi, jenis, letak, status, lang, lat, img_cermin');
+		$this->db->from('cermin');
+		$this->db->join('jalan', 'jalan.kd_jalan = cermin.kd_jalan', 'LEFT');
+		$this->db->where('DATE(cermin.updated_at)', $tanggalsurvei);
+		$this->db->where('cermin.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function columnscermin($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_cermin as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`, img_cermin as `Photo`');
+		$this->db->from('cermin');
+		$this->db->join('jalan', 'jalan.kd_jalan = cermin.kd_jalan', 'LEFT');
+		$this->db->where('DATE(cermin.updated_at)', $tanggalsurvei);
+		$this->db->where('cermin.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->list_fields();
+	}
+
+	//Delinator
+	public function datalaporandelinator($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('img_delinator as `Photo`, kd_delinator as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`');
+		$this->db->from('delinator');
+		$this->db->join('jalan', 'jalan.kd_jalan = delinator.kd_jalan', 'LEFT');
+		$this->db->where('DATE(delinator.updated_at)', $tanggalsurvei);
+		$this->db->where('delinator.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+
+		$columns = [];
+		foreach ($query->list_fields() as $field) {
+			$datafield = array(
+				'data' => $field,
+				'title' => $field
+			);
+			array_push($columns, $datafield);
+		}
+		return array('data' => $query->result(), 'columns' => $columns);
+	}
+
+	public function exceldelinator($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_delinator, km_lokasi, jenis, letak, status, lang, lat, img_delinator');
+		$this->db->from('delinator');
+		$this->db->join('jalan', 'jalan.kd_jalan = delinator.kd_jalan', 'LEFT');
+		$this->db->where('DATE(delinator.updated_at)', $tanggalsurvei);
+		$this->db->where('delinator.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function columnsdelinator($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_delinator as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`, img_delinator as `Photo`');
+		$this->db->from('delinator');
+		$this->db->join('jalan', 'jalan.kd_jalan = delinator.kd_jalan', 'LEFT');
+		$this->db->where('DATE(delinator.updated_at)', $tanggalsurvei);
+		$this->db->where('delinator.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->list_fields();
+	}
+
+	//flash
+	public function datalaporanflash($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('img_flash as `Photo`, kd_flash as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`');
+		$this->db->from('flash');
+		$this->db->join('jalan', 'jalan.kd_jalan = flash.kd_jalan', 'LEFT');
+		$this->db->where('DATE(flash.updated_at)', $tanggalsurvei);
+		$this->db->where('flash.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+
+		$columns = [];
+		foreach ($query->list_fields() as $field) {
+			$datafield = array(
+				'data' => $field,
+				'title' => $field
+			);
+			array_push($columns, $datafield);
+		}
+		return array('data' => $query->result(), 'columns' => $columns);
+	}
+
+	public function excelflash($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_flash, km_lokasi, jenis, letak, status, lang, lat, img_flash');
+		$this->db->from('flash');
+		$this->db->join('jalan', 'jalan.kd_jalan = flash.kd_jalan', 'LEFT');
+		$this->db->where('DATE(flash.updated_at)', $tanggalsurvei);
+		$this->db->where('flash.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function columnsflash($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_flash as `Kode`, km_lokasi as `KM Lokasi`, jenis as `Jenis`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`, img_flash as `Photo`');
+		$this->db->from('flash');
+		$this->db->join('jalan', 'jalan.kd_jalan = flash.kd_jalan', 'LEFT');
+		$this->db->where('DATE(flash.updated_at)', $tanggalsurvei);
+		$this->db->where('flash.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->list_fields();
+	}
+
+	//guardrail
+	public function datalaporanguardrail($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('img_guardrail as `Photo`, kd_guardrail as `Kode`, panjang as `Panjang`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`');
+		$this->db->from('guardrail');
+		$this->db->join('jalan', 'jalan.kd_jalan = guardrail.kd_jalan', 'LEFT');
+		$this->db->where('DATE(guardrail.updated_at)', $tanggalsurvei);
+		$this->db->where('guardrail.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+
+		$columns = [];
+		foreach ($query->list_fields() as $field) {
+			$datafield = array(
+				'data' => $field,
+				'title' => $field
+			);
+			array_push($columns, $datafield);
+		}
+		return array('data' => $query->result(), 'columns' => $columns);
+	}
+
+	public function excelguardrail($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_guardrail, panjang, letak, status, lang, lat, img_guardrail');
+		$this->db->from('guardrail');
+		$this->db->join('jalan', 'jalan.kd_jalan = guardrail.kd_jalan', 'LEFT');
+		$this->db->where('DATE(guardrail.updated_at)', $tanggalsurvei);
+		$this->db->where('guardrail.kd_jalan', $ruasjalan);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function columnsguardrail($ruasjalan, $tanggalsurvei)
+	{
+		$this->db->select('kd_guardrail as `Kode`, panjang as `Panjang`, letak as `Letak`, status as `Status`, lang as `Longitude (X)`, lat as `Lattitude (Y)`, img_guardrail as `Photo`');
+		$this->db->from('guardrail');
+		$this->db->join('jalan', 'jalan.kd_jalan = guardrail.kd_jalan', 'LEFT');
+		$this->db->where('DATE(guardrail.updated_at)', $tanggalsurvei);
+		$this->db->where('guardrail.kd_jalan', $ruasjalan);
 		$query = $this->db->get();
 		return $query->list_fields();
 	}
