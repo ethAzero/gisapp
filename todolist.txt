@@ -2,14 +2,14 @@
 2. tambahan table tb_kecamatan, tb_desakelurahan, tb_aduan dan tb_chanel_aduan done
 3. tambahan view v_aduan done
 4. view aduan harus diquery kan untuk meminimalisir pemakaian kapasitas penyimpanan di server done
-
 5. file view layout head ditambahkan notifikasi aduan bagi balai dan tanggapan bagi admin aduan done
 6. file view layout footer, nav ada perubahan done
 7. tambah data user dengan pilihan sebagai admin aduan done
 8. tampilan dashboar dilengkapi dengan statistik chart done
 9. tambah tabel history untuk mengetahui histroy perlengkapan jalan tahun ke tahun done
-10. tambah field created_at dan update_at pada tabel apill done 
-11. halaman survay apill done 
-12. halaman survay cermin done
-13. Tambahkan folder thumbs pada folder PJU
-14. Tambahkan folder thumbs pada folder RPPJ
+10. tambah field created_at dan update_at pada tabel apill s.d rppj done 
+11. halaman survay apill s.d RPP Done 
+12. Tambahkan folder thumbs pada folder PJU
+13. Tambahkan folder thumbs pada folder RPPJ
+14. Pada database table guardrail tambah kolom jenis done
+15. Pada database table marka tambah kolom jenis done

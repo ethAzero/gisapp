@@ -190,6 +190,7 @@ class Survay extends CI_Controller
 						'kd_guardrail' => $perjal->kd_guardrail,
 						'kd_jalan' => $perjal->kd_jalan,
 						'nm_ruas' => $perjal->nm_ruas,
+						'jenis' => $perjal->jenis,
 						'panjang' => $perjal->panjang,
 						'thn_pengadaan' => $perjal->thn_pengadaan,
 						'letak' => $perjal->letak,
@@ -206,6 +207,7 @@ class Survay extends CI_Controller
 						'kd_marka' => $perjal->kd_marka,
 						'kd_jalan' => $perjal->kd_jalan,
 						'nm_ruas' => $perjal->nm_ruas,
+						'jenis' => $perjal->jenis,
 						'panjang' => $perjal->panjang,
 						'thn_pengadaan' => $perjal->thn_pengadaan,
 						'letak' => $perjal->letak,
@@ -316,6 +318,12 @@ class Survay extends CI_Controller
 			$data = $this->survay_model->datalaporanflash($ruasjalan, $tanggalsurvei);
 		} else if ($jenisperjal == 'guardrail') {
 			$data = $this->survay_model->datalaporanguardrail($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'marka') {
+			$data = $this->survay_model->datalaporanmarka($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'rambu') {
+			$data = $this->survay_model->datalaporanrambu($ruasjalan, $tanggalsurvei);
+		} else if ($jenisperjal == 'rppj') {
+			$data = $this->survay_model->datalaporanrppj($ruasjalan, $tanggalsurvei);
 		}
 		echo json_encode(array('jenisperjal' => $jenisperjal, 'data' => $data));
 	}
@@ -379,9 +387,49 @@ class Survay extends CI_Controller
 				'dataperjal' => $dataperjal,
 				'columns' => $columns,
 			);
+		} else if ($jenisperjal == 'guardrail') {
+			$dataperjal = $this->survay_model->excelguardrail($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnsguardrail($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		} else if ($jenisperjal == 'marka') {
+			$dataperjal = $this->survay_model->excelmarka($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnsmarka($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		} else if ($jenisperjal == 'rambu') {
+			$dataperjal = $this->survay_model->excelrambu($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnsrambu($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
+		} else if ($jenisperjal == 'rppj') {
+			$dataperjal = $this->survay_model->excelrppj($ruasjalan, $tanggalsurvei);
+			$columns = $this->survay_model->columnsrppj($ruasjalan, $tanggalsurvei);
+			$data = array(
+				'jenisperjal'		=> $jenisperjal,
+				'tanggal'		=> date_format($date, "d-M-Y"),
+				'ruasjalan'		=> $jalan,
+				'dataperjal' => $dataperjal,
+				'columns' => $columns,
+			);
 		}
 
-		// $this->load->view('admin/survay/excellapsurvei', $data);
-		echo json_encode($data);
+		$this->load->view('admin/survay/excellapsurvei', $data);
+		// echo json_encode($data);
 	}
 }

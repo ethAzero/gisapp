@@ -97,6 +97,14 @@ $this->authlogin->cek_login();
                                        <input type="text" name="panjang" class="form-control" placeholder="Panjang" required>
                                     </div>
                                     <div class="form-group col-md-3">
+                                       <label for="exampleInputEmail1">Jenis</label>
+                                       <select name="jenis" class="form-control select2" required>
+                                          <option value="">~~Pilih Jenis~~</option>
+                                          <option value="Thermoplastic">Thermoplastic</option>
+                                          <option value="Cold Plastic">Cold Plastic</option>
+                                       </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Letak</label>
                                        <select name="letak" class="form-control select2" required>
                                           <option value="">~~Letak~~</option>
@@ -295,6 +303,10 @@ $this->authlogin->cek_login();
                      '<label class="isi">' + panjang + ' m</label>' +
                      '</div>' +
                      '<div class="grup-info">' +
+                     '<label class="title">Jenis</label>' +
+                     '<label class="isi">' + element.jenis + '</label>' +
+                     '</div>' +
+                     '<div class="grup-info">' +
                      '<label class="title">Letak</label>' +
                      '<label class="isi">' + element.letak + '</label>' +
                      '</div>' +
@@ -309,6 +321,7 @@ $this->authlogin->cek_login();
                      'kd_marka: "' + element.kd_marka + '", ' +
                      'kd_jalan: "' + element.kd_jalan + '", ' +
                      'nm_ruas: "' + element.nm_ruas + '", ' +
+                     'jenis: "' + element.jenis + '", ' +
                      'panjang: "' + element.panjang + '", ' +
                      'thn_pengadaan: "' + element.thn_pengadaan + '", ' +
                      'letak: "' + element.letak + '", ' +
@@ -348,6 +361,7 @@ $this->authlogin->cek_login();
       $('[name="panjang"]').val(obj.panjang);
       $('[name="letak"]').val(obj.letak).trigger('change');
       $('[name="status"]').val(obj.status).trigger('change');
+      $('[name="jenis"]').val(obj.jenis).trigger('change');
       // console.log(obj);
    }
 
@@ -455,6 +469,7 @@ $this->authlogin->cek_login();
                $('[name="panjang"]').val('');
                $('[name="letak"]').val('');
                $('[name="gambar"]').val('');
+               $('[name="jenis"]').val('').trigger('change');
             },
             error: function(jqXHR, textStatus, errorThrown) {
                alert('Error adding / update data');
@@ -473,6 +488,7 @@ $this->authlogin->cek_login();
       $('[name="panjang"]').val('');
       $('[name="letak"]').val('');
       $('[name="letak"]').val('').trigger('change');
+      $('[name="jenis"]').val('').trigger('change');
       $('[name="gambar"]').val('');
    }
 </script>

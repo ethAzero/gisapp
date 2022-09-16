@@ -35,7 +35,7 @@
             <div class='col-md-3 col-sm-6 col-xs-12'>
                <a href="<?= base_url('/admin/survay/guardrail'); ?>">
                   <div class='info-box'> <span class="info-box-icon bg-Danger "> <i class="fa fa-brand fa-road"></i></span>
-                     <div class='info-box-content'> <span class='info-box-text'>GR</span> <span class='info-box-number'><small> Survay</small> Guardrail</span> </div>
+                     <div class='info-box-content'> <span class='info-box-text'>GR</span> <span class='info-box-number'><small> Survei</small> Guardrail</span> </div>
                   </div>
                </a>
             </div>
@@ -49,7 +49,7 @@
             <div class='col-md-3 col-sm-6 col-xs-12'>
                <a href="<?= base_url('/admin/survay/pju'); ?>">
                   <div class='info-box'> <span class="info-box-icon bg-Gray "> <i class="fa fa-brand fa-road"></i></span>
-                     <div class='info-box-content'> <span class='info-box-text'>PJU</span> <span class='info-box-number'><small> Survay</small> PJU</span> </div>
+                     <div class='info-box-content'> <span class='info-box-text'>PJU</span> <span class='info-box-number'><small> Survei</small> PJU</span> </div>
                   </div>
                </a>
             </div>

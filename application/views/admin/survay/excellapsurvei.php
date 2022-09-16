@@ -198,6 +198,91 @@ header("Expires: 0");
                   } ?>
                </td>
             </tr>
+         <?php $i++;
+         endforeach;
+      } else if ($jenisperjal == 'guardrail') {
+         foreach ($dataperjal as $dataperjal) : ?>
+            <tr>
+               <td width="40" align="center" style="vertical-align:top"><?php echo $i ?></td>
+               <td width="90" style="vertical-align:top"><?php echo $dataperjal->kd_guardrail ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->jenis ?></td>
+               <td width="90" style="vertical-align:top" align="center"><?php echo $dataperjal->panjang ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->letak ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->status ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lang ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lat ?></td>
+               <td width="500" style="vertical-align:top; padding:10px" height="200" align="center">
+                  <?php if ($dataperjal->img_guardrail != '') { ?>
+                     <img src="<?php echo base_url('assets/upload/guardrail/thumbs/') . $dataperjal->img_guardrail ?>" width="15%">
+                  <?php } else {
+                     echo '-';
+                  } ?>
+               </td>
+            </tr>
+         <?php $i++;
+         endforeach;
+      } else if ($jenisperjal == 'marka') {
+         foreach ($dataperjal as $dataperjal) : ?>
+            <tr>
+               <td width="40" align="center" style="vertical-align:top"><?php echo $i ?></td>
+               <td width="90" style="vertical-align:top"><?php echo $dataperjal->kd_marka ?></td>
+               <td width="150" style="vertical-align:top"><?php echo $dataperjal->jenis ?></td>
+               <td width="90" style="vertical-align:top" align="center"><?php echo $dataperjal->panjang ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->letak ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->status ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lang ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lat ?></td>
+               <td width="500" style="vertical-align:top; padding:10px" height="200" align="center">
+                  <?php if ($dataperjal->img_marka != '') { ?>
+                     <img src="<?php echo base_url('assets/upload/marka/thumbs/') . $dataperjal->img_marka ?>" width="15%">
+                  <?php } else {
+                     echo '-';
+                  } ?>
+               </td>
+            </tr>
+         <?php $i++;
+         endforeach;
+      } else if ($jenisperjal == 'rambu') {
+         foreach ($dataperjal as $dataperjal) : ?>
+            <tr>
+               <td width="40" align="center" style="vertical-align:top"><?php echo $i ?></td>
+               <td width="90" style="vertical-align:top"><?php echo $dataperjal->kd_rambu ?></td>
+               <td width="90" style="vertical-align:top" align="center"><?php echo $dataperjal->km_lokasi ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->jenis_rambu ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->kode_rambu ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->status ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->posisi ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lang ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lat ?></td>
+               <td width="500" style="vertical-align:top; padding:10px" height="200" align="center">
+                  <?php if ($dataperjal->img_rambu != '') { ?>
+                     <img src="<?php echo base_url('assets/upload/rambu/thumbs/') . $dataperjal->img_rambu ?>" width="15%">
+                  <?php } else {
+                     echo '-';
+                  } ?>
+               </td>
+            </tr>
+         <?php $i++;
+         endforeach;
+      } else if ($jenisperjal == 'rppj') {
+         foreach ($dataperjal as $dataperjal) : ?>
+            <tr>
+               <td width="40" align="center" style="vertical-align:top"><?php echo $i ?></td>
+               <td width="90" style="vertical-align:top"><?php echo $dataperjal->kd_rppj ?></td>
+               <td width="90" style="vertical-align:top" align="center"><?php echo $dataperjal->km_lokasi ?></td>
+               <td width="200" style="vertical-align:top"><?php echo $dataperjal->jenis ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->letak ?></td>
+               <td width="100" style="vertical-align:top"><?php echo $dataperjal->status ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lang ?></td>
+               <td width="150" style="vertical-align:top" class="text-excel"><?php echo $dataperjal->lat ?></td>
+               <td width="500" style="vertical-align:top; padding:10px" height="200" align="center">
+                  <?php if ($dataperjal->img_rppj != '') { ?>
+                     <img src="<?php echo base_url('assets/upload/rppj/thumbs/') . $dataperjal->img_rppj ?>" width="15%">
+                  <?php } else {
+                     echo '-';
+                  } ?>
+               </td>
+            </tr>
       <?php $i++;
          endforeach;
       } ?>

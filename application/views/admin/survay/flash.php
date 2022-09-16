@@ -98,7 +98,11 @@ $this->authlogin->cek_login();
                                     </div>
                                     <div class="form-group col-md-3">
                                        <label for="exampleInputEmail1">Jenis</label>
-                                       <input type="text" name="jenis" class="form-control" placeholder="Jenis" required>
+                                       <select name="jenis" class="form-control select2" required>
+                                          <option value="">~~Pilih Jenis~~</option>
+                                          <option value="Konvensional">Konvensional</option>
+                                          <option value="Solar Cell">Solar Cell</option>
+                                       </select>
                                     </div>
                                     <div class="form-group col-md-5">
                                        <label for="exampleInputEmail1">Letak</label>
@@ -343,7 +347,7 @@ $this->authlogin->cek_login();
       $('[name="kdjalan"]').val(obj.kd_jalan);
       $('[name="ruasjalan"]').val(obj.nm_ruas);
       $('[name="kmlokasi"]').val(obj.km_lokasi);
-      $('[name="jenis"]').val(obj.jenis);
+      $('[name="jenis"]').val(obj.jenis).trigger('change');
       $('[name="letak"]').val(obj.letak);
       $('[name="status"]').val(obj.status).trigger('change');
       // console.log(obj);
@@ -424,7 +428,7 @@ $this->authlogin->cek_login();
                $('[name="kdflash"]').val('');
                $('[name="kdflashfake"]').val('');
                $('[name="kmlokasi"]').val('');
-               $('[name="jenis"]').val('');
+               $('[name="jenis"]').val('').trigger('change');;
                $('[name="letak"]').val('');
                $('[name="gambar"]').val('');
             },
@@ -443,7 +447,7 @@ $this->authlogin->cek_login();
       $('[name="kdjalan"]').val('');
       $('[name="ruasjalan"]').val('');
       $('[name="kmlokasi"]').val('');
-      $('[name="jenis"]').val('');
+      $('[name="jenis"]').val('').trigger('change');
       $('[name="letak"]').val('');
       $('[name="gambar"]').val('');
    }
