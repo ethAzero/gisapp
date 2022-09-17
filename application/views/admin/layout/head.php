@@ -24,6 +24,102 @@
          height: 100% !important;
          width: 100% !important;
       }
+
+      .icon-apill {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/traffic-light.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
+
+      .icon-cermin {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/cermin.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
+
+      .icon-delinator {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/delinator.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
+
+      .icon-flash {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/flash.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
+
+      .icon-guardrail {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/guardrail.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
+
+      .icon-pju {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/pju.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
+
+      .icon-rambu {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/rambu.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
+
+      .icon-rppj {
+         width: 75px;
+         height: 75px;
+         background: #eee;
+         background: url("<?= base_url('assets/theme/img/rppj.png') ?>   ");
+         float: left;
+         background-size: 100% auto;
+         /*extra fluff*/
+         margin: 7px;
+         border-radius: 5px;
+      }
    </style>
 </head>
 
