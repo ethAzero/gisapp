@@ -48,7 +48,7 @@ class Aduan_model extends CI_Model
 		$this->db->join('tb_chanel_aduan', 'tb_aduan.id_chanel_aduan = tb_chanel_aduan.id');
 
 		// jika hak akses sebagai balai maka data yang ditampilkan aduan per balai
-		if ($hakakses != 'AD' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
+		if ($hakakses != 'AD' and $hakakses != 'A' and $hakakses != 'S' and $hakakses != '07' and $hakakses != 'PE' and $hakakses != 'JT' and $hakakses != 'AJ') {
 			$this->db->where('kabkota.kd_balai', $hakakses);
 		}
 		$this->db->group_by('id_aduan');

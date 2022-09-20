@@ -38,13 +38,6 @@
                },
                displayTitle: false
             });
-            // $('#dataTables-example').dataTable();
-            // $('#dataTables-example1').DataTable({
-            //    dom: 'Bfrtip',
-            //    buttons: [
-            //       'copy', 'csv', 'excel', 'pdf', 'print'
-            //    ]
-            // });
 
             $(".select2").select2();
             $('#datepicker').datepicker({
@@ -187,18 +180,6 @@
             });
          }
 
-         function getColumnIndexesWithClass(columns, className) {
-            var indexes = [];
-            $.each(columns, function(index, columnInfo) {
-               // note: doesn't attempt to support multiple class names on a column
-               if (columnInfo.className == className) {
-                  indexes.push(index);
-               }
-            });
-
-            return indexes;
-         }
-
          function loadlapsurvei() {
             tanggalVal = $("#datepicker").val();
             koderuasVal = $("#nmruas").val();
@@ -224,7 +205,6 @@
                baseimage = '<?= base_url('assets/upload/rppj/thumbs/') ?>';
             };
 
-            // console.log(jenisperjalVal);
             $.ajax({
                type: 'GET',
                url: '<?= base_url('getLapSurvei') ?>',

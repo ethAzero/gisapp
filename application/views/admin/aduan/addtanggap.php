@@ -155,10 +155,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
    });
 
    function initmap(tengah) {
-      // var tengah = {
-      //    lat: -7.2051406,
-      //    lng: 110.1389888
-      // };
       var map = new google.maps.Map(document.getElementById('map'), {
          zoom: 8,
          center: tengah,
