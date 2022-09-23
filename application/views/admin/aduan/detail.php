@@ -99,6 +99,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            </div>
                         </div>
                      </li>
+                     <!-- photo aduan -->
+                     <li>
+                        <i class="fa fa-camera bg-purple"></i>
+                        <div class="timeline-item">
+                           <h3 class="timeline-header"><a href="#">Photo Aduan</a></h3>
+                           <div class="timeline-body">
+                              <?php if ($detail->img_aduan == '') { ?>
+                                 Tidak Ada Photo
+                              <?php } else { ?>
+                                 <img src="<?= base_url('assets/upload/aduan/') . $detail->img_aduan ?>" alt="..." class="margin" width="35%">
+                              <?php } ?>
+                           </div>
+                        </div>
+                     </li>
+
 
                      <!-- Status Dibaca -->
                      <?php if ($detail->stat_read1 == 0) { ?>
@@ -252,7 +267,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <span class="time"><i class="fa fa-clock-o"></i> <?= date('H:i:s', strtotime($detail->tangani_at)); ?></span>
                                     <h3 class="timeline-header"><a href="#">Penanganan</a></h3>
                                     <div class="timeline-body">
-                                       <?= $detail->tanggapan; ?>
+                                       <?= $detail->penanganan; ?>
                                     </div>
                                  </div>
                               </li>
@@ -260,13 +275,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               <li>
                                  <i class="fa fa-camera bg-purple"></i>
                                  <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-                                    <h3 class="timeline-header"><a href="#">Detail Penanganan</a></h3>
+                                    <h3 class="timeline-header"><a href="#">Photo Penanganan</a></h3>
                                     <div class="timeline-body">
-                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                       <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                       <img src="<?= base_url('assets/upload/aduan/tangani/') . $detail->img_tangani ?>" alt="..." class="margin" width="35%">
                                     </div>
                                  </div>
                               </li>
@@ -289,7 +300,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <i class="fa fa-pencil bg-aqua"></i>
                                     <div class="timeline-item">
                                        <span class="time"><i class="fa fa-exclamation-circle"></i> klik text disamping</span>
-                                       <h3 class="timeline-header"><a href="<?= base_url('admin/aduan/edittangani/' . $detail->id_aduan) ?>">Edit Penanganan</a></h3>
+                                       <h3 class="timeline-header"><a href="<?= base_url('admin/aduan/addtangani/' . $detail->id_aduan) ?>">Edit Penanganan</a></h3>
                                     </div>
                                  </li>
                               <?php } ?>

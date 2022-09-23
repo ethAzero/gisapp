@@ -38,7 +38,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <?php if ($this->session->userdata('hakakses') == 'AD') { ?>
                      <a href="<?php echo base_url('admin/aduan/add') ?>"><button class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add</button></a>
                   <?php } ?>
-                  <a href="<?php echo base_url('admin/kabkota/exportexcel') ?>" target="_blank"><button class="btn btn-primary btn-flat"><i class="fa fa-file-excel-o"></i> Export Excel</button></a>
                </div>
             </div>
             <br>
@@ -47,10 +46,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <thead>
                      <tr>
                         <th width="3%">No</th>
-                        <th width="40%">Aduan</th>
-                        <th width="20%">Lokasi</th>
-                        <th width="20%">Chanel Aduan</th>
-                        <th width="20%">Status</th>
+                        <th width="15%">Tanggal Aduan</th>
+                        <th width="30%">Aduan</th>
+                        <th width="25%">Lokasi</th>
+                        <th width="15%">Chanel Aduan</th>
+                        <th width="15%">Status</th>
                         <th style="text-align:center">Aksi</th>
                      </tr>
                   </thead>
@@ -59,11 +59,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      foreach ($list as $list) { ?>
                         <tr class="odd gradeX">
                            <td align="center"><?php echo $i ?></td>
+                           <td><?php echo $list->created_at ?></td>
                            <td><?php echo $list->aduan ?></td>
                            <td>
                               <?php echo $list->jenis . ' : ' . $list->nama_kelurahan ?><br>
                               <?php echo 'Kecamatan : ' . $list->nama_kecamatan ?><br>
-                              <?php echo $list->nm_kabkota ?>
+                              <?php echo $list->nm_kabkota ?><br>
                               <?php echo 'WilKer : ' . $list->nm_balai ?><br>
                            </td>
                            <td><?= $list->chanel_aduan; ?></td>

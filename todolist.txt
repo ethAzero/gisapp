@@ -9,7 +9,7 @@
 9. tambah tabel history untuk mengetahui histroy perlengkapan jalan tahun ke tahun done
 10. tambah field created_at dan update_at pada tabel apill s.d rppj done 
 11. halaman survay apill s.d RPP Done 
-12. Tambahkan folder thumbs pada folder PJU
-13. Tambahkan folder thumbs pada folder RPPJ
+12. Tambahkan folder thumbs pada folder PJU Done
+13. Tambahkan folder thumbs pada folder RPPJ Done
 14. Pada database table guardrail tambah kolom jenis done
 15. Pada database table marka tambah kolom jenis done

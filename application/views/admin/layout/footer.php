@@ -38,17 +38,17 @@
                },
                displayTitle: false
             });
-
+            $('#dataTables-example').dataTable(); // data tabel list aduan dashboard
             $(".select2").select2();
             $('#datepicker').datepicker({
                autoclose: true,
                format: 'yyyy-mm-dd'
             });
 
-            getDataFilter(tahunVal(), bidangbalaiVal());
-            jml_notif_unread();
-            setInterval(jml_notif_unread, 1000);
-            charttahun();
+            // getDataFilter(tahunVal(), bidangbalaiVal());
+            // jml_notif_unread();
+            // setInterval(jml_notif_unread, 1000);
+            // charttahun();
          });
 
          function getDataFilter(tahun, bidangbalai) {

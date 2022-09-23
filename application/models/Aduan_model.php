@@ -89,6 +89,7 @@ class Aduan_model extends CI_Model
 		tb_aduan.tangani_at,
 		tb_aduan.kewenangan,
 		tb_aduan.tanggapan,
+		tb_aduan.penanganan,
 		tb_aduan.kd_jalan,
 		tb_aduan.stat_read1,
 		tb_aduan.stat_read2,
@@ -96,6 +97,8 @@ class Aduan_model extends CI_Model
 		tb_aduan.stat_tanggap,
 		tb_aduan.stat_tangani,
 		tb_aduan.kd_jalan,
+		tb_aduan.img_aduan,
+		tb_aduan.img_tangani,
 		tb_kelurahan.id_kecamatan,
 		tb_kelurahan.nama AS nama_kelurahan,
 		tb_kelurahan.jenis,
@@ -124,7 +127,19 @@ class Aduan_model extends CI_Model
 		$this->db->update('tb_aduan', $data);
 	}
 
+	public function delete($id)
+	{
+		$this->db->where('id_aduan', $id);
+		$this->db->delete('tb_aduan');
+	}
+
 	public function addtanggap($data)
+	{
+		$this->db->where('id_aduan', $data['id_aduan']);
+		$this->db->update('tb_aduan', $data);
+	}
+
+	public function addtangani($data)
 	{
 		$this->db->where('id_aduan', $data['id_aduan']);
 		$this->db->update('tb_aduan', $data);

@@ -54,7 +54,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                echo $error;
                echo '</div>';
             }
-            echo form_open(base_url('admin/aduan/add'));
+            echo form_open_multipart(base_url('admin/aduan/add'));
             ?>
             <div class="row">
                <div class="col-md-9">
@@ -100,6 +100,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <div class="modal-footer">
                         <a href="<?php echo base_url('admin/aduan') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
                         <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Simpan</button>
+                     </div>
+                  </div>
+                  <div class="box box-primary">
+                     <div class="box-body">
+                        <div class="form-group">
+                           <input type="file" name="gambar" accept=".jpg, .jpeg" class="filestyle" data-buttonText="Foto Aduan" data-buttonBefore="true" data-iconName="fa fa-upload">
+                           <small>
+                              <p class="help-block">.JPG Max. 1 Mb (800x500)</p>
+                           </small>
+                        </div>
                      </div>
                   </div>
                </div>

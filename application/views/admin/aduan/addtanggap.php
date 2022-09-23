@@ -12,12 +12,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </style>
 <div class="content-wrapper">
    <section class="content-header">
-      <h1>Tanggapan
+      <h1>Validasi
          <small>Add</small>
       </h1>
       <ol class="breadcrumb">
          <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-         <li class="active">Tanggapan</li>
+         <li class="active">Validasi</li>
       </ol>
    </section>
 

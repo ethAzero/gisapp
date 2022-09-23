@@ -51,7 +51,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                echo $error;
                echo '</div>';
             }
-            echo form_open(base_url('admin/aduan/edit/' . $detail->id_aduan));
+            echo form_open_multipart(base_url('admin/aduan/edit/' . $detail->id_aduan));
             ?>
             <div class="row">
                <div class="col-md-9">
@@ -101,6 +101,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Simpan</button>
                      </div>
                   </div>
+                  <div class="box box-primary">
+                     <div class="box-body">
+                        <div class="form-group">
+                           <input type="file" name="gambar" accept=".jpg, .jpeg" class="filestyle" data-buttonText="Foto Aduan" data-buttonBefore="true" data-iconName="fa fa-upload">
+                           <small>
+                              <p class="help-block">.JPG Max. 1 Mb (800x500)</p>
+                           </small>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
             <?php echo form_close(); ?>
@@ -108,8 +118,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </div>
    </section>
 </div>
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="<?php echo base_url() ?>assets/admin/plugins/jquery-ui/jquery-ui.js"></script>
 <script>
    $(document).ready(function() {
       $('#nm_desa').autocomplete({
