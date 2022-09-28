@@ -142,9 +142,22 @@ class surveiguardrail extends CI_Controller
 					}
 
 					//jika data status tidak berubah data updated_at tidak berubah
-					if ($datalama->status == $this->input->post('status')) {
+					if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
 						$data = array(
-							'kd_guardrail'			=> $this->input->post('kdguardrail'),
+							'kd_guardrail'		=> $this->input->post('kdguardrail'),
+							'kd_jalan'			=> $this->input->post('kdjalan'),
+							'jenis'				=> $this->input->post('jenis'),
+							'panjang	'		=> $this->input->post('panjang'),
+							'img_guardrail'		=> $upload_data['uploads']['file_name'],
+							'letak'				=> $this->input->post('letak'),
+							'status'			=> $this->input->post('status'),
+							'lat'				=> $this->input->post('korx'),
+							'lang'				=> $this->input->post('kory'),
+							'updated_at'		=> $updated_at
+						);
+					} else if ($datalama->status == $this->input->post('status')) {
+						$data = array(
+							'kd_guardrail'		=> $this->input->post('kdguardrail'),
 							'kd_jalan'			=> $this->input->post('kdjalan'),
 							'jenis'				=> $this->input->post('jenis'),
 							'panjang	'		=> $this->input->post('panjang'),
@@ -156,7 +169,7 @@ class surveiguardrail extends CI_Controller
 						);
 					} else if ($datalama->status != $this->input->post('status')) {
 						$data = array(
-							'kd_guardrail'			=> $this->input->post('kdguardrail'),
+							'kd_guardrail'		=> $this->input->post('kdguardrail'),
 							'kd_jalan'			=> $this->input->post('kdjalan'),
 							'jenis'				=> $this->input->post('jenis'),
 							'panjang	'		=> $this->input->post('panjang'),
@@ -168,7 +181,6 @@ class surveiguardrail extends CI_Controller
 							'updated_at'		=> $updated_at
 						);
 					}
-
 					$this->guardrail_model->editguardrail($data);
 					echo json_encode(array('method' => 'edit'));
 				}
@@ -176,9 +188,21 @@ class surveiguardrail extends CI_Controller
 				$i = $this->input;
 
 				//jika data status tidak berubah data updated_at tidak berubah
-				if ($datalama->status == $this->input->post('status')) {
+				if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
 					$data = array(
-						'kd_guardrail'			=> $this->input->post('kdguardrail'),
+						'kd_guardrail'		=> $this->input->post('kdguardrail'),
+						'kd_jalan'			=> $i->post('kdjalan'),
+						'jenis'				=> $i->post('jenis'),
+						'panjang	'		=> $i->post('panjang'),
+						'letak'				=> $i->post('letak'),
+						'status'			=> $i->post('status'),
+						'lat'				=> $i->post('korx'),
+						'lang'				=> $i->post('kory'),
+						'updated_at'		=> $updated_at
+					);
+				} else if ($datalama->status == $this->input->post('status')) {
+					$data = array(
+						'kd_guardrail'		=> $this->input->post('kdguardrail'),
 						'kd_jalan'			=> $i->post('kdjalan'),
 						'jenis'				=> $i->post('jenis'),
 						'panjang	'		=> $i->post('panjang'),
@@ -189,7 +213,7 @@ class surveiguardrail extends CI_Controller
 					);
 				} else if ($datalama->status != $this->input->post('status')) {
 					$data = array(
-						'kd_guardrail'			=> $this->input->post('kdguardrail'),
+						'kd_guardrail'		=> $this->input->post('kdguardrail'),
 						'kd_jalan'			=> $i->post('kdjalan'),
 						'jenis'				=> $i->post('jenis'),
 						'panjang	'		=> $i->post('panjang'),

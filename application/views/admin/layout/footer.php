@@ -45,10 +45,10 @@
                format: 'yyyy-mm-dd'
             });
 
-            // getDataFilter(tahunVal(), bidangbalaiVal());
-            // jml_notif_unread();
-            // setInterval(jml_notif_unread, 1000);
-            // charttahun();
+            getDataFilter(tahunVal(), bidangbalaiVal());
+            jml_notif_unread();
+            setInterval(jml_notif_unread, 1000);
+            charttahun();
          });
 
          function getDataFilter(tahun, bidangbalai) {

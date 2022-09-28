@@ -161,7 +161,22 @@ class Surveirambu extends CI_Controller
 					}
 
 					//jika data status tidak berubah data updated_at tidak berubah
-					if ($datalama->status == $this->input->post('status')) {
+					if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
+						$data = array(
+							'kd_rambu'		=> $this->input->post('kdrambu'),
+							'kd_jalan'		=> $this->input->post('kdjalan'),
+							'jenis'			=> $this->input->post('jenis'),
+							'tipe'			=> $this->input->post('tipe'),
+							'status'		=> $this->input->post('status'),
+							'km_lokasi'		=> $this->input->post('kmlokasi'),
+							'img_rambu'		=> $upload_data['uploads']['file_name'],
+							'posisi'		=> $this->input->post('letak'),
+							'kondisi'		=> $this->input->post('kondisi'),
+							'lat'			=> $this->input->post('korx'),
+							'lang'			=> $this->input->post('kory'),
+							'updated_at'	=> $updated_at
+						);
+					} else if ($datalama->status == $this->input->post('status')) {
 						$data = array(
 							'kd_rambu'		=> $this->input->post('kdrambu'),
 							'kd_jalan'		=> $this->input->post('kdjalan'),
@@ -196,7 +211,21 @@ class Surveirambu extends CI_Controller
 				}
 			} else {
 				// jika data status tidak berubah data updated_at tidak berubah
-				if ($datalama->status == $this->input->post('status')) {
+				if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
+					$data = array(
+						'kd_rambu'		=> $this->input->post('kdrambu'),
+						'kd_jalan'		=> $this->input->post('kdjalan'),
+						'jenis'			=> $this->input->post('jenis'),
+						'tipe'			=> $this->input->post('tipe'),
+						'status'		=> $this->input->post('status'),
+						'km_lokasi'		=> $this->input->post('kmlokasi'),
+						'posisi'		=> $this->input->post('letak'),
+						'kondisi'		=> $this->input->post('kondisi'),
+						'lat'			=> $this->input->post('korx'),
+						'lang'			=> $this->input->post('kory'),
+						'updated_at'	=> $updated_at
+					);
+				} else if ($datalama->status == $this->input->post('status')) {
 					$data = array(
 						'kd_rambu'		=> $this->input->post('kdrambu'),
 						'kd_jalan'		=> $this->input->post('kdjalan'),

@@ -142,7 +142,20 @@ class Surveipju extends CI_Controller
 					}
 
 					//jika data status tidak berubah data updated_at tidak berubah
-					if ($datalama->status == $this->input->post('status')) {
+					if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
+						$data = array(
+							'kd_pju'			=> $this->input->post('kdpju'),
+							'kd_jalan'			=> $this->input->post('kdjalan'),
+							'km_lokasi	'		=> $this->input->post('kmlokasi'),
+							'jenis'				=> $this->input->post('jenis'),
+							'img_pju'			=> $upload_data['uploads']['file_name'],
+							'letak'				=> $this->input->post('letak'),
+							'status'			=> $this->input->post('status'),
+							'lat'				=> $this->input->post('korx'),
+							'lang'				=> $this->input->post('kory'),
+							'updated_at'		=> $updated_at
+						);
+					} else if ($datalama->status == $this->input->post('status')) {
 						$data = array(
 							'kd_pju'			=> $this->input->post('kdpju'),
 							'kd_jalan'			=> $this->input->post('kdjalan'),
@@ -168,16 +181,13 @@ class Surveipju extends CI_Controller
 							'updated_at'		=> $updated_at
 						);
 					}
-
 					$this->pju_model->editpju($data);
 					echo json_encode(array('method' => 'edit'));
 				}
 			} else {
 				$i = $this->input;
-
-
 				//jika data status tidak berubah data updated_at tidak berubah
-				if ($datalama->status == $this->input->post('status')) {
+				if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
 					$data = array(
 						'kd_pju'			=> $this->input->post('kdpju'),
 						'kd_jalan'			=> $i->post('kdjalan'),
@@ -186,7 +196,19 @@ class Surveipju extends CI_Controller
 						'letak'				=> $i->post('letak'),
 						'status'			=> $i->post('status'),
 						'lat'				=> $i->post('korx'),
-						'lang'				=> $i->post('kory')
+						'lang'				=> $i->post('kory'),
+						'updated_at'		=> $updated_at
+					);
+				} else if ($datalama->status == $this->input->post('status')) {
+					$data = array(
+						'kd_pju'			=> $this->input->post('kdpju'),
+						'kd_jalan'			=> $i->post('kdjalan'),
+						'km_lokasi	'		=> $i->post('kmlokasi'),
+						'jenis'				=> $i->post('jenis'),
+						'letak'				=> $i->post('letak'),
+						'status'			=> $i->post('status'),
+						'lat'				=> $i->post('korx'),
+						'lang'				=> $i->post('kory'),
 					);
 				} else if ($datalama->status != $this->input->post('status')) {
 					$data = array(

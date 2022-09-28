@@ -142,13 +142,26 @@ class surveidelinator extends CI_Controller
 					}
 
 					//jika data status tidak berubah data updated_at tidak berubah
-					if ($datalama->status == $this->input->post('status')) {
+					if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
 						$data = array(
-							'kd_delinator'			=> $this->input->post('kddelinator'),
+							'kd_delinator'		=> $this->input->post('kddelinator'),
 							'kd_jalan'			=> $this->input->post('kdjalan'),
 							'km_lokasi	'		=> $this->input->post('kmlokasi'),
 							'jenis'				=> $this->input->post('jenis'),
-							'img_delinator'			=> $upload_data['uploads']['file_name'],
+							'img_delinator'		=> $upload_data['uploads']['file_name'],
+							'letak'				=> $this->input->post('letak'),
+							'status'			=> $this->input->post('status'),
+							'lat'				=> $this->input->post('korx'),
+							'lang'				=> $this->input->post('kory'),
+							'updated_at'		=> $updated_at
+						);
+					} else if ($datalama->status == $this->input->post('status')) {
+						$data = array(
+							'kd_delinator'		=> $this->input->post('kddelinator'),
+							'kd_jalan'			=> $this->input->post('kdjalan'),
+							'km_lokasi	'		=> $this->input->post('kmlokasi'),
+							'jenis'				=> $this->input->post('jenis'),
+							'img_delinator'		=> $upload_data['uploads']['file_name'],
 							'letak'				=> $this->input->post('letak'),
 							'status'			=> $this->input->post('status'),
 							'lat'				=> $this->input->post('korx'),
@@ -156,11 +169,11 @@ class surveidelinator extends CI_Controller
 						);
 					} else if ($datalama->status != $this->input->post('status')) {
 						$data = array(
-							'kd_delinator'			=> $this->input->post('kddelinator'),
+							'kd_delinator'		=> $this->input->post('kddelinator'),
 							'kd_jalan'			=> $this->input->post('kdjalan'),
 							'km_lokasi	'		=> $this->input->post('kmlokasi'),
 							'jenis'				=> $this->input->post('jenis'),
-							'img_delinator'			=> $upload_data['uploads']['file_name'],
+							'img_delinator'		=> $upload_data['uploads']['file_name'],
 							'letak'				=> $this->input->post('letak'),
 							'status'			=> $this->input->post('status'),
 							'lat'				=> $this->input->post('korx'),
@@ -176,7 +189,19 @@ class surveidelinator extends CI_Controller
 				$i = $this->input;
 
 				//jika data status tidak berubah data updated_at tidak berubah
-				if ($datalama->status == $this->input->post('status')) {
+				if ($datalama->status == $this->input->post('status') and $datalama->updated_at == '') {
+					$data = array(
+						'kd_delinator'			=> $this->input->post('kddelinator'),
+						'kd_jalan'			=> $i->post('kdjalan'),
+						'km_lokasi	'		=> $i->post('kmlokasi'),
+						'jenis'				=> $i->post('jenis'),
+						'letak'				=> $i->post('letak'),
+						'status'			=> $i->post('status'),
+						'lat'				=> $i->post('korx'),
+						'lang'				=> $i->post('kory'),
+						'updated_at'		=> $updated_at
+					);
+				} else if ($datalama->status == $this->input->post('status')) {
 					$data = array(
 						'kd_delinator'			=> $this->input->post('kddelinator'),
 						'kd_jalan'			=> $i->post('kdjalan'),
