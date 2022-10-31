@@ -187,7 +187,7 @@ $this->authlogin->cek_login();
    let map;
    let latVal = () => $('[name="korx"]').val();
    let lngVal = () => $('[name="kory"]').val();
-
+   let hakakses = "<?= $this->session->userdata('hakakses'); ?>";
    getLocation();
    $(".select2").select2();
    $('.kondisi').hide();
@@ -519,39 +519,43 @@ $this->authlogin->cek_login();
    $('#submit').submit(function(e) {
       e.preventDefault();
       if ($('#submit').valid()) {
-         $.ajax({
-            url: "<?= base_url('rambu') ?>",
-            type: "POST",
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            cache: false,
-            async: false,
-            dataType: "JSON",
-            beforeSend: function() {
-               $('#titik').html('Menyimpan');
-            },
-            success: function(data) {
-               if (data.method == 'add') {
-                  var methode = "Di Tambahkan";
-               } else {
-                  var methode = "Di Update";
-               };
-               $.growl.notice({
-                  message: "Data Berhasil " + methode,
-               });
-               $('#titik').html('Simpan');
-               $('[name="kdrambu"]').val('');
-               $('[name="kdrambufake"]').val('');
-               $('[name="kmlokasi"]').val('');
-               $('[name="jenis"]').val('');
-               $('[name="letak"]').val('').trigger('change');
-               $('[name="gambar"]').val('');
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-               alert('Error adding / update data');
-            }
-         });
+         if ($('[name="kdrambu"]').val() == '' && hakakses == 'LL') {
+            alert('Anda Tidak Memiliki Hak Untuk Menambahkan Data Baru');
+         } else {
+            $.ajax({
+               url: "<?= base_url('rambu') ?>",
+               type: "POST",
+               data: new FormData(this),
+               processData: false,
+               contentType: false,
+               cache: false,
+               async: false,
+               dataType: "JSON",
+               beforeSend: function() {
+                  $('#titik').html('Menyimpan');
+               },
+               success: function(data) {
+                  if (data.method == 'add') {
+                     var methode = "Di Tambahkan";
+                  } else {
+                     var methode = "Di Update";
+                  };
+                  $.growl.notice({
+                     message: "Data Berhasil " + methode,
+                  });
+                  $('#titik').html('Simpan');
+                  $('[name="kdrambu"]').val('');
+                  $('[name="kdrambufake"]').val('');
+                  $('[name="kmlokasi"]').val('');
+                  $('[name="jenis"]').val('');
+                  $('[name="letak"]').val('').trigger('change');
+                  $('[name="gambar"]').val('');
+               },
+               error: function(jqXHR, textStatus, errorThrown) {
+                  alert('Error adding / update data');
+               }
+            });
+         }
       }
    })
 

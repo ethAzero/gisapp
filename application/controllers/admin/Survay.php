@@ -22,7 +22,7 @@ class Survay extends CI_Controller
 	public function index()
 	{
 		$data = array(
-			'title' 	=> 'Aduan',
+			'title' 	=> 'Survei',
 			'isi'		=> 'admin/survay/index'
 		);
 		$this->load->view('admin/layout/wrapper', $data);

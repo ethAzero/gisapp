@@ -22,6 +22,7 @@
 
          let tahunVal = () => $('#tahun').val();
          let bidangbalaiVal = () => $('#bidangbalai').val();
+         let hakakses = "<?= $this->session->userdata('hakakses'); ?>";
 
 
          $(document).ready(function() {
@@ -45,10 +46,13 @@
                format: 'yyyy-mm-dd'
             });
 
-            getDataFilter(tahunVal(), bidangbalaiVal());
-            jml_notif_unread();
-            setInterval(jml_notif_unread, 1000);
-            charttahun();
+            if (hakakses == '01' || hakakses == '02' || hakakses == '03' || hakakses == '04' || hakakses == '04' || hakakses == '06' || hakakses == 'S' || hakakses == 'A' || hakakses == 'AD') {
+               getDataFilter(tahunVal(), bidangbalaiVal());
+               jml_notif_unread();
+               setInterval(jml_notif_unread, 1000);
+               charttahun();
+            }
+
          });
 
          function getDataFilter(tahun, bidangbalai) {
@@ -268,6 +272,16 @@
                );
             },
          });
+
+         //untuk opsi pada halaman edit daerah rawan kecelakaan
+         $('[name="statusjalan"]').change(function() {
+            if ($('[name="statusjalan"]').val() == 2) {
+               $('#rjalan').prop('disabled', false);
+            } else if ($('[name="statusjalan"]').val() == 1 || $('[name="statusjalan"]').val() == 3) {
+               $('#rjalan').val('').trigger('change')
+               $('#rjalan').prop('disabled', true);
+            }
+         })
       </script>
 
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc"></script>

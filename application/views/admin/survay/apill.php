@@ -163,6 +163,7 @@ $this->authlogin->cek_login();
    let map;
    let latVal = () => $('[name="korx"]').val();
    let lngVal = () => $('[name="kory"]').val();
+   let hakakses = "<?= $this->session->userdata('hakakses'); ?>";
    $(document).ready(function() {
       // initmap();
       getLocation();
@@ -403,39 +404,44 @@ $this->authlogin->cek_login();
    $('#submit').submit(function(e) {
       e.preventDefault();
       if ($('#submit').valid()) {
-         $.ajax({
-            url: "<?= base_url('apill') ?>",
-            type: "POST",
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            cache: false,
-            async: false,
-            dataType: "JSON",
-            beforeSend: function() {
-               $('#titik').html('Menyimpan');
-            },
-            success: function(data) {
-               if (data.method == 'add') {
-                  var methode = "Di Tambahkan";
-               } else {
-                  var methode = "Di Update";
-               };
-               $.growl.notice({
-                  message: "Data Berhasil " + methode,
-               });
-               $('#titik').html('Simpan');
-               $('[name="kdapill"]').val('');
-               $('[name="kdapillfake"]').val('');
-               $('[name="kmlokasi"]').val('');
-               $('[name="jenis"]').val('').trigger('change');
-               $('[name="letak"]').val('');
-               $('[name="gambar"]').val('');
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-               alert('Error adding / update data');
-            }
-         });
+
+         if ($('[name="kdapill"]').val() == '' && hakakses == 'LL') {
+            alert('Anda Tidak Memiliki Hak Untuk Menambahkan Data Baru');
+         } else {
+            $.ajax({
+               url: "<?= base_url('apill') ?>",
+               type: "POST",
+               data: new FormData(this),
+               processData: false,
+               contentType: false,
+               cache: false,
+               async: false,
+               dataType: "JSON",
+               beforeSend: function() {
+                  $('#titik').html('Menyimpan');
+               },
+               success: function(data) {
+                  if (data.method == 'add') {
+                     var methode = "Di Tambahkan";
+                  } else {
+                     var methode = "Di Update";
+                  };
+                  $.growl.notice({
+                     message: "Data Berhasil " + methode,
+                  });
+                  $('#titik').html('Simpan');
+                  $('[name="kdapill"]').val('');
+                  $('[name="kdapillfake"]').val('');
+                  $('[name="kmlokasi"]').val('');
+                  $('[name="jenis"]').val('').trigger('change');
+                  $('[name="letak"]').val('');
+                  $('[name="gambar"]').val('');
+               },
+               error: function(jqXHR, textStatus, errorThrown) {
+                  alert('Error adding / update data');
+               }
+            });
+         }
       }
    })
 

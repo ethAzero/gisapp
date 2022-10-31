@@ -10,52 +10,56 @@
 	</section>
 
 	<section class="content">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="box box-primary">
-					<div class="box-header with-border">
-						<div class="col-md-6">
-							<label>Filter By : Tahun </label>
-							<select name="tahun" id="tahun" class="form-control select2" style="width: 100%;" onchange="getDataFilter(this.value,bidangbalaiVal())">
-								<?php foreach ($listtahun as $listtahun) : ?>
-									<?php date_default_timezone_set("Asia/Bangkok");
-									if ($listtahun->Tahun == date("Y")) { ?>
-										<option value="<?php echo $listtahun->Tahun ?>" selected><?php echo $listtahun->Tahun ?></option>
-									<?php } else { ?>
-										<option value="<?php echo $listtahun->Tahun ?>"><?php echo $listtahun->Tahun ?></option>
-									<?php } ?>
-								<?php endforeach ?>
-							</select>
-						</div>
-						<div class="col-md-6">
-							<label>Filter By : Balai </label>
-							<?php
-							$hakakses = $this->session->userdata('hakakses');
-							if ($hakakses == '01' || $hakakses == '02' || $hakakses == '03' || $hakakses == '04' || $hakakses == '05' || $hakakses == '06') {
-								$lock = 'disabled';
-							?>
-								<select name="bidangbalai" id="bidangbalai" class="form-control select2" style="width: 100%;" onchange="getDataFilter(tahunVal(),this.value)" <?= $lock; ?>>
-									<option value="all">Dinas Perhubungan</option>
-									<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
-										<option value="<?php echo $bidangbalai->kd_balai ?>" <?php if ($bidangbalai->kd_balai === $hakakses) {
-																									echo "selected";
-																								} ?>><?php echo $bidangbalai->nm_balai ?></option>
+		<?php
+		$hakakses = $this->session->userdata('hakakses');
+		if ($hakakses != 'AJ' and $hakakses != 'JT' and $hakakses != 'LL' and $hakakses != 'PE' and $hakakses != '07') { ?>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<div class="col-md-6">
+								<label>Filter By : Tahun </label>
+								<select name="tahun" id="tahun" class="form-control select2" style="width: 100%;" onchange="getDataFilter(this.value,bidangbalaiVal())">
+									<?php foreach ($listtahun as $listtahun) : ?>
+										<?php date_default_timezone_set("Asia/Bangkok");
+										if ($listtahun->Tahun == date("Y")) { ?>
+											<option value="<?php echo $listtahun->Tahun ?>" selected><?php echo $listtahun->Tahun ?></option>
+										<?php } else { ?>
+											<option value="<?php echo $listtahun->Tahun ?>"><?php echo $listtahun->Tahun ?></option>
+										<?php } ?>
 									<?php endforeach ?>
 								</select>
-							<?php } else if ($hakakses == 'S' || $hakakses == 'A' || $hakakses == 'AD') { ?>
-								<select name="bidangbalai" id="bidangbalai" class="form-control select2" style="width: 100%;" onchange="getDataFilter(tahunVal(),this.value)">
-									<option value="all" selected>Dinas Perhubungan</option>
-									<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
-										<option value="<?php echo $bidangbalai->kd_balai ?>"><?php echo $bidangbalai->nm_balai ?></option>
-									<?php endforeach ?>
-								</select>
-							<?php }
-							?>
+							</div>
+							<div class="col-md-6">
+								<label>Filter By : Balai </label>
+								<?php
+								$hakakses = $this->session->userdata('hakakses');
+								if ($hakakses == '01' || $hakakses == '02' || $hakakses == '03' || $hakakses == '04' || $hakakses == '05' || $hakakses == '06') {
+									$lock = 'disabled';
+								?>
+									<select name="bidangbalai" id="bidangbalai" class="form-control select2" style="width: 100%;" onchange="getDataFilter(tahunVal(),this.value)" <?= $lock; ?>>
+										<option value="all">Dinas Perhubungan</option>
+										<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
+											<option value="<?php echo $bidangbalai->kd_balai ?>" <?php if ($bidangbalai->kd_balai === $hakakses) {
+																										echo "selected";
+																									} ?>><?php echo $bidangbalai->nm_balai ?></option>
+										<?php endforeach ?>
+									</select>
+								<?php } else if ($hakakses == 'S' || $hakakses == 'A' || $hakakses == 'AD') { ?>
+									<select name="bidangbalai" id="bidangbalai" class="form-control select2" style="width: 100%;" onchange="getDataFilter(tahunVal(),this.value)">
+										<option value="all" selected>Dinas Perhubungan</option>
+										<?php foreach ($listbidangbalai as $key => $bidangbalai) : ?>
+											<option value="<?php echo $bidangbalai->kd_balai ?>"><?php echo $bidangbalai->nm_balai ?></option>
+										<?php endforeach ?>
+									</select>
+								<?php }
+								?>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		<?php } ?>
 		<?php
 		$hakakses = $this->session->userdata('hakakses');
 		if ($hakakses != 'AJ' and $hakakses != 'JT' and $hakakses != 'LL' and $hakakses != 'PE' and $hakakses != '07') { ?>

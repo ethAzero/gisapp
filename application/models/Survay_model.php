@@ -15,7 +15,9 @@ class Survay_model extends CI_Model
 		$this->db->select('kd_jalan,nm_ruas,lintasan');
 		$this->db->from('jalan');
 		$this->db->where('lintasan !=', '');
-		$this->db->where('kd_balai', $hakakses);
+		if ($hakakses != 'LL') {
+			$this->db->where('kd_balai', $hakakses);
+		}
 		$query = $this->db->get();
 		return $query->result();
 	}

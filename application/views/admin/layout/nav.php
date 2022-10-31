@@ -2,7 +2,7 @@
    <section class="sidebar">
       <ul class="sidebar-menu">
          <li class="<?= ($this->uri->segment(2) == 'dashboard') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/dashboard') ?>"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
-         <?php if ($this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ') { ?>
+         <?php if ($this->session->userdata('hakakses') != '07' and $this->session->userdata('hakakses') != 'PE' and $this->session->userdata('hakakses') != 'JT' and $this->session->userdata('hakakses') != 'AJ' and $this->session->userdata('hakakses') != 'LL') { ?>
             <li class="<?= ($this->uri->segment(2) == 'aduan') ? 'active' : '' ?>">
                <a href="<?php echo base_url('admin/aduan') ?>">
                   <i class="fa fa-bullhorn text-green"></i> <span>Aduan</span>
@@ -22,7 +22,7 @@
             </li>
          <?php } ?>
 
-         <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') == 'JT') | ($this->session->userdata('hakakses') == 'PE') | ($this->session->userdata('hakakses') == 'LL')) { ?>
+         <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') == 'JT') | ($this->session->userdata('hakakses') == 'PE')) { ?>
 
             <li class="<?= (($this->uri->segment(2) == 'terminal') | ($this->uri->segment(2) == 'stasiun') | ($this->uri->segment(2) == 'bandara') | ($this->uri->segment(2) == 'sdp') | ($this->uri->segment(2) == 'pelabuhan') | ($this->uri->segment(2) == 'perlintasan')) ? 'active' : '' ?>">
                <a href="#"><i class="fa fa-th-large"></i><span>Simpul</span> <i class="fa fa-angle-left pull-right"></i></a>
