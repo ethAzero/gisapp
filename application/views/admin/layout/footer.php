@@ -282,6 +282,37 @@
                $('#rjalan').prop('disabled', true);
             }
          })
+         //halaman rekomendasi DRK
+         $('[name="jenisrekom"]').change(function() {
+            if ($('[name="jenisrekom"]').val() == 'Cermin Tikung') {
+               $('[name="satuan"]').val('Bh');
+               $('[name="satuanfake"]').val('Bh');
+            } else if ($('[name="jenisrekom"]').val() == 'Delinator') {
+               $('[name="satuan"]').val('Bh');
+               $('[name="satuanfake"]').val('Bh');
+            } else if ($('[name="jenisrekom"]').val() == 'Warning Light') {
+               $('[name="satuan"]').val('Unit');
+               $('[name="satuanfake"]').val('Unit');
+            } else if ($('[name="jenisrekom"]').val() == 'Guardrail') {
+               $('[name="satuan"]').val('Beam');
+               $('[name="satuanfake"]').val('Beam');
+            } else if ($('[name="jenisrekom"]').val() == 'Marka') {
+               $('[name="satuan"]').val('Paket');
+               $('[name="satuanfake"]').val('Paket');
+            } else if ($('[name="jenisrekom"]').val() == 'LPJU') {
+               $('[name="satuan"]').val('Unit');
+               $('[name="satuanfake"]').val('Unit');
+            } else if ($('[name="jenisrekom"]').val() == 'Rambu') {
+               $('[name="satuan"]').val('Bh');
+               $('[name="satuanfake"]').val('Bh');
+            } else if ($('[name="jenisrekom"]').val() == 'RPPJ') {
+               $('[name="satuan"]').val('Bh');
+               $('[name="satuanfake"]').val('Bh');
+            } else if ($('[name="jenisrekom"]').val() == 'Lainnya') {
+               $('[name="satuan"]').val('Paket');
+               $('[name="satuanfake"]').val('Paket');
+            }
+         })
       </script>
 
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1HBqMYvcjI161URlIQ96gkmiPlSYPpyc"></script>

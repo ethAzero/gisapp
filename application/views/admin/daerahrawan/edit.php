@@ -81,7 +81,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            </div>
                            <div class="form-group col-md-6">
                               <label for="exampleInputEmail1">Nama Ruas Jalan</label>
-                              <select name="jalan" id="rjalan" class="form-control select2">
+                              <select name="jalan" id="rjalan" class="form-control select2" required>
                                  <option value="">=== Ruas Jalan ===</option>
                                  <?php foreach ($jln as $key => $t) : ?>
                                     <option value="<?php echo $t->kd_jalan ?>" <?php if ($t->kd_jalan === $daerahrawan->kd_jalan) {

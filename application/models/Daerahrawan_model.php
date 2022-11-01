@@ -10,18 +10,50 @@ class Daerahrawan_model extends CI_Model
 	}
 	public function listing()
 	{
+		$this->db->select('daerah_rawan.kd_daerah,
+		daerah_rawan.kd_kabkota,
+		daerah_rawan.kd_jalan,
+		daerah_rawan.nm_daerah,
+		daerah_rawan.lat,
+		daerah_rawan.lang,
+		daerah_rawan.ket_daerah,
+		daerah_rawan.img_daerah,
+		daerah_rawan.`status`,
+		daerah_rawan.status_jalan,
+		daerah_rawan.status_drk,
+		jalan.nm_ruas,
+		kabkota.nm_kabkota,
+		kabkota.kd_balai');
 		$this->db->from('daerah_rawan');
 		$this->db->join('kabkota', 'kabkota.kd_kabkota = daerah_rawan.kd_kabkota', 'LEFT');
 		$this->db->join('balai', 'balai.kd_balai = kabkota.kd_balai', 'LEFT');
+		$this->db->join('jalan', 'jalan.kd_jalan = daerah_rawan.kd_jalan', 'LEFT');
+		$this->db->where('daerah_rawan.`status`', 1);
 		$query = $this->db->get();
 		return $query->result();
 	}
 	public function loginbatas()
 	{
+		$this->db->select('daerah_rawan.kd_daerah,
+		daerah_rawan.kd_kabkota,
+		daerah_rawan.kd_jalan,
+		daerah_rawan.nm_daerah,
+		daerah_rawan.lat,
+		daerah_rawan.lang,
+		daerah_rawan.ket_daerah,
+		daerah_rawan.img_daerah,
+		daerah_rawan.`status`,
+		daerah_rawan.status_jalan,
+		daerah_rawan.status_drk,
+		jalan.nm_ruas,
+		kabkota.nm_kabkota,
+		kabkota.kd_balai');
 		$this->db->from('daerah_rawan');
 		$this->db->join('kabkota', 'kabkota.kd_kabkota = daerah_rawan.kd_kabkota', 'LEFT');
 		$this->db->join('balai', 'balai.kd_balai = kabkota.kd_balai', 'LEFT');
+		$this->db->join('jalan', 'jalan.kd_jalan = daerah_rawan.kd_jalan', 'LEFT');
 		$this->db->where('balai.kd_balai', $this->session->userdata('hakakses'));
+		$this->db->where('daerah_rawan.`status`', 1);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -40,8 +72,34 @@ class Daerahrawan_model extends CI_Model
 	}
 	public function detaildaerahrawan($id)
 	{
-		$query = $this->db->get_where('daerah_rawan', array('kd_daerah' => $id));
+		$this->db->select('daerah_rawan.kd_daerah,
+		daerah_rawan.kd_kabkota,
+		daerah_rawan.kd_jalan,
+		daerah_rawan.nm_daerah,
+		daerah_rawan.lat,
+		daerah_rawan.lang,
+		daerah_rawan.ket_daerah,
+		daerah_rawan.img_daerah,
+		daerah_rawan.`status`,
+		daerah_rawan.status_jalan,
+		daerah_rawan.status_drk,
+		jalan.nm_ruas,
+		kabkota.nm_kabkota,
+		kabkota.kd_balai');
+		$this->db->from('daerah_rawan');
+		$this->db->join('kabkota', 'kabkota.kd_kabkota = daerah_rawan.kd_kabkota', 'LEFT');
+		$this->db->join('balai', 'balai.kd_balai = kabkota.kd_balai', 'LEFT');
+		$this->db->join('jalan', 'jalan.kd_jalan = daerah_rawan.kd_jalan', 'LEFT');
+		$this->db->where('kd_daerah', $id);
+		$query = $this->db->get();
 		return $query->row();
+	}
+	public function detailrekom($id)
+	{
+		$this->db->from('rekom_drk');
+		$this->db->where('kd_daerah', $id);
+		$query = $this->db->get();
+		return $query->result();
 	}
 	public function editdaerahrawan($data)
 	{
@@ -69,15 +127,15 @@ class Daerahrawan_model extends CI_Model
 
 	public function list_detaildaerah()
 	{
-		$this->db->from('detail_drk');
-		$this->db->join('daerah_rawan', 'detail_drk.kd_daerah = daerah_rawan.kd_daerah', 'INNER');
+		$this->db->from('rekom_drk');
+		$this->db->join('daerah_rawan', 'rekom_drk.kd_daerah = daerah_rawan.kd_daerah', 'INNER');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
 	public function add_detaildaerah($data)
 	{
-		$this->db->insert('detail_drk', $data);
+		$this->db->insert('rekom_drk', $data);
 	}
 
 	public function listing1()
@@ -88,5 +146,22 @@ class Daerahrawan_model extends CI_Model
 		$this->db->join('jalan', 'jalan.kd_jalan = daerah_rawan.kd_jalan', 'LEFT');
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	public function addrekomdrk($data)
+	{
+		$this->db->insert('rekom_drk', $data);
+	}
+	public function editrekomdrk($data)
+	{
+		$this->db->where('id', $data['id']);
+		$this->db->update('rekom_drk', $data);
+	}
+	public function detailrekomdrk($id)
+	{
+		$this->db->from('rekom_drk');
+		$this->db->where('id', $id);
+		$query = $this->db->get();
+		return $query->row();
 	}
 }

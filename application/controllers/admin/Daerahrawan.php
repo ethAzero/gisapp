@@ -91,13 +91,14 @@ class Daerahrawan extends CI_Controller
 
 					$i = $this->input;
 					$data = array(
-						'kd_kabkota'			=> $i->post('kabkota'),
+						'kd_kabkota'		=> $i->post('kabkota'),
 						'nm_daerah'			=> $i->post('nmdaerah'),
 						'img_daerah'		=> $upload_data['uploads']['file_name'],
 						'ket_daerah'		=> $i->post('ket'),
 						'kd_jalan'			=> $i->post('jalan'),
-						'lat'					=> $i->post('korx'),
-						'lang'				=> $i->post('kory')
+						'lat'				=> $i->post('korx'),
+						'lang'				=> $i->post('kory'),
+						'status'			=> 1
 					);
 					$this->daerahrawan_model->adddaerahrawan($data);
 					$this->session->set_flashdata('sukses', 'Berhasil ditambah');
@@ -112,7 +113,8 @@ class Daerahrawan extends CI_Controller
 					'ket_daerah'		=> $i->post('ket'),
 					'kd_jalan'			=> $i->post('jalan'),
 					'lat'					=> $i->post('korx'),
-					'lang'				=> $i->post('kory')
+					'lang'				=> $i->post('kory'),
+					'status'			=> 1
 				);
 				$this->daerahrawan_model->adddaerahrawan($data);
 				$this->session->set_flashdata('sukses', 'Berhasil ditambah');
@@ -173,16 +175,16 @@ class Daerahrawan extends CI_Controller
 				$this->load->library('upload', $config);
 				if (!$this->upload->do_upload('gambar')) {
 					$data = array(
-						'title' 			=> 'Edit Daerah Rawan',
+						'title' 		=> 'Edit Daerah Rawan',
 						'daerahrawan'	=> $daerahrawan,
 						'kabkota' 		=> $kabkota,
 						'jln' 			=> $$jalan,
 						'error'			=> $this->upload->display_errors(),
-						'isi'				=> 'admin/daerahrawan/edit'
+						'isi'			=> 'admin/daerahrawan/edit'
 					);
 					$this->load->view('admin/layout/wrapper', $data);
 				} else {
-					$upload_data					= array('uploads' => $this->upload->data());
+					$upload_data				= array('uploads' => $this->upload->data());
 					$config['image_library']	= 'gd2';
 					$config['encrypt_name'] 	= TRUE;
 					$config['source_image'] 	= './assets/upload/daerahrawan/' . $upload_data['uploads']['file_name'];
@@ -190,7 +192,7 @@ class Daerahrawan extends CI_Controller
 					$config['create_thumb'] 	= TRUE;
 					$config['quality'] 			= "100%";
 					$config['maintain_ratio'] 	= TRUE;
-					$config['width'] 				= 360;
+					$config['width'] 			= 360;
 					$config['height'] 			= 200;
 					$config['x_axis'] 			= 0;
 					$config['y_axis'] 			= 0;
@@ -212,7 +214,8 @@ class Daerahrawan extends CI_Controller
 						'img_daerah'		=> $upload_data['uploads']['file_name'],
 						'ket_daerah'		=> $i->post('ket'),
 						'kd_jalan'			=> $i->post('jalan'),
-						'lat'					=> $i->post('korx'),
+						'status_jalan'		=> $i->post('statusjalan'),
+						'lat'				=> $i->post('korx'),
 						'lang'				=> $i->post('kory')
 					);
 					$this->daerahrawan_model->editdaerahrawan($data);
@@ -227,7 +230,8 @@ class Daerahrawan extends CI_Controller
 					'nm_daerah'			=> $i->post('nmdaerah'),
 					'ket_daerah'		=> $i->post('ket'),
 					'kd_jalan'			=> $i->post('jalan'),
-					'lat'					=> $i->post('korx'),
+					'status_jalan'		=> $i->post('statusjalan'),
+					'lat'				=> $i->post('korx'),
 					'lang'				=> $i->post('kory')
 				);
 				$this->daerahrawan_model->editdaerahrawan($data);
@@ -237,6 +241,16 @@ class Daerahrawan extends CI_Controller
 		}
 	}
 
+	public function tanganidrk($id)
+	{
+		$data = array(
+			'kd_daerah'			=> $id,
+			'status_drk'		=> 2
+		);
+		$this->daerahrawan_model->editdaerahrawan($data);
+		$this->session->set_flashdata('sukses', 'Status DRK Berhasil Ditangani');
+		redirect(base_url('admin/daerahrawan/details/') . $id);
+	}
 
 
 	public function add_ddrk($id)
@@ -299,5 +313,112 @@ class Daerahrawan extends CI_Controller
 			'list'		=> $list
 		);
 		$this->load->view('admin/daerahrawan/print', $data);
+	}
+
+	public function details($id)
+	{
+		$listdrk = $this->daerahrawan_model->detaildaerahrawan($id);
+		$listrekom = $this->daerahrawan_model->detailrekom($id);
+		$data = array(
+			'title' 	=> 'Details Daerah Rawan',
+			'listdrk'	=> $listdrk,
+			'listrekom'	=> $listrekom,
+			'isi'		=> 'admin/daerahrawan/details'
+		);
+		$this->load->view('admin/layout/wrapper', $data);
+	}
+
+	public function rekomadd($id)
+	{
+		$listdrk = $this->daerahrawan_model->detaildaerahrawan($id);
+		$valid = $this->form_validation;
+		$valid->set_rules(
+			'jenisrekom',
+			'jenisrekom',
+			'required',
+			array('required'	=> 'Jenis Rekomendasi / Kota harus diisi')
+		);
+		$valid->set_rules(
+			'kebutuhan',
+			'kebutuhan',
+			'required',
+			array('required'	=> 'Jumlah Kebutuhan / Kota harus diisi')
+		);
+		$valid->set_rules(
+			'ket',
+			'ket',
+			'required',
+			array('required'	=> 'Keterangan / Kota harus diisi')
+		);
+		if ($valid->run() == FALSE) {
+			$data = array(
+				'title' 	=> 'Add Rekomendasi',
+				'listdrk'	=> $listdrk,
+				'isi' 		=> 'admin/daerahrawan/addrekom'
+			);
+			$this->load->view('admin/layout/wrapper', $data);
+		} else {
+			$i = $this->input;
+			$data = array(
+				'kd_daerah'		=> $id,
+				'jenis_rekom'		=> $i->post('jenisrekom'),
+				'satuan'			=> $i->post('satuan'),
+				'jml_kebutuhan'		=> $i->post('kebutuhan'),
+				'ket'				=> $i->post('ket'),
+				'status'			=> 0,
+				'lat'				=> $i->post('korx'),
+				'lang'				=> $i->post('kory')
+			);
+			$this->daerahrawan_model->addrekomdrk($data);
+			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
+			redirect(base_url('admin/daerahrawan/details/') . $id);
+		}
+	}
+	public function rekomedit($iddrk, $idrekom)
+	{
+		$listrekom = $this->daerahrawan_model->detailrekomdrk($idrekom);
+		$valid = $this->form_validation;
+		$valid->set_rules(
+			'jenisrekom',
+			'jenisrekom',
+			'required',
+			array('required'	=> 'Jenis Rekomendasi / Kota harus diisi')
+		);
+		$valid->set_rules(
+			'kebutuhan',
+			'kebutuhan',
+			'required',
+			array('required'	=> 'Jumlah Kebutuhan / Kota harus diisi')
+		);
+		$valid->set_rules(
+			'ket',
+			'ket',
+			'required',
+			array('required'	=> 'Keterangan / Kota harus diisi')
+		);
+		if ($valid->run() == FALSE) {
+			$data = array(
+				'title' 	=> 'Add Rekomendasi',
+				'listrekom'	=> $listrekom,
+				'isi' 		=> 'admin/daerahrawan/editrekom'
+			);
+			$this->load->view('admin/layout/wrapper', $data);
+		} else {
+			$i = $this->input;
+			$data = array(
+				'id'				=> $idrekom,
+				'jenis_rekom'		=> $i->post('jenisrekom'),
+				'satuan'			=> $i->post('satuan'),
+				'jml_kebutuhan'		=> $i->post('kebutuhan'),
+				'ket'				=> $i->post('ket'),
+				'status'			=> 0,
+				'lat'				=> $i->post('korx'),
+				'lang'				=> $i->post('kory')
+			);
+			$this->daerahrawan_model->editrekomdrk($data);
+			$this->session->set_flashdata('sukses', 'Berhasil ditambah');
+			redirect(base_url('admin/daerahrawan/details/' . $iddrk));
+		}
+		// echo json_encode($listrekom);
 	}
 }
