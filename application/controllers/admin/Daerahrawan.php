@@ -35,68 +35,85 @@ class Daerahrawan extends CI_Controller
 	public function add()
 	{
 		$hak = $this->session->userdata('hakakses');
-		if (($hak === 'S') | ($hak === 'A') | ($hak === 'U') | ($hak === 'LL')) {
-			$kabkota = $this->kabkota_model->listing();
-		} else {
-			$kabkota = $this->kabkota_model->loginbatas();
-		}
-		$jalan = $this->daerahrawan_model->getjalan();
-		// print_r($jalan);exit();
-		$valid = $this->form_validation;
-		$valid->set_rules(
-			'kabkota',
-			'kabkota',
-			'required',
-			array('required'	=> 'Nama Kabupaten / Kota harus diisi')
-		);
-		if ($valid->run() == FALSE) {
-			$data = array(
-				'title' 		=> 'Add Daerah Rawan',
-				'kabkota'	=> $kabkota,
-				'jln'		=> $jalan,
-				'isi' 		=> 'admin/daerahrawan/add'
+		if (($hak == 'S') || ($hak == 'A') || ($hak == 'U') || ($hak == 'LL')) {
+			if (($hak === 'S') | ($hak === 'A') | ($hak === 'U') | ($hak === 'LL')) {
+				$kabkota = $this->kabkota_model->listing();
+			} else {
+				$kabkota = $this->kabkota_model->loginbatas();
+			}
+			$jalan = $this->daerahrawan_model->getjalan();
+			// print_r($jalan);exit();
+			$valid = $this->form_validation;
+			$valid->set_rules(
+				'kabkota',
+				'kabkota',
+				'required',
+				array('required'	=> 'Nama Kabupaten / Kota harus diisi')
 			);
-			$this->load->view('admin/layout/wrapper', $data);
-		} else {
-			if (!empty($_FILES['gambar']['name'])) {
-				$config['upload_path'] 		= './assets/upload/daerahrawan/';
-				$config['allowed_types'] 	= 'gif|jpg|jpeg|png|svg';
-				$config['max_size']			= '500';
-				$this->load->library('upload', $config);
-				if (!$this->upload->do_upload('gambar')) {
-					$data = array(
-						'title' 		=> 'Add Dae Rahrawan',
-						'kabkota'	=> $kabkota,
-						'error'		=> $this->upload->display_errors(),
-						'isi' 		=> 'admin/daerahrawan/add'
-					);
-					$this->load->view('admin/layout/wrapper', $data);
-				} else {
-					$upload_data					= array('uploads' => $this->upload->data());
-					$config['image_library']	= 'gd2';
-					$config['encrypt_name'] 	= TRUE;
-					$config['source_image'] 	= './assets/upload/daerahrawan/' . $upload_data['uploads']['file_name'];
-					$config['new_image'] 		= './assets/upload/daerahrawan/thumbs/';
-					$config['create_thumb'] 	= TRUE;
-					$config['quality'] 			= "100%";
-					$config['maintain_ratio'] 	= TRUE;
-					$config['width'] 				= 360;
-					$config['height'] 			= 200;
-					$config['x_axis'] 			= 0;
-					$config['y_axis'] 			= 0;
-					$config['remove_spaces'] 	= TRUE;
-					$config['thumb_marker'] 	= '';
-					$this->load->library('image_lib', $config);
-					$this->image_lib->resize();
+			if ($valid->run() == FALSE) {
+				$data = array(
+					'title' 		=> 'Add Daerah Rawan',
+					'kabkota'	=> $kabkota,
+					'jln'		=> $jalan,
+					'isi' 		=> 'admin/daerahrawan/add'
+				);
+				$this->load->view('admin/layout/wrapper', $data);
+			} else {
+				if (!empty($_FILES['gambar']['name'])) {
+					$config['upload_path'] 		= './assets/upload/daerahrawan/';
+					$config['allowed_types'] 	= 'gif|jpg|jpeg|png|svg';
+					$config['max_size']			= '500';
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('gambar')) {
+						$data = array(
+							'title' 		=> 'Add Dae Rahrawan',
+							'kabkota'	=> $kabkota,
+							'error'		=> $this->upload->display_errors(),
+							'isi' 		=> 'admin/daerahrawan/add'
+						);
+						$this->load->view('admin/layout/wrapper', $data);
+					} else {
+						$upload_data					= array('uploads' => $this->upload->data());
+						$config['image_library']	= 'gd2';
+						$config['encrypt_name'] 	= TRUE;
+						$config['source_image'] 	= './assets/upload/daerahrawan/' . $upload_data['uploads']['file_name'];
+						$config['new_image'] 		= './assets/upload/daerahrawan/thumbs/';
+						$config['create_thumb'] 	= TRUE;
+						$config['quality'] 			= "100%";
+						$config['maintain_ratio'] 	= TRUE;
+						$config['width'] 				= 360;
+						$config['height'] 			= 200;
+						$config['x_axis'] 			= 0;
+						$config['y_axis'] 			= 0;
+						$config['remove_spaces'] 	= TRUE;
+						$config['thumb_marker'] 	= '';
+						$this->load->library('image_lib', $config);
+						$this->image_lib->resize();
 
+						$i = $this->input;
+						$data = array(
+							'kd_kabkota'		=> $i->post('kabkota'),
+							'nm_daerah'			=> $i->post('nmdaerah'),
+							'img_daerah'		=> $upload_data['uploads']['file_name'],
+							'ket_daerah'		=> $i->post('ket'),
+							'kd_jalan'			=> $i->post('jalan'),
+							'lat'				=> $i->post('korx'),
+							'lang'				=> $i->post('kory'),
+							'status'			=> 1
+						);
+						$this->daerahrawan_model->adddaerahrawan($data);
+						$this->session->set_flashdata('sukses', 'Berhasil ditambah');
+						redirect(base_url('admin/daerahrawan'));
+					}
+				} else {
+					// print_r($_POST);exit(); 
 					$i = $this->input;
 					$data = array(
-						'kd_kabkota'		=> $i->post('kabkota'),
+						'kd_kabkota'			=> $i->post('kabkota'),
 						'nm_daerah'			=> $i->post('nmdaerah'),
-						'img_daerah'		=> $upload_data['uploads']['file_name'],
 						'ket_daerah'		=> $i->post('ket'),
 						'kd_jalan'			=> $i->post('jalan'),
-						'lat'				=> $i->post('korx'),
+						'lat'					=> $i->post('korx'),
 						'lang'				=> $i->post('kory'),
 						'status'			=> 1
 					);
@@ -104,22 +121,9 @@ class Daerahrawan extends CI_Controller
 					$this->session->set_flashdata('sukses', 'Berhasil ditambah');
 					redirect(base_url('admin/daerahrawan'));
 				}
-			} else {
-				// print_r($_POST);exit(); 
-				$i = $this->input;
-				$data = array(
-					'kd_kabkota'			=> $i->post('kabkota'),
-					'nm_daerah'			=> $i->post('nmdaerah'),
-					'ket_daerah'		=> $i->post('ket'),
-					'kd_jalan'			=> $i->post('jalan'),
-					'lat'					=> $i->post('korx'),
-					'lang'				=> $i->post('kory'),
-					'status'			=> 1
-				);
-				$this->daerahrawan_model->adddaerahrawan($data);
-				$this->session->set_flashdata('sukses', 'Berhasil ditambah');
-				redirect(base_url('admin/daerahrawan'));
 			}
+		} else {
+			redirect(base_url('admin/daerahrawan/denied403'));
 		}
 	}
 
@@ -243,13 +247,24 @@ class Daerahrawan extends CI_Controller
 
 	public function tanganidrk($id)
 	{
+		$i = $this->input;
+		if (!$i->post('tahuntangani')) {
+			date_default_timezone_set("Asia/Bangkok");
+			$date = new DateTime();
+			$a = $date->getTimestamp();
+			$b = date('Y-m-d H:i:s', $a);
+		} else {
+			$b = $i->post('tahuntangani');
+		}
 		$data = array(
 			'kd_daerah'			=> $id,
-			'status_drk'		=> 2
+			'status_drk'		=> 2,
+			'updated_at'		=> $b
 		);
 		$this->daerahrawan_model->editdaerahrawan($data);
 		$this->session->set_flashdata('sukses', 'Status DRK Berhasil Ditangani');
 		redirect(base_url('admin/daerahrawan/details/') . $id);
+		// echo $b;
 	}
 
 
@@ -318,11 +333,13 @@ class Daerahrawan extends CI_Controller
 	public function details($id)
 	{
 		$listdrk = $this->daerahrawan_model->detaildaerahrawan($id);
-		$listrekom = $this->daerahrawan_model->detailrekom($id);
+		$listrekom = $this->daerahrawan_model->listrekom($id);
+		$listkejadian = $this->daerahrawan_model->detailkejadian($id);
 		$data = array(
 			'title' 	=> 'Details Daerah Rawan',
 			'listdrk'	=> $listdrk,
 			'listrekom'	=> $listrekom,
+			'listkejadian'	=> $listkejadian,
 			'isi'		=> 'admin/daerahrawan/details'
 		);
 		$this->load->view('admin/layout/wrapper', $data);
@@ -420,5 +437,28 @@ class Daerahrawan extends CI_Controller
 			redirect(base_url('admin/daerahrawan/details/' . $iddrk));
 		}
 		// echo json_encode($listrekom);
+	}
+
+	public function tanganirekom($iddrk, $idrekom)
+	{
+		$i = $this->input;
+		$data = array(
+			'id'			=> $idrekom,
+			'jml_terpasang'	=> $i->post('terpasang'),
+			'status'		=> 1
+		);
+		$this->daerahrawan_model->editrekomdrk($data);
+		$this->session->set_flashdata('sukses', 'Status DRK Berhasil Ditangani');
+		redirect(base_url('admin/daerahrawan/details/') . $iddrk);
+		// echo $iddrk . $idrekom;
+	}
+
+	public function denied403()
+	{
+		$data = array(
+			'title' 		=> 'Akses Ditolak',
+			'isi' 		=> 'admin/daerahrawan/403'
+		);
+		$this->load->view('admin/layout/wrapper', $data);
 	}
 }

@@ -99,7 +99,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                <div class="col-md-3">
                   <div class="box box-primary">
                      <div class="modal-footer">
-                        <a href="<?php echo base_url('admin/daerahrawan') ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
+                        <a href="<?php echo base_url('admin/daerahrawan/details/') . $listdrk->kd_daerah ?>"><button type="button" class="btn btn-default btn-flat"><i class="fa fa-reply"></i> Batal</button></a>
                         <button type="submit" class="btn btn-primary btn-flat"><i class="fa fa-save"></i> Simpan</button>
                      </div>
                   </div>

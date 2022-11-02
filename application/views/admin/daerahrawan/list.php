@@ -48,7 +48,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
          <div class="box-body">
             <div class="table-toolbar">
                <div class="btn-group">
-                  <a href="<?php echo base_url('admin/daerahrawan/add') ?>"><button class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add</button></a>
+                  <?php if ($this->session->userdata('hakakses') == 'LL') { ?>
+                     <a href="<?php echo base_url('admin/daerahrawan/add') ?>"><button class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add</button></a>
+                  <?php } ?>
                </div>
                <div class="btn-group">
                   <a onclick="popupCenter('../../admin/daerahrawan/cetak', 'Cetak',900,550);" href="javascript:void(0);"><button class="btn btn-flat btn-info" data-toggle="tooltip" data-placement="top" title="Print"><i class="fa fa-print"></i> Cetak</button></a>

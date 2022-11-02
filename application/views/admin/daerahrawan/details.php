@@ -66,7 +66,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      ?>
                      <h3 class="box-title">
                         Status Penanganan: <?php
-                                             if ($listdrk->status_drk == 1 || $listdrk->status_drk == null) {
+                                             if ($listdrk->status_drk == 1 || $listdrk->status_drk == null || $listdrk->status_drk == 0) {
                                                 echo "<i class=\"fa fa-times text-red\" title=\"Belum Ditangani\"></i>";
                                              } elseif ($listdrk->status_drk == 2) {
                                                 echo "<i class=\"fa fa-check text-green\" title=\"Sudah Ditangani\"></i>";
@@ -87,12 +87,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                              ?></h5>
                      <h5></i> Permasalahan (Hazard / Risk) : <?= $listdrk->ket_daerah; ?></h5>
                      <?php
-                     if ($listdrk->status_drk != 2) {
+                     if ($this->session->userdata('hakakses') != 'LL' and $listdrk->status_drk != 2) {
                      ?>
                         <br>
                         <div class="table-toolbar">
                            <div class="btn-group">
-                              <a href="<?php echo base_url('admin/daerahrawan/tanganidrk/') . $listdrk->kd_daerah ?>"><button class="btn btn-success btn-flat">Tangani</button></a>
+                              <?php include('tanganidrk.php'); ?>
                            </div>
                         </div>
                      <?php } ?>
@@ -143,8 +143,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                  </td>
                                  <td><span class="badge <?= $color2 ?>"><?= number_format($prosentasecapaian, 2) ?>%</span></td>
                                  <td>
-                                    <a href="<?php echo base_url('admin/daerahrawan/rekomedit/' . $listdrk->kd_daerah . '/' . $listrekom->id) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
-                                    <!-- <?php include('delete.php'); ?> -->
+                                    <?php
+                                    if ($this->session->userdata('hakakses') == 'LL') {
+                                    ?>
+                                       <a href="<?php echo base_url('admin/daerahrawan/rekomedit/' . $listdrk->kd_daerah . '/' . $listrekom->id) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
+                                       <!-- <?php include('delete.php'); ?> -->
+                                    <?php } elseif ($this->session->userdata('hakakses') != 'LL' || $this->session->userdata('hakakses') != 'S' || $this->session->userdata('hakakses') != 'A' and $listdrk->status_drk == 2) { ?>
+                                       <?php include('tanganirekom.php'); ?>
+                                    <?php } ?>
                                  </td>
                               </tr>
                            <?php $i++;
@@ -153,15 +159,65 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </table>
                      </div>
                      <br>
-                     <div class="table-toolbar">
-                        <div class="btn-group">
-                           <a href="<?php echo base_url('admin/daerahrawan/rekomadd/') . $listdrk->kd_daerah ?>"><button class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add</button></a>
+                     <?php
+                     if ($this->session->userdata('hakakses') == 'LL') {
+                     ?>
+                        <div class="table-toolbar">
+                           <div class="btn-group">
+                              <a href="<?php echo base_url('admin/daerahrawan/rekomadd/') . $listdrk->kd_daerah ?>"><button class="btn btn-success btn-flat"><i class="fa fa-plus"></i> Add</button></a>
+                           </div>
                         </div>
-                     </div>
+                     <?php } ?>
                   </div>
 
                   <div class="tab-pane" id="tab_3">
-                     <h1>Under Construction</h1>
+                     <div class="box-body no-padding">
+                        <table class="table table-striped" id="dataTables-example">
+                           <tr>
+                              <th rowspan="2" style="width: 10px; vertical-align:middle; text-align:center;">No</th>
+                              <th rowspan="2" style="vertical-align:middle; text-align:center;">Tahun</th>
+                              <th rowspan="2" style="vertical-align:middle; text-align:center;">Jumla Kejadian</th>
+                              <th colspan="4" style="vertical-align:middle; text-align:center;">Korban</th>
+                              <th rowspan="2" style="vertical-align:middle; text-align:center;">Aksi</th>
+                           </tr>
+                           <tr>
+                              <th style="vertical-align:middle; text-align:center;">MD</th>
+                              <th style="vertical-align:middle; text-align:center;">LB</th>
+                              <th style="vertical-align:middle; text-align:center;">LR</th>
+                              <th style="vertical-align:middle; text-align:center;">Materil</th>
+                           </tr>
+                           <?php
+                           $i = 1;
+                           foreach ($listkejadian as $listkejadian) {
+                           ?>
+                              <tr>
+                                 <td style="vertical-align:middle; text-align:center;"><?= $i ?></td>
+                                 <td style="vertical-align:middle; text-align:center;"><?= $listkejadian->tahun ?></td>
+                                 <td style="vertical-align:middle; text-align:center;"><?= number_format($listkejadian->jml_kejadian, 0, ",", ".") ?></td>
+                                 <td style="vertical-align:middle; text-align:center;"><?= number_format($listkejadian->md, 0, ",", ".") ?></td>
+                                 <td style="vertical-align:middle; text-align:center;"><?= number_format($listkejadian->lb, 0, ",", ".") ?></td>
+                                 <td style="vertical-align:middle; text-align:center;"><?= number_format($listkejadian->lr, 0, ",", ".") ?></td>
+                                 <td style="vertical-align:middle; text-align:center;"><?= number_format($listkejadian->materil, 0, ",", ".") ?></td>
+                                 <td style="vertical-align:middle; text-align:center;">
+                                    <?php
+                                    if ($this->session->userdata('hakakses') == 'LL') {
+                                    ?>
+                                       <a href="<?php echo base_url('admin/daerahrawan/rekomedit/' . $listdrk->kd_daerah . '/' . $listkejadian->id_kejadian) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
+                                       <!-- <?php include('delete.php'); ?> -->
+                                    <?php } elseif ($this->session->userdata('hakakses') != 'LL' || $this->session->userdata('hakakses') != 'S' || $this->session->userdata('hakakses') != 'A' and $listdrk->status_drk == 2) { ?>
+                                       <?php include('tanganirekom.php'); ?>
+                                    <?php } ?>
+                                 </td>
+                              </tr>
+                           <?php $i++;
+                           } ?>
+                        </table>
+                        <div class="table-toolbar">
+                           <div class="btn-group">
+                              <?php include('formaddkejadian.php'); ?>
+                           </div>
+                        </div>
+                     </div>
                   </div>
 
                </div>

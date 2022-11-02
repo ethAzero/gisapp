@@ -94,9 +94,9 @@ class Daerahrawan_model extends CI_Model
 		$query = $this->db->get();
 		return $query->row();
 	}
-	public function detailrekom($id)
+	public function listrekom($id)
 	{
-		$this->db->from('rekom_drk');
+		$this->db->from('tb_rekom_drk');
 		$this->db->where('kd_daerah', $id);
 		$query = $this->db->get();
 		return $query->result();
@@ -127,15 +127,15 @@ class Daerahrawan_model extends CI_Model
 
 	public function list_detaildaerah()
 	{
-		$this->db->from('rekom_drk');
-		$this->db->join('daerah_rawan', 'rekom_drk.kd_daerah = daerah_rawan.kd_daerah', 'INNER');
+		$this->db->from('tb_rekom_drk');
+		$this->db->join('daerah_rawan', 'tb_rekom_drk.kd_daerah = daerah_rawan.kd_daerah', 'INNER');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
 	public function add_detaildaerah($data)
 	{
-		$this->db->insert('rekom_drk', $data);
+		$this->db->insert('tb_rekom_drk', $data);
 	}
 
 	public function listing1()
@@ -150,18 +150,25 @@ class Daerahrawan_model extends CI_Model
 
 	public function addrekomdrk($data)
 	{
-		$this->db->insert('rekom_drk', $data);
+		$this->db->insert('tb_rekom_drk', $data);
 	}
 	public function editrekomdrk($data)
 	{
 		$this->db->where('id', $data['id']);
-		$this->db->update('rekom_drk', $data);
+		$this->db->update('tb_rekom_drk', $data);
 	}
 	public function detailrekomdrk($id)
 	{
-		$this->db->from('rekom_drk');
+		$this->db->from('tb_rekom_drk');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->row();
+	}
+	public function detailkejadian($id)
+	{
+		$this->db->from('tb_kejadian_drk');
+		$this->db->where('kd_daerah', $id);
+		$query = $this->db->get();
+		return $query->result();
 	}
 }

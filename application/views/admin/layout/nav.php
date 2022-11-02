@@ -49,10 +49,6 @@
             <li class="<?= ($this->uri->segment(2) == 'atcs') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/atcs') ?>"><i class="fa fa-th-large"></i><span>ATCS</span></a></li>
          <?php } ?>
 
-         <!-- <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') == 'LL')) { ?> -->
-         <!-- <li class="<?= ($this->uri->segment(2) == 'keperluanjalan') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/kebutuhanjalan') ?>"><i class="fa fa-th-large"></i><span>Daerah Rawan Kecelakaan LL</span></a></li> -->
-         <!--  <?php } ?> -->
-
          <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') === 'AJ')) { ?>
             <li class="<?= ($this->uri->segment(2) == 'trayek') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/trayek') ?>"><i class="fa fa-th-large"></i><span>Trayek</span></a></li>
          <?php } ?>
@@ -75,32 +71,32 @@
                </ul>
             </li>
          <?php } ?>
-         <!-- <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') != '07') and ($this->session->userdata('hakakses') != 'PE') and ($this->session->userdata('hakakses') != 'JT') and ($this->session->userdata('hakakses') != 'AJ')) { ?>
-         <li class="<?= (($this->uri->segment(2) == 'laporan')) ? 'active' : '' ?>">
-            <a href="#"><i class="fa fa-th-large"></i><span>Laporan</span> <i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-               <li class="<?= ($this->uri->segment(2) == 'laporan') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/laporan/ruas') ?>"><i class="fa fa-circle-o"></i>Laporan Ruas</a></li>
-            </ul>
-         </li> -->
-      <?php } ?>
-      <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') == 'LL')) { ?>
-         <li class="<?= (($this->uri->segment(2) == 'kabkota') | ($this->uri->segment(2) == 'kecamatan') | ($this->uri->segment(2) == 'jalan') | ($this->uri->segment(2) == 'balai')) ? 'active' : '' ?>">
-            <a href="#"><i class="fa fa-th-large"></i><span>Master Data</span> <i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-               <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A')) { ?>
-                  <li class="<?= ($this->uri->segment(2) == 'balai') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/balai') ?>"><i class="fa fa-circle-o"></i> Balai</a></li>
-                  <li class="<?= ($this->uri->segment(2) == 'kabkota') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/kabkota') ?>"><i class="fa fa-circle-o"></i> Kota/Kabupaten</a></li>
-               <?php } ?>
-               <li class="<?= ($this->uri->segment(2) == 'jalan') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/jalan') ?>"><i class="fa fa-circle-o"></i> Jalan Provinsi</a></li>
-            </ul>
-         </li>
-      <?php } ?>
-      <?php if ($this->session->userdata('hakakses') == 'S') { ?>
-         <li class="<?= ($this->uri->segment(2) == 'pengguna') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/pengguna') ?>"><i class="fa fa-users"></i><span>Pengguna</span> </a></li>
-      <?php } ?>
-      <?php if (($this->session->userdata('hakakses') === 'S') | $this->session->userdata('hakakses') === 'A') { ?>
-         <li class="<?= ($this->uri->segment(2) == 'setting') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/setting') ?>"><i class="fa fa-gear"></i><span>Setting</span> </a></li>
-      <?php } ?>
+         <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') != '07') and ($this->session->userdata('hakakses') != 'PE') and ($this->session->userdata('hakakses') != 'JT') and ($this->session->userdata('hakakses') != 'AJ')) { ?>
+            <li class="<?= (($this->uri->segment(2) == 'laporan')) ? 'active' : '' ?>">
+               <a href="#"><i class="fa fa-th-large"></i><span>Laporan</span> <i class="fa fa-angle-left pull-right"></i></a>
+               <ul class="treeview-menu">
+                  <li class="<?= ($this->uri->segment(2) == 'laporan') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/laporan/ruas') ?>"><i class="fa fa-circle-o"></i>Laporan Ruas</a></li>
+               </ul>
+            </li>
+         <?php } ?>
+         <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A') | ($this->session->userdata('hakakses') == 'LL')) { ?>
+            <li class="<?= (($this->uri->segment(2) == 'kabkota') | ($this->uri->segment(2) == 'kecamatan') | ($this->uri->segment(2) == 'jalan') | ($this->uri->segment(2) == 'balai')) ? 'active' : '' ?>">
+               <a href="#"><i class="fa fa-th-large"></i><span>Master Data</span> <i class="fa fa-angle-left pull-right"></i></a>
+               <ul class="treeview-menu">
+                  <?php if (($this->session->userdata('hakakses') == 'S') | ($this->session->userdata('hakakses') == 'A')) { ?>
+                     <li class="<?= ($this->uri->segment(2) == 'balai') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/balai') ?>"><i class="fa fa-circle-o"></i> Balai</a></li>
+                     <li class="<?= ($this->uri->segment(2) == 'kabkota') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/kabkota') ?>"><i class="fa fa-circle-o"></i> Kota/Kabupaten</a></li>
+                  <?php } ?>
+                  <li class="<?= ($this->uri->segment(2) == 'jalan') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/jalan') ?>"><i class="fa fa-circle-o"></i> Jalan Provinsi</a></li>
+               </ul>
+            </li>
+         <?php } ?>
+         <?php if ($this->session->userdata('hakakses') == 'S') { ?>
+            <li class="<?= ($this->uri->segment(2) == 'pengguna') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/pengguna') ?>"><i class="fa fa-users"></i><span>Pengguna</span> </a></li>
+         <?php } ?>
+         <?php if (($this->session->userdata('hakakses') === 'S') | $this->session->userdata('hakakses') === 'A') { ?>
+            <li class="<?= ($this->uri->segment(2) == 'setting') ? 'active' : '' ?>"><a href="<?php echo base_url('admin/setting') ?>"><i class="fa fa-gear"></i><span>Setting</span> </a></li>
+         <?php } ?>
 
       </ul>
    </section>
