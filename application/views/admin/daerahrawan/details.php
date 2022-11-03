@@ -50,12 +50,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             <div class="nav-tabs-custom">
                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab">Details</a></li>
-                  <li><a href="#tab_2" data-toggle="tab">Data Rekomendasi</a></li>
-                  <li><a href="#tab_3" data-toggle="tab">Data Kejadian</a></li>
+                  <li class="<?php
+                              if ($this->session->flashdata('tab') == 'detail') {
+                                 echo "active";
+                              } ?>"><a href="#tab_1" data-toggle="tab">Details</a></li>
+                  <li class="<?php
+                              if ($this->session->flashdata('tab') == 'rekom') {
+                                 echo "active";
+                              } ?>"><a href="#tab_2" data-toggle="tab">Data Rekomendasi</a></li>
+                  <li class="<?php
+                              if ($this->session->flashdata('tab') == 'kejadian') {
+                                 echo "active";
+                              } ?>"><a href="#tab_3" data-toggle="tab">Data Kejadian</a></li>
                </ul>
                <div class="tab-content">
-                  <div class="tab-pane active" id="tab_1">
+                  <div class="tab-pane <?php
+                                       if ($this->session->flashdata('tab') == 'detail' || !$this->session->flashdata('tab')) {
+                                          echo "active";
+                                       } ?>" id="tab_1">
                      <?php
                      if ($listdrk->img_daerah != '') {
                      ?>
@@ -87,7 +99,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                              ?></h5>
                      <h5></i> Permasalahan (Hazard / Risk) : <?= $listdrk->ket_daerah; ?></h5>
                      <?php
-                     if ($this->session->userdata('hakakses') != 'LL' and $listdrk->status_drk != 2) {
+                     if ($this->session->userdata('hakakses') != 'LL' and $this->session->userdata('hakakses') != 'S' and $this->session->userdata('hakakses') != 'A' and $listdrk->status_drk != 2) {
                      ?>
                         <br>
                         <div class="table-toolbar">
@@ -98,7 +110,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <?php } ?>
                   </div>
 
-                  <div class="tab-pane" id="tab_2">
+                  <div class="tab-pane <?php
+                                       if ($this->session->flashdata('tab') == 'rekom') {
+                                          echo "active";
+                                       } ?>" id="tab_2">
                      <div class="box-body no-padding">
                         <table class="table table-striped">
                            <tr>
@@ -147,7 +162,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     if ($this->session->userdata('hakakses') == 'LL') {
                                     ?>
                                        <a href="<?php echo base_url('admin/daerahrawan/rekomedit/' . $listdrk->kd_daerah . '/' . $listrekom->id) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
-                                       <!-- <?php include('delete.php'); ?> -->
+                                       <?php include('deleterekom.php'); ?>
                                     <?php } elseif ($this->session->userdata('hakakses') != 'LL' || $this->session->userdata('hakakses') != 'S' || $this->session->userdata('hakakses') != 'A' and $listdrk->status_drk == 2) { ?>
                                        <?php include('tanganirekom.php'); ?>
                                     <?php } ?>
@@ -170,13 +185,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                      <?php } ?>
                   </div>
 
-                  <div class="tab-pane" id="tab_3">
+                  <div class="tab-pane <?php
+                                       if ($this->session->flashdata('tab') == 'kejadian') {
+                                          echo "active";
+                                       } ?>" id="tab_3">
                      <div class="box-body no-padding">
-                        <table class="table table-striped" id="dataTables-example">
+                        <table class="table table-striped">
                            <tr>
                               <th rowspan="2" style="width: 10px; vertical-align:middle; text-align:center;">No</th>
                               <th rowspan="2" style="vertical-align:middle; text-align:center;">Tahun</th>
-                              <th rowspan="2" style="vertical-align:middle; text-align:center;">Jumla Kejadian</th>
+                              <th rowspan="2" style="vertical-align:middle; text-align:center;">Jumlah Kejadian</th>
                               <th colspan="4" style="vertical-align:middle; text-align:center;">Korban</th>
                               <th rowspan="2" style="vertical-align:middle; text-align:center;">Aksi</th>
                            </tr>
@@ -200,32 +218,40 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                  <td style="vertical-align:middle; text-align:center;"><?= number_format($listkejadian->materil, 0, ",", ".") ?></td>
                                  <td style="vertical-align:middle; text-align:center;">
                                     <?php
-                                    if ($this->session->userdata('hakakses') == 'LL') {
-                                    ?>
-                                       <a href="<?php echo base_url('admin/daerahrawan/rekomedit/' . $listdrk->kd_daerah . '/' . $listkejadian->id_kejadian) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
-                                       <!-- <?php include('delete.php'); ?> -->
-                                    <?php } elseif ($this->session->userdata('hakakses') != 'LL' || $this->session->userdata('hakakses') != 'S' || $this->session->userdata('hakakses') != 'A' and $listdrk->status_drk == 2) { ?>
-                                       <?php include('tanganirekom.php'); ?>
-                                    <?php } ?>
+                                    if ($this->session->userdata('hakakses') == 'LL' || $this->session->userdata('hakakses') == '01' || $this->session->userdata('hakakses') == '02' || $this->session->userdata('hakakses') == '03' || $this->session->userdata('hakakses') == '04' || $this->session->userdata('hakakses') == '05' || $this->session->userdata('hakakses') == '06') {
+                                       include('formeditkejadian.php');
+                                       include('deletekejadian.php');
+                                    } ?>
                                  </td>
                               </tr>
                            <?php $i++;
                            } ?>
                         </table>
-                        <div class="table-toolbar">
-                           <div class="btn-group">
-                              <?php include('formaddkejadian.php'); ?>
+                        <?php
+                        if (
+                           $this->session->userdata('hakakses') == 'LL' ||
+                           $this->session->userdata('hakakses') == '01' ||
+                           $this->session->userdata('hakakses') == '02' ||
+                           $this->session->userdata('hakakses') == '03' ||
+                           $this->session->userdata('hakakses') == '04' ||
+                           $this->session->userdata('hakakses') == '05' ||
+                           $this->session->userdata('hakakses') == '06'
+                        ) {
+                        ?>
+                           <div class="table-toolbar">
+                              <div class="btn-group">
+                                 <?php include('formaddkejadian.php'); ?>
+                              </div>
                            </div>
-                        </div>
+                        <?php } ?>
                      </div>
+
                   </div>
 
                </div>
 
             </div>
-
          </div>
       </div>
-</div>
-</section>
+   </section>
 </div>

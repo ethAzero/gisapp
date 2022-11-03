@@ -100,8 +100,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                            </td>
                            <td style="text-align:center;width:100px">
                               <a href="<?php echo base_url('admin/daerahrawan/details/' . $list->kd_daerah) ?>"><button class="btn btn-xs btn-flat btn-success" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fa fa-book"></i></button></a>
-                              <a href="<?php echo base_url('admin/daerahrawan/edit/' . $list->kd_daerah) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
-                              <?php include('delete.php'); ?>
+                              <?php
+                              if ($this->session->userdata('hakakses') == 'LL') {
+                              ?>
+                                 <a href="<?php echo base_url('admin/daerahrawan/edit/' . $list->kd_daerah) ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></button></a>
+                                 <?php include('delete.php'); ?>
+                              <?php } ?>
                            </td>
                         </tr>
                      <?php $i++;

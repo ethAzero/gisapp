@@ -19,44 +19,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<h3>Keterangan:</h3>
 				<p class="page-subtitle">Lebar Jalan : <?= $list->lebar_jalan ?> m</p>
 				<p class="page-subtitle">Jenis Perkerasan : <?= $list->perkerasan ?></p>
-				<h3>Data Fasilitas Keselamatan</h3>
-				<table class="table	datatable">
-					<thead>
-						<tr>
-							<th style="width:8%;">No</th>
-							<th>Jenis Fasilitas</th>
-							<th style="width:30%;">Jumlah</th>
-						</tr>
-						<tr>
-							<td>1</th>
-							<td>Palang Pintu</th>
-							<td><?= $list->palang_pintu ?></th>
-						</tr>
-						<tr>
-							<td>2</th>
-							<td>Andreas Cross</th>
-							<td><?= $list->andreas_cross ?></th>
-						</tr>
-						<tr>
-							<td>3</th>
-							<td>Rambu Berhenti</th>
-							<td><?= $list->rambu_stop ?></th>
-						</tr>
-						<tr>
-							<td>4</th>
-							<td>Rambu Peringatan</th>
-							<td><?= $list->rambu_peringatan + $list->rambu_peringatan1 + $list->rambu_peringatan2 ?></th>
-						</tr>
-						<tr>
-							<td>5</th>
-							<td>Warning Light</th>
-							<td><?= $list->wl_running_text ?></th>
-						</tr>
-					</thead>
-					<tbody>
-
-					</tbody>
-				</table>
+				<h3>Keterangan</h3>
+				<div class="page-subtitle">
+					<?= $list->ket ?>
+				</div>
 			</div>
 		<?php } ?>
 		<dvi class="col-md-12 header-wrapper card">

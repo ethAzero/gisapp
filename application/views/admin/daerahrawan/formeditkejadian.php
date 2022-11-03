@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<a href="#" data-toggle="modal" data-target="#addkejadian"><button class="btn btn-md btn-flat btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Kejadian"><i class="fa fa-plus"></i> Add</button></a>
-<div id="addkejadian" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<a href="#" data-toggle="modal" data-target="#editkejadian<?= $listkejadian->id_kejadian ?>"><button class="btn btn-xs btn-flat btn-warning" data-toggle="tooltip" data-placement="top" title="Edit Kejadian"><i class="fa fa-pencil"></i></button></a>
+<div id="editkejadian<?= $listkejadian->id_kejadian ?>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Kejadian</h4>
+                <h4 class="modal-title">Edit Kejadian</h4>
             </div>
             <div class="modal-body">
                 <?php
-                echo form_open(base_url('admin/daerahrawan/kejadianadd/') . $listdrk->kd_daerah);
+                echo form_open(base_url('admin/daerahrawan/kejadianedit/') . $listkejadian->kd_daerah . '/' . $listkejadian->id_kejadian);
                 ?>
                 <div class="row">
                     <div class="col-md-12">
@@ -28,12 +28,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <th style="vertical-align:middle; text-align:center;">Materil</th>
                             </tr>
                             <tr>
-                                <td><input type="text" name="tahun" class="form-control" required></td>
-                                <td><input type="text" name="jmlkejadian" class="form-control" required></td>
-                                <td><input type="text" name="md" class="form-control" required></td>
-                                <td><input type="text" name="lb" class="form-control" required></td>
-                                <td><input type="text" name="lr" class="form-control" required></td>
-                                <td><input type="text" name="materil" class="form-control" required></td>
+                                <td><input type="text" name="tahun" class="form-control" required value="<?= $listkejadian->tahun ?>"></td>
+                                <td><input type="text" name="jmlkejadian" class="form-control" required value="<?= $listkejadian->jml_kejadian ?>"></td>
+                                <td><input type="text" name="md" class="form-control" required value="<?= $listkejadian->md ?>"></td>
+                                <td><input type="text" name="lb" class="form-control" required value="<?= $listkejadian->lb ?>"></td>
+                                <td><input type="text" name="lr" class="form-control" required value="<?= $listkejadian->lr ?>"></td>
+                                <td><input type="text" name="materil" class="form-control" required value="<?= $listkejadian->materil ?>"></td>
                             </tr>
                         </table>
                     </div>

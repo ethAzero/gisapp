@@ -63,6 +63,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                               </select>
                            </div>
                            <div class="form-group col-md-6">
+                              <label for="exampleInputEmail1">Status Jalan</label>
+                              <select name="statusjalan" class="form-control select2">
+                                 <option value="">=== Status Jalan ===</option>
+                                 <option value="1">Ruas Jl. Kab/Kota</option>
+                                 <option value="2">Ruas Jl. Provinsi</option>
+                                 <option value="3">Ruas Jl. Nasional</option>
+                              </select>
+                           </div>
+                           <div class="form-group col-md-6">
                               <label for="exampleInputEmail1">Nama Ruas Jalan</label>
                               <select name="jalan" class=" select2 form-control">
                                  <option value="">=== Ruas Jalan ===</option>

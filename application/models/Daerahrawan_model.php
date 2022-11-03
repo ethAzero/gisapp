@@ -164,11 +164,47 @@ class Daerahrawan_model extends CI_Model
 		$query = $this->db->get();
 		return $query->row();
 	}
+	public function deleterekom($data)
+	{
+		$this->db->where('id', $data['id']);
+		$this->db->delete('tb_rekom_drk', $data);
+	}
+
+	public function addkejadiandrk($data)
+	{
+		$this->db->insert('tb_kejadian_drk', $data);
+	}
+	public function editkejadiandrk($data)
+	{
+		$this->db->where('id_kejadian', $data['id_kejadian']);
+		$this->db->update('tb_kejadian_drk', $data);
+	}
 	public function detailkejadian($id)
 	{
 		$this->db->from('tb_kejadian_drk');
 		$this->db->where('kd_daerah', $id);
 		$query = $this->db->get();
 		return $query->result();
+	}
+	public function deletekejadian($data)
+	{
+		$this->db->where('id_kejadian', $data['id_kejadian']);
+		$this->db->delete('tb_kejadian_drk', $data);
+	}
+
+	public function cekrekom($kd_daerah)
+	{
+		$this->db->from('tb_rekom_drk');
+		$this->db->where('kd_daerah', $kd_daerah);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function cekkejadian($kd_daerah)
+	{
+		$this->db->from('tb_kejadian_drk');
+		$this->db->where('kd_daerah', $kd_daerah);
+		$query = $this->db->get();
+		return $query->num_rows();
 	}
 }
